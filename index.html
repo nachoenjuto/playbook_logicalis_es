@@ -167,7 +167,7 @@
           <template x-if="modelStatus === 'loading'">
             <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
               <span class="mini-spinner"></span>
-              <span x-text="t.modelStatusLoading">Cargando modelo semántico local...</span>
+              <span x-text="t.modelStatusLoading + (modelLoadProgress > 0 ? ' ' + modelLoadProgress + '%' : '')">Cargando modelo semántico local...</span>
             </span>
           </template>
           <template x-if="modelStatus === 'ready'">

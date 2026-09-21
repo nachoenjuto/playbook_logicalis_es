@@ -44,6 +44,7 @@ function catalogApp() {
 
     // Semantic Vector Engine state (Epic 7, Issues #35-#38)
     modelStatus: 'idle', // 'idle' | 'loading' | 'ready' | 'error'
+    modelLoadProgress: 0, // 0-100, updated via transformers.js progress_callback
     semanticModel: null,
     vectorDatabase: new Map(), // caseId -> Float32Array (unit normalized)
     queryEmbeddingCache: new Map(), // query -> Float32Array
@@ -122,6 +123,7 @@ function catalogApp() {
         modelStatusLoading: 'Cargando modelo semántico local...',
         modelStatusReady: 'Búsqueda semántica activa (WASM local)',
         modelStatusError: 'Búsqueda semántica no disponible en este navegador; usando búsqueda léxica',
+        modelStatusTimeout: 'La descarga del modelo semántico está tardando demasiado; usando búsqueda léxica',
         modelNotReadyTooltip: 'El modelo semántico aún no está listo'
       },
       en: {
@@ -156,6 +158,7 @@ function catalogApp() {
         modelStatusLoading: 'Loading local semantic model...',
         modelStatusReady: 'Semantic search active (local WASM)',
         modelStatusError: 'Semantic search unavailable in this browser; using exact text search',
+        modelStatusTimeout: 'The semantic model download is taking too long; using exact text search',
         modelNotReadyTooltip: 'Semantic model is still initializing'
       }
     },
@@ -328,23 +331,61 @@ function catalogApp() {
     /**
      * Initializes the client-side Transformers.js pipeline (Issue #35 / ADR-0004).
      * Runs 100% locally in WebAssembly/WebGPU without remote LLM API calls (AC-005).
+     *
+     * The model weights (~30-100MB) are fetched directly from huggingface.co with no
+     * CDN in front of them, so first-load time varies a lot by network (seconds on a
+     * fast line, over a minute on a slow or corporate-proxied one). Rather than a fixed
+     * total timeout — which would abort a slow-but-working download — this uses a
+     * STALL timeout: it only gives up if no download progress is reported for a while,
+     * so a genuinely stuck/blocked connection still falls back to lexical search instead
+     * of leaving the UI stuck on "loading" forever.
      */
     async initSemanticEngine() {
       if (this.modelStatus === 'loading' || this.modelStatus === 'ready') return;
       if (typeof window === 'undefined' || !window.TransformersEngine) return;
 
       this.modelStatus = 'loading';
+      this.modelLoadProgress = 0;
+
+      const STALL_TIMEOUT_MS = 20000;
+      let stallReject;
+      let stallTimer;
+      const armStallTimer = () => {
+        clearTimeout(stallTimer);
+        stallTimer = setTimeout(() => {
+          const err = new Error(`Semantic model download stalled (no progress for ${STALL_TIMEOUT_MS / 1000}s)`);
+          err.isTimeout = true;
+          stallReject(err);
+        }, STALL_TIMEOUT_MS);
+      };
+      const stallPromise = new Promise((_, reject) => {
+        stallReject = reject;
+        armStallTimer();
+      });
+
       try {
         const { pipeline, env } = window.TransformersEngine;
         // Do not attempt to load from local relative server paths, use HF CDN
         env.allowLocalModels = false;
         env.useBrowserCache = true;
 
-        this.semanticModel = await pipeline(
+        const loadPromise = pipeline(
           'feature-extraction',
           'Xenova/multilingual-e5-small',
-          { quantized: true }
+          {
+            quantized: true,
+            progress_callback: (progress) => {
+              if (progress && typeof progress.progress === 'number') {
+                this.modelLoadProgress = Math.round(progress.progress);
+              }
+              // Any reported progress (including a new file starting) resets the stall clock
+              armStallTimer();
+            }
+          }
         );
+
+        this.semanticModel = await Promise.race([loadPromise, stallPromise]);
+        clearTimeout(stallTimer);
         this.modelStatus = 'ready';
         this.fallbackNotice = '';
 
@@ -353,17 +394,18 @@ function catalogApp() {
           this.triggerSemanticSearch(this.searchQuery);
         }
       } catch (err) {
+        clearTimeout(stallTimer);
         this.handleSemanticError(err);
       }
     },
 
     /**
-     * Graceful fallback when WASM/WebGPU is unsupported or fails (Issue #38).
+     * Graceful fallback when WASM/WebGPU is unsupported, fails, or stalls (Issue #38).
      */
     handleSemanticError(err) {
       console.warn('Semantic search engine unavailable, falling back to lexical search:', err);
       this.modelStatus = 'error';
-      this.fallbackNotice = this.t.modelStatusError;
+      this.fallbackNotice = (err && err.isTimeout) ? this.t.modelStatusTimeout : this.t.modelStatusError;
       if (this.searchMode === 'semantic') {
         this.searchMode = 'lexical';
       }
