@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Catálogo de Casos de Uso y Éxito de la Unidad - Logicalis Spain. Soluciones en Cloud, Data, AI y Ciberseguridad.">
   <meta name="theme-color" content="#143CCD">
-  <meta name="build-id" content="01f8084a0_1790010872">
+  <meta name="build-id" content="01f8084a0_1790080000">
   <meta
     http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net; img-src 'self' data:;">
@@ -14,46 +14,46 @@
   <!-- Google Fonts: Roboto Slab (display) + Montserrat (UI/body) — Logicalis corporate type pairing -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Logicalis Design System Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=01f8084a0_1790010872">
+  <link rel="stylesheet" href="styles.css?v=01f8084a0_1790080000">
 
   <!-- Third-party CDN Dependencies with Subresource Integrity (SRI) -->
-  <script 
+  <script
     src="https://cdn.jsdelivr.net/npm/minisearch@7.1.1/dist/umd/index.min.js"
     integrity="sha384-NaG2onw11DFACpXdRQsBdEloX/dyoVXm8MLdKo0dHSA3SGZU8R7B5IJHI4D0ofwR"
     crossorigin="anonymous">
   </script>
-  <script 
+  <script
     src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"
     integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi"
     crossorigin="anonymous">
   </script>
-  <script 
+  <script
     src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"
     integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a"
     crossorigin="anonymous">
   </script>
 
   <!-- Transformers.js v2 via ESM with SRI (ADR-0004, Issue #35, Issue #42) -->
-  <link 
-    rel="modulepreload" 
+  <link
+    rel="modulepreload"
     href="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js"
     integrity="sha384-Vcjc/igTnNpWsiZipZ+UkMn/2IRLqYYjMGBKd4hAHA+NXZE47u8DF0PpTmE4aW7U"
     crossorigin="anonymous">
-  <script 
-    type="module" 
-    src="transformers-bridge.js?v=01f8084a0_1790010872" 
+  <script
+    type="module"
+    src="transformers-bridge.js?v=01f8084a0_1790080000"
     crossorigin="anonymous">
   </script>
 
   <!-- Application Logic -->
-  <script src="app.js?v=01f8084a0_1790010872"></script>
+  <script src="app.js?v=01f8084a0_1790080000"></script>
 
   <!-- Alpine.js 3.x with defer -->
-  <script 
-    defer 
+  <script
+    defer
     src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"
     integrity="sha384-X9kJyAubVxnP0hcA+AMMs21U445qsnqhnUF8EBlEpP3a42Kh/JwWjlv2ZcvGfphb"
     crossorigin="anonymous">
@@ -64,352 +64,392 @@
   <!-- WCAG 2.1 AA Accessibility: Skip to main content -->
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-  <!-- Header & Hero Section -->
-  <header class="header-hero">
-    <div class="header-top">
-      <div class="brand-container">
+  <!-- Fixed decorative background (liquid-glass dot clusters) -->
+  <div class="bgfx" aria-hidden="true">
+    <span class="dfz z1"></span><span class="dfz z1b"></span>
+    <span class="dfz z2"></span><span class="dfz z2b"></span>
+    <span class="dfz z3"></span><span class="dfz z3b"></span>
+  </div>
+
+  <!-- Header & Brand Bar -->
+  <header>
+    <div class="brandbar">
+      <div class="titleblock">
         <img class="brand-logo-img" src="assets/logicalis-logo-white.webp" alt="Logicalis - Architects of Change" width="140" height="26">
+        <span class="tsep" aria-hidden="true"></span>
+        <p x-text="t.heroEyebrow">Data &amp; AI · Logicalis Spain</p>
       </div>
 
-      <div class="header-actions">
-        <!-- Bilingual Language Selector (AC-008, Issue #31) -->
-        <nav class="lang-switcher" aria-label="Selector de idioma">
-          <button 
-            type="button"
-            class="lang-btn" 
-            :class="{ 'active': currentLang === 'es' }"
-            @click="switchLanguage('es')"
-            :aria-pressed="currentLang === 'es'">
-            ES
-          </button>
-          <button 
-            type="button"
-            class="lang-btn" 
-            :class="{ 'active': currentLang === 'en' }"
-            @click="switchLanguage('en')"
-            :aria-pressed="currentLang === 'en'">
-            EN
-          </button>
-        </nav>
-      </div>
-    </div>
-
-    <div class="hero-content">
-      <span class="hero-eyebrow" x-text="t.heroEyebrow">Data &amp; AI · Logicalis Spain</span>
-      <h1 class="hero-title" x-text="t.catalogTitle">Catálogo de Casos de Uso y Éxito</h1>
-      <p class="hero-subtitle" x-text="t.catalogSubtitle">Explora soluciones empresariales validadas en Cloud, Data, AI y Ciberseguridad.</p>
-
-      <!-- MiniSearch Full-Text Search Input (Issue #29) -->
-      <div class="search-wrapper">
-        <div class="search-bar">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input 
-            type="search" 
-            class="search-input" 
-            :placeholder="t.searchPlaceholder"
-            x-model="searchQuery"
-            aria-label="Buscar casos de éxito">
-          <button 
-            type="button"
-            class="search-clear-btn" 
-            x-show="searchQuery.length > 0"
-            @click="searchQuery = ''"
-            :title="t.clearSearch"
-            aria-label="Limpiar búsqueda">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Search Mode Controls & Semantic Model Status (Epic 7, Issues #35, #37, #38) -->
-      <div class="search-controls-row">
-        <div class="search-mode-switcher" role="group" aria-label="Modo de búsqueda">
-          <button 
-            type="button" 
-            class="search-mode-btn" 
-            :class="{ 'active': searchMode === 'hybrid' }"
-            @click="setSearchMode('hybrid')"
-            :aria-pressed="searchMode === 'hybrid'">
-            <span x-text="t.searchModeHybrid">Híbrido (Recomendado)</span>
-          </button>
-          <button 
-            type="button" 
-            class="search-mode-btn" 
-            :class="{ 'active': searchMode === 'semantic' }"
-            @click="setSearchMode('semantic')"
-            :disabled="modelStatus !== 'ready'"
-            :title="modelStatus !== 'ready' ? t.modelNotReadyTooltip : t.searchModeSemantic"
-            :aria-pressed="searchMode === 'semantic'">
-            <span x-text="t.searchModeSemantic">Semántica</span>
-          </button>
-          <button 
-            type="button" 
-            class="search-mode-btn" 
-            :class="{ 'active': searchMode === 'lexical' }"
-            @click="setSearchMode('lexical')"
-            :aria-pressed="searchMode === 'lexical'">
-            <span x-text="t.searchModeLexical">Texto exacto</span>
-          </button>
-        </div>
-
-        <!-- Semantic Model Status Indicator / Fallback Notice (Issue #35, #38) -->
-        <div 
-          class="model-status-pill"
-          :class="'status-' + modelStatus"
-          role="status"
-          aria-live="polite">
-          <template x-if="modelStatus === 'loading'">
-            <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
-              <span class="mini-spinner"></span>
-              <span x-text="t.modelStatusLoading + (modelLoadProgress > 0 ? ' ' + modelLoadProgress + '%' : '')">Cargando modelo semántico local...</span>
-            </span>
-          </template>
-          <template x-if="modelStatus === 'ready'">
-            <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
-              <span class="status-dot dot-ready"></span>
-              <span x-text="t.modelStatusReady">Búsqueda semántica activa (WASM local)</span>
-            </span>
-          </template>
-          <template x-if="modelStatus === 'error'">
-            <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
-              <span class="status-dot dot-error"></span>
-              <span x-text="fallbackNotice || t.modelStatusError">Búsqueda semántica no disponible en este navegador; usando búsqueda léxica</span>
-            </span>
-          </template>
-        </div>
-      </div>
+      <!-- Bilingual Language Selector (AC-008, Issue #31) -->
+      <nav class="langpill" aria-label="Selector de idioma">
+        <button
+          type="button"
+          class="lang-btn"
+          :class="{ 'active': currentLang === 'es' }"
+          @click="switchLanguage('es')"
+          :aria-pressed="currentLang === 'es'">
+          ES
+        </button>
+        <button
+          type="button"
+          class="lang-btn"
+          :class="{ 'active': currentLang === 'en' }"
+          @click="switchLanguage('en')"
+          :aria-pressed="currentLang === 'en'">
+          EN
+        </button>
+      </nav>
     </div>
   </header>
 
-  <!-- Main Layout Grid: Sidebar + Cards Grid -->
-  <div class="layout-container">
+  <!-- Main Content -->
+  <main id="main-content" class="results-area">
+    <div class="page-inner">
 
-    <!-- Facets Sidebar: Declarative & Data-Driven (AC-007, Issue #30) -->
-    <aside 
-      class="facets-sidebar" 
-      :class="{ 'is-open-mobile': mobileDrawerOpen }"
-      role="region" 
-      aria-label="Filtros de catálogo">
-      
-      <div class="facets-header">
-        <h2 class="facets-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-          </svg>
-          <span x-text="t.filtersTitle">Filtros</span>
-        </h2>
-        
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <button 
-            type="button"
-            class="btn-clear-filters" 
-            x-show="totalActiveFiltersCount > 0 || searchQuery.length > 0"
-            @click="clearAllFilters()"
-            x-text="t.clearAllFilters">
-            Limpiar todo
-          </button>
-          
-          <button 
-            type="button"
-            class="mobile-close-btn" 
-            @click="mobileDrawerOpen = false"
-            aria-label="Cerrar filtros">
-            &times;
-          </button>
-        </div>
+      <div class="vhead">
+        <h2 class="vtitle" x-text="t.catalogTitle">Catálogo de Casos de Uso y Éxito</h2>
+        <p class="vsub" x-text="t.catalogSubtitle">Explora soluciones empresariales validadas en Cloud, Data, AI y Ciberseguridad.</p>
       </div>
 
-      <!-- Active Filter Chips Bar -->
-      <div class="active-chips-container" x-show="activeFilterChips.length > 0">
-        <template x-for="chip in activeFilterChips" :key="chip.facetKey + '-' + chip.optionId">
-          <span class="active-chip">
-            <span x-text="chip.optionLabel"></span>
-            <button 
-              type="button" 
-              class="active-chip-remove" 
-              @click="toggleFilter(chip.facetKey, chip.optionId)"
-              :aria-label="'Quitar filtro ' + chip.optionLabel">
-              &times;
-            </button>
-          </span>
-        </template>
-      </div>
+      <!-- Explorer: Facets Sidebar + (Search + Results), side by side from the same top edge -->
+      <div class="explorer">
 
-      <!-- Dynamic Facet Accordions: 100% Data-Driven from catalogData.facets (AC-007) -->
-      <div class="facets-list">
-        <template x-for="facet in catalogData.facets" :key="facet.key">
-          <div class="facet-group">
-            <h3 class="facet-heading" x-text="facet.label"></h3>
-            <input
-              type="search"
-              class="facet-search-input"
-              x-show="facetSearchable(facet)"
-              x-model="facetSearch[facet.key]"
-              :placeholder="t.facetSearch"
-              :aria-label="t.facetSearch + ' ' + facet.label">
-            <ul class="facet-options-list">
-              <template x-for="option in visibleFacetOptions(facet)" :key="option.id">
-                <li>
-                  <label class="facet-option-label">
-                    <input
-                      :type="facet.type === 'single_select' ? 'radio' : 'checkbox'"
-                      :name="facet.type === 'single_select' ? 'facet-' + facet.key : null"
-                      class="facet-checkbox"
-                      :checked="isFilterActive(facet.key, option.id)"
-                      @change="toggleFilter(facet, option.id)">
-                    <span class="facet-option-text" x-text="option.label"></span>
-                    <span class="facet-option-count" x-text="facetCount(facet, option)"></span>
-                  </label>
-                </li>
-              </template>
-            </ul>
+        <!-- Facets Sidebar: Declarative & Data-Driven (AC-007, Issue #30) -->
+        <aside
+          class="facets"
+          :class="{ 'is-open-mobile': mobileDrawerOpen }"
+          role="region"
+          aria-label="Filtros de catálogo">
+
+          <div class="facets-header">
+            <h2 class="facets-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+              </svg>
+              <span x-text="t.filtersTitle">Filtros</span>
+            </h2>
+
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <button
+                type="button"
+                class="btn-clear-filters"
+                x-show="totalActiveFiltersCount > 0 || searchQuery.length > 0"
+                @click="clearAllFilters()"
+                x-text="t.clearAllFilters">
+                Limpiar todo
+              </button>
+
+              <button
+                type="button"
+                class="mobile-close-btn"
+                @click="mobileDrawerOpen = false"
+                aria-label="Cerrar filtros">
+                &times;
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Facet Groups: 100% Data-Driven from catalogData.facets (AC-007) -->
+          <template x-for="facet in catalogData.facets" :key="facet.key">
+            <details class="fgroup">
+              <summary class="facet-heading">
+                <span x-text="facet.label"></span>
+                <span
+                  class="facet-active-count"
+                  x-show="(activeFilters[facet.key] || []).length > 0"
+                  x-text="(activeFilters[facet.key] || []).length"></span>
+                <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <input
+                type="search"
+                class="facet-search-input"
+                x-show="facetSearchable(facet)"
+                x-model="facetSearch[facet.key]"
+                :placeholder="t.facetSearch"
+                :aria-label="t.facetSearch + ' ' + facet.label">
+              <ul class="facet-options-list">
+                <template x-for="option in visibleFacetOptions(facet)" :key="option.id">
+                  <li>
+                    <label class="facet-option-label">
+                      <input
+                        :type="facet.type === 'single_select' ? 'radio' : 'checkbox'"
+                        :name="facet.type === 'single_select' ? 'facet-' + facet.key : null"
+                        class="facet-checkbox"
+                        :checked="isFilterActive(facet.key, option.id)"
+                        @change="toggleFilter(facet, option.id)">
+                      <span class="facet-option-text" x-text="option.label"></span>
+                      <span class="facet-option-count" x-text="facetCount(facet, option)"></span>
+                    </label>
+                  </li>
+                </template>
+              </ul>
+              <button
+                type="button"
+                class="facet-toggle-more"
+                x-show="facetHasMore(facet)"
+                @click="toggleFacetExpanded(facet.key)"
+                x-text="expandedFacets[facet.key] ? t.showLess : t.showMore + ' (' + facetHiddenCount(facet) + ')'">
+              </button>
+            </details>
+          </template>
+        </aside>
+
+        <!-- Results: search + controls sit right above the cards, in the same column -->
+        <div>
+          <!-- MiniSearch Full-Text Search Input (Issue #29) + Search Mode Controls & Semantic Model Status (Epic 7, Issues #35, #37, #38) -->
+          <div class="searchbar">
+            <label class="searchwrap">
+              <svg class="lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input
+                type="search"
+                class="search"
+                :placeholder="t.searchPlaceholder"
+                x-model="searchQuery"
+                aria-label="Buscar casos de éxito">
+            </label>
             <button
               type="button"
-              class="facet-toggle-more"
-              x-show="facetHasMore(facet)"
-              @click="toggleFacetExpanded(facet.key)"
-              x-text="expandedFacets[facet.key] ? t.showLess : t.showMore + ' (' + facetHiddenCount(facet) + ')'">
-            </button>
-          </div>
-        </template>
-      </div>
-    </aside>
-
-    <!-- Main Results Area -->
-    <main id="main-content" class="results-area">
-
-      <!-- Results Meta Bar -->
-      <div class="results-meta-bar">
-        <button 
-          type="button" 
-          class="btn-mobile-filters" 
-          @click="mobileDrawerOpen = true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-          </svg>
-          <span x-text="t.filtersTitle">Filtros</span>
-          <span x-show="totalActiveFiltersCount > 0" x-text="'(' + totalActiveFiltersCount + ')'"></span>
-        </button>
-
-        <div class="results-counter" aria-live="polite">
-          <span x-text="t.showingResults">Mostrando</span>
-          <strong x-text="filteredCases.length">0</strong>
-          <span x-text="t.ofCases">de</span>
-          <strong x-text="catalogData.cases ? catalogData.cases.length : 0">0</strong>
-          <span x-text="t.casesCount">casos</span>
-        </div>
-      </div>
-
-      <!-- Loading Skeleton State (aria-live="polite", Issue #28) -->
-      <div class="cards-grid" x-show="loading" aria-live="polite" :aria-label="t.loadingCatalog">
-        <template x-for="i in [1, 2, 3, 4]" :key="i">
-          <div class="skeleton-card">
-            <div class="skeleton-shimmer skeleton-badge"></div>
-            <div class="skeleton-shimmer skeleton-title"></div>
-            <div class="skeleton-shimmer skeleton-client"></div>
-            <div class="skeleton-shimmer skeleton-p1"></div>
-            <div class="skeleton-shimmer skeleton-p2"></div>
-            <div class="skeleton-shimmer skeleton-tags"></div>
-          </div>
-        </template>
-      </div>
-
-      <!-- Error State -->
-      <div class="empty-state" x-show="error && !loading">
-        <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        <h3 class="empty-state-title" x-text="t.errorLoading">Error al cargar</h3>
-        <p class="empty-state-desc" x-text="error"></p>
-        <button type="button" class="card-btn-view" @click="loadCatalog(currentLang)">Reintentar</button>
-      </div>
-
-      <!-- Empty State (No cases found) -->
-      <div class="empty-state" x-show="!loading && !error && filteredCases.length === 0">
-        <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          <line x1="8" y1="11" x2="14" y2="11"></line>
-        </svg>
-        <h3 class="empty-state-title" x-text="t.noResultsTitle">No se encontraron casos</h3>
-        <p class="empty-state-desc" x-text="t.noResultsDesc">Prueba a cambiar los términos de búsqueda o a relajar los filtros aplicados.</p>
-        <button 
-          type="button" 
-          class="card-btn-view" 
-          @click="clearAllFilters()" 
-          x-text="t.btnResetFilters">
-          Restablecer filtros
-        </button>
-      </div>
-
-      <!-- Case Cards Grid (Issues #28, #29, #30) -->
-      <div class="cards-grid" x-show="!loading && !error && filteredCases.length > 0">
-        <template x-for="item in filteredCases" :key="item.id">
-          <article class="case-card">
-            <div class="card-top-row">
-              <span class="badge-sector" x-text="item.sector_label || item.sector"></span>
-              <span class="badge-year" x-text="item.anio"></span>
-              <span class="badge-importe" x-text="item.importe_label"></span>
-              <span 
-                class="badge-relevance" 
-                x-show="searchQuery && item._relevanceScore !== undefined" 
-                x-text="Math.round(item._relevanceScore * 100) + '% match'">
-              </span>
-            </div>
-
-            <h2 class="card-title" x-text="item.title"></h2>
-
-            <div class="card-client-row">
-              <svg class="card-client-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              class="search-clear-btn"
+              x-show="searchQuery.length > 0"
+              @click="searchQuery = ''"
+              :title="t.clearSearch"
+              aria-label="Limpiar búsqueda">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
-              <span x-text="item.cliente_display"></span>
-            </div>
+            </button>
 
-            <p class="card-briefing" x-text="item.briefing"></p>
-
-            <div class="card-tech-list">
-              <template x-for="tech in item.tecnologia" :key="tech">
-                <span class="badge-tech" x-text="tech"></span>
-              </template>
-              <template x-for="tag in (item.tags || []).filter(t => !(item.tecnologia || []).includes(t)).slice(0, 5)" :key="tag">
-                <span class="badge-tag" x-text="tag"></span>
-              </template>
-              <template x-if="(item.tags || []).filter(t => !(item.tecnologia || []).includes(t)).length > 5">
-                <span class="badge-tag-more" x-text="'+' + ((item.tags || []).filter(t => !(item.tecnologia || []).includes(t)).length - 5)"></span>
-              </template>
-            </div>
-
-            <div class="card-footer">
-              <span style="font-size: 0.75rem; color: var(--text-muted);" x-text="item.partner && item.partner.length ? ('Partner: ' + item.partner.join(', ')) : ''"></span>
-              <button 
-                type="button" 
-                class="card-btn-view" 
-                @click="openCase(item)">
-                <span x-text="t.viewCaseBtn">Ver detalles</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
+            <div class="search-mode-switcher" role="group" aria-label="Modo de búsqueda">
+              <button
+                type="button"
+                class="search-mode-btn"
+                :class="{ 'active': searchMode === 'hybrid' }"
+                @click="setSearchMode('hybrid')"
+                :aria-pressed="searchMode === 'hybrid'">
+                <span x-text="t.searchModeHybrid">Híbrido (Recomendado)</span>
+              </button>
+              <button
+                type="button"
+                class="search-mode-btn"
+                :class="{ 'active': searchMode === 'semantic' }"
+                @click="setSearchMode('semantic')"
+                :disabled="modelStatus !== 'ready'"
+                :title="modelStatus !== 'ready' ? t.modelNotReadyTooltip : t.searchModeSemantic"
+                :aria-pressed="searchMode === 'semantic'">
+                <span x-text="t.searchModeSemantic">Semántica</span>
+              </button>
+              <button
+                type="button"
+                class="search-mode-btn"
+                :class="{ 'active': searchMode === 'lexical' }"
+                @click="setSearchMode('lexical')"
+                :aria-pressed="searchMode === 'lexical'">
+                <span x-text="t.searchModeLexical">Texto exacto</span>
               </button>
             </div>
 
-          </article>
-        </template>
-      </div>
-    </main>
-  </div>
+            <!-- Semantic Model Status Indicator / Fallback Notice (Issue #35, #38) -->
+            <div
+              class="model-status-pill"
+              :class="'status-' + modelStatus"
+              role="status"
+              aria-live="polite">
+              <template x-if="modelStatus === 'loading'">
+                <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                  <span class="mini-spinner"></span>
+                  <span x-text="t.modelStatusLoading + (modelLoadProgress > 0 ? ' ' + modelLoadProgress + '%' : '')">Cargando modelo semántico local...</span>
+                </span>
+              </template>
+              <template x-if="modelStatus === 'ready'">
+                <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                  <span class="status-dot dot-ready"></span>
+                  <span x-text="t.modelStatusReady">Búsqueda semántica activa (WASM local)</span>
+                </span>
+              </template>
+              <template x-if="modelStatus === 'error'">
+                <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                  <span class="status-dot dot-error"></span>
+                  <span x-text="fallbackNotice || t.modelStatusError">Búsqueda semántica no disponible en este navegador; usando búsqueda léxica</span>
+                </span>
+              </template>
+            </div>
 
-  <!-- Modal / Drawer for Case Details (Epic 6, Issues #32, #33) -->
-  <div 
+            <!-- Semantic relevance threshold: user-adjustable, since a fixed cosine
+                 cutoff doesn't fit every embedding model/dataset (see app.js semanticThreshold) -->
+            <div
+              class="threshold-control"
+              x-show="modelStatus === 'ready' && searchMode !== 'lexical'"
+              :title="t.semanticThresholdTooltip">
+              <label :for="'semantic-threshold'" x-text="t.semanticThresholdLabel">Relevancia mínima</label>
+              <input
+                id="semantic-threshold"
+                type="range"
+                min="0.3"
+                max="0.95"
+                step="0.01"
+                x-model.number="semanticThreshold">
+              <span class="threshold-value" x-text="semanticThreshold.toFixed(2)">0.75</span>
+            </div>
+          </div>
+
+          <!-- Active Filter Chips Bar -->
+          <div class="chips" x-show="activeFilterChips.length > 0">
+            <template x-for="chip in activeFilterChips" :key="chip.facetKey + '-' + chip.optionId">
+              <span class="fchip">
+                <span x-text="chip.optionLabel"></span>
+                <button
+                  type="button"
+                  class="x"
+                  @click="toggleFilter(chip.facetKey, chip.optionId)"
+                  :aria-label="'Quitar filtro ' + chip.optionLabel">
+                  &times;
+                </button>
+              </span>
+            </template>
+          </div>
+
+          <button
+            type="button"
+            class="btn-mobile-filters"
+            @click="mobileDrawerOpen = true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+            </svg>
+            <span x-text="t.filtersTitle">Filtros</span>
+            <span x-show="totalActiveFiltersCount > 0" x-text="'(' + totalActiveFiltersCount + ')'"></span>
+          </button>
+
+          <div class="resline" aria-live="polite">
+            <span x-text="t.showingResults">Mostrando</span>
+            <strong x-text="filteredCases.length">0</strong>
+            <span x-text="t.ofCases">de</span>
+            <strong x-text="catalogData.cases ? catalogData.cases.length : 0">0</strong>
+            <span x-text="t.casesCount">casos</span>
+          </div>
+
+          <!-- Loading Skeleton State (aria-live="polite", Issue #28) -->
+          <div class="cards" x-show="loading" aria-live="polite" :aria-label="t.loadingCatalog">
+            <template x-for="i in [1, 2, 3, 4]" :key="i">
+              <div class="skeleton-card">
+                <div class="skeleton-shimmer skeleton-badge"></div>
+                <div class="skeleton-shimmer skeleton-title"></div>
+                <div class="skeleton-shimmer skeleton-client"></div>
+                <div class="skeleton-shimmer skeleton-p1"></div>
+                <div class="skeleton-shimmer skeleton-p2"></div>
+                <div class="skeleton-shimmer skeleton-tags"></div>
+              </div>
+            </template>
+          </div>
+
+          <!-- Error State -->
+          <div class="block empty-state" x-show="error && !loading">
+            <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <h3 class="empty-state-title" x-text="t.errorLoading">Error al cargar</h3>
+            <p class="empty-state-desc" x-text="error"></p>
+            <button type="button" class="card-btn-view" style="margin: 0 auto;" @click="loadCatalog(currentLang)">Reintentar</button>
+          </div>
+
+          <!-- Empty State (No cases found) -->
+          <div class="block empty-state" x-show="!loading && !error && filteredCases.length === 0">
+            <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            <h3 class="empty-state-title" x-text="t.noResultsTitle">No se encontraron casos</h3>
+            <p class="empty-state-desc" x-text="t.noResultsDesc">Prueba a cambiar los términos de búsqueda o a relajar los filtros aplicados.</p>
+            <button
+              type="button"
+              class="card-btn-view"
+              style="margin: 0 auto;"
+              @click="clearAllFilters()"
+              x-text="t.btnResetFilters">
+              Restablecer filtros
+            </button>
+          </div>
+
+          <!-- Case Cards Grid (Issues #28, #29, #30) -->
+          <div class="cards" x-show="!loading && !error && filteredCases.length > 0">
+            <template x-for="item in filteredCases" :key="item.id">
+              <article class="ccard" @click="openCase(item)">
+                <div class="ctop">
+                  <span class="tag sector" x-text="item.sector_label || item.sector"></span>
+                  <span class="cyear" x-text="item.anio"></span>
+                  <span class="cbanda" x-text="item.importe_label"></span>
+                  <span
+                    class="badge-relevance"
+                    x-show="searchQuery && item._relevanceScore !== undefined"
+                    x-text="Math.round(item._relevanceScore * 100) + '% match'">
+                  </span>
+                </div>
+
+                <h3 x-text="item.title"></h3>
+
+                <div class="card-client-row">
+                  <svg class="card-client-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                  <span x-text="item.cliente_display"></span>
+                </div>
+
+                <p class="cres" x-text="item.briefing"></p>
+
+                <div
+                  class="ctec"
+                  x-data="{ allTags: [...(item.tecnologia || []), ...(item.tags || []).filter(t => !(item.tecnologia || []).includes(t))] }">
+                  <template x-for="tag in allTags.slice(0, 10)" :key="tag">
+                    <span :title="tag" x-text="tag"></span>
+                  </template>
+                  <span
+                    class="masn"
+                    x-show="allTags.length > 10"
+                    x-text="'+' + (allTags.length - 10)"></span>
+                </div>
+
+                <div class="cfoot">
+                  <span class="cli" x-text="item.cliente_display"></span>
+                  <span x-show="item.sector_label || item.sector">·</span>
+                  <span x-text="item.sector_label || item.sector"></span>
+                  <span style="margin-left: auto;" x-text="item.partner && item.partner.length ? ('Partner: ' + item.partner.join(', ')) : ''"></span>
+                  <button
+                    type="button"
+                    class="card-btn-view"
+                    @click.stop="openCase(item)">
+                    <span x-text="t.viewCaseBtn">Ver detalles</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+
+              </article>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="finn">
+      <span>Logicalis Spain &middot; <b>Data &amp; AI</b> &middot; Catálogo de Casos de Uso y Éxito</span>
+      <img src="assets/logicalis-logo-white.webp" alt="" aria-hidden="true" style="filter: invert(1) brightness(0.4);">
+    </div>
+  </footer>
+
+  <!-- Modal / Ficha de Detalle (Epic 6, Issues #32, #33) -->
+  <div
     id="case-modal"
     class="modal-backdrop"
     x-show="modalOpen"
@@ -425,9 +465,9 @@
     @click.self="closeModal()"
     @keydown.tab="handleModalFocusTrap($event)"
     style="display: none;">
-    
-    <div 
-      class="modal-container"
+
+    <div
+      class="fichawrap"
       x-show="modalOpen"
       x-transition:enter="transition-enter"
       x-transition:enter-start="transform-scale-down"
@@ -435,33 +475,34 @@
       x-transition:leave="transition-leave"
       x-transition:leave-start="transform-scale-normal"
       x-transition:leave-end="transform-scale-down">
-      
-      <header class="modal-header">
-        <div class="modal-header-meta" x-show="selectedCase">
-          <span class="badge-sector" x-text="selectedCase ? (selectedCase.sector_label || selectedCase.sector) : ''"></span>
-          <span class="badge-year" x-text="selectedCase ? selectedCase.anio : ''"></span>
-          <span class="badge-importe" x-text="selectedCase ? selectedCase.importe_label : ''"></span>
-        </div>
-        <h2 id="modal-case-title" class="modal-title" x-text="selectedCase ? selectedCase.title : ''"></h2>
-        <div class="modal-tags-row" x-show="selectedCase && ((selectedCase.tecnologia && selectedCase.tecnologia.length) || (selectedCase.tags && selectedCase.tags.length))">
-          <template x-for="tech in (selectedCase ? selectedCase.tecnologia : [])" :key="tech">
-            <span class="badge-tech" x-text="tech"></span>
-          </template>
-          <template x-for="tag in (selectedCase ? (selectedCase.tags || []).filter(t => !(selectedCase.tecnologia || []).includes(t)) : [])" :key="tag">
-            <span class="badge-tag" x-text="tag"></span>
-          </template>
-        </div>
 
-        <button 
-          type="button" 
-          class="modal-close-btn"
+      <div class="fcab">
+        <span class="tag sector" x-show="selectedCase" x-text="selectedCase ? (selectedCase.sector_label || selectedCase.sector) : ''"></span>
+        <span class="fanio" x-show="selectedCase" x-text="selectedCase ? selectedCase.anio : ''"></span>
+        <span class="fbanda" x-show="selectedCase" x-text="selectedCase ? selectedCase.importe_label : ''"></span>
+        <button
+          type="button"
+          class="fx"
           id="modal-close-button"
           @click="closeModal()"
           :aria-label="t.close"
           :title="t.close">
           &times;
         </button>
-      </header>
+      </div>
+
+      <div class="fhead">
+        <div class="feye" x-show="selectedCase" x-text="selectedCase ? (selectedCase.tipo_proyecto || '') : ''"></div>
+        <h1 id="modal-case-title" x-text="selectedCase ? selectedCase.title : ''"></h1>
+        <div
+          class="modal-tags-row"
+          x-data="{ get allTags() { return selectedCase ? [...(selectedCase.tecnologia || []), ...(selectedCase.tags || []).filter(t => !(selectedCase.tecnologia || []).includes(t))] : []; } }"
+          x-show="allTags.length > 0">
+          <template x-for="tag in allTags" :key="tag">
+            <span class="tag" :title="tag" x-text="tag"></span>
+          </template>
+        </div>
+      </div>
 
       <!-- Loading state inside modal with aria-live="polite" (Issue #33) -->
       <div class="modal-loading" x-show="modalLoading" aria-live="polite">
@@ -469,23 +510,286 @@
         <p x-text="t.loadingCaseDetails">Cargando ficha del caso...</p>
       </div>
 
-      <!-- Sanitized Markdown Body (Issue #32: marked -> DOMPurify -> innerHTML) -->
-      <div 
-        id="case-modal-body"
-        class="modal-body markdown-body" 
-        x-show="!modalLoading"
-        x-html="modalHtml">
+      <div class="fcuerpo" x-show="!modalLoading">
+        <div class="fmain">
+
+          <!-- Bloque 1 · Contexto (dato real: fichas/*.md, sección "Contexto y Desafío") -->
+          <section class="block">
+            <div class="bh"><span class="bn"></span><h3 x-text="t.fichaBlock1"></h3></div>
+            <div class="markdown-body" x-html="modalSections[0] ? modalSections[0].bodyHtml : ''"></div>
+          </section>
+
+          <!-- Bloque 2 · Cómo se lo cuentas al cliente (nuevo modelo v2: titulo_comercial / pain.*) -->
+          <section class="block dolor">
+            <div class="bh"><span class="bn"></span><h3 x-text="t.fichaBlock2"></h3></div>
+
+            <template x-if="selectedCase?.titulo_comercial">
+              <p class="ftit" x-text="selectedCase.titulo_comercial"></p>
+            </template>
+            <template x-if="!selectedCase?.titulo_comercial">
+              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingCommercialTitle"></span></div>
+            </template>
+
+            <div class="subh" x-text="t.fichaPainLabel"></div>
+            <template x-if="selectedCase?.pain?.frase">
+              <blockquote class="painquote" x-text="'“' + selectedCase.pain.frase + '”'"></blockquote>
+            </template>
+            <template x-if="!selectedCase?.pain?.frase">
+              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingPainQuote"></span></div>
+            </template>
+
+            <template x-if="selectedCase?.pain?.disparadores?.length">
+              <div>
+                <div class="subh" x-text="t.fichaTriggersLabel"></div>
+                <div class="chiprow">
+                  <template x-for="d in selectedCase.pain.disparadores" :key="d">
+                    <span class="chipd" x-text="d"></span>
+                  </template>
+                </div>
+              </div>
+            </template>
+
+            <template x-if="selectedCase?.pain?.coste_inaccion">
+              <div>
+                <div class="subh" x-text="t.fichaCostLabel"></div>
+                <p class="ptext" x-text="selectedCase.pain.coste_inaccion"></p>
+              </div>
+            </template>
+          </section>
+
+          <!-- Bloque 3 · Solución (dato real: fichas/*.md, sección "Solución Técnica" + estrategia.porque nuevo) -->
+          <section class="block">
+            <div class="bh"><span class="bn"></span><h3 x-text="t.fichaBlock3"></h3></div>
+            <div class="markdown-body" x-html="modalSections[1] ? modalSections[1].bodyHtml : ''"></div>
+
+            <div class="subh" x-text="t.fichaWhyTechLabel"></div>
+            <template x-if="selectedCase?.estrategia?.porque">
+              <p class="ptext" x-text="selectedCase.estrategia.porque"></p>
+            </template>
+            <template x-if="!selectedCase?.estrategia?.porque">
+              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingWhyTech"></span></div>
+            </template>
+          </section>
+
+          <!-- Bloque 4 · Resultados (dato real: fichas/*.md, sección "Impacto y Resultados" + metricas nuevo) -->
+          <section class="block">
+            <div class="bh"><span class="bn"></span><h3 x-text="t.fichaBlock4"></h3></div>
+
+            <template x-if="selectedCase?.resultado?.metricas?.length">
+              <div class="metrics">
+                <template x-for="m in selectedCase.resultado.metricas" :key="m.etiqueta">
+                  <div class="metric">
+                    <div class="mnum" x-text="m.valor"></div>
+                    <div class="mlbl" x-text="m.etiqueta"></div>
+                  </div>
+                </template>
+              </div>
+            </template>
+
+            <div class="markdown-body" x-html="modalSections[2] ? modalSections[2].bodyHtml : ''"></div>
+          </section>
+
+          <!-- Bloque 5 · Kit de conversación comercial (nuevo modelo v2: kit.*) -->
+          <section class="block kit">
+            <div class="bh"><span class="bn"></span><h3 x-text="t.fichaBlock5"></h3></div>
+
+            <div class="subh" x-text="t.fichaQuestionsLabel"></div>
+            <template x-if="selectedCase?.kit?.preguntas?.length">
+              <ol class="preguntas">
+                <template x-for="(p, i) in selectedCase.kit.preguntas" :key="i">
+                  <li x-text="p"></li>
+                </template>
+              </ol>
+            </template>
+            <template x-if="!selectedCase?.kit?.preguntas?.length">
+              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingKit"></span></div>
+            </template>
+
+            <div class="kitgrid">
+              <div>
+                <div class="subh" style="margin-top:0" x-text="t.fichaSignalsLabel"></div>
+                <template x-if="selectedCase?.kit?.senales?.length">
+                  <div class="chiprow">
+                    <template x-for="s in selectedCase.kit.senales" :key="s">
+                      <span class="chipn" x-text="s"></span>
+                    </template>
+                  </div>
+                </template>
+                <template x-if="!selectedCase?.kit?.senales?.length">
+                  <div class="falta small"><b x-text="t.noDataTitle"></b></div>
+                </template>
+
+                <div class="subh" x-text="t.fichaBuyerLabel"></div>
+                <template x-if="selectedCase?.kit?.comprador?.principal">
+                  <p class="ptext ink" x-text="selectedCase.kit.comprador.principal"></p>
+                </template>
+                <template x-if="!selectedCase?.kit?.comprador?.principal">
+                  <div class="falta small"><b x-text="t.noDataTitle"></b></div>
+                </template>
+              </div>
+              <div>
+                <div class="subh" style="margin-top:0" x-text="t.fichaObjectionsLabel"></div>
+                <template x-if="selectedCase?.kit?.objeciones?.length">
+                  <template x-for="(o, i) in selectedCase.kit.objeciones" :key="i">
+                    <div class="objec">
+                      <div class="oq" x-text="'“' + o.objecion + '”'"></div>
+                      <div class="oa" x-text="o.respuesta"></div>
+                    </div>
+                  </template>
+                </template>
+                <template x-if="!selectedCase?.kit?.objeciones?.length">
+                  <div class="falta small"><b x-text="t.noDataTitle"></b></div>
+                </template>
+              </div>
+            </div>
+
+            <template x-if="selectedCase?.kit?.primer_paso?.nombre">
+              <div class="primerpaso">
+                <div class="pp1" x-text="t.fichaFirstStepLabel"></div>
+                <h4 x-text="selectedCase.kit.primer_paso.nombre"></h4>
+                <p x-text="selectedCase.kit.primer_paso.descripcion"></p>
+                <template x-if="selectedCase.kit.primer_paso.banda">
+                  <div class="banda" x-text="selectedCase.kit.primer_paso.banda"></div>
+                </template>
+              </div>
+            </template>
+            <template x-if="!selectedCase?.kit?.primer_paso?.nombre">
+              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingFirstStep"></span></div>
+            </template>
+          </section>
+
+        </div>
+
+        <aside class="flado" x-show="selectedCase">
+          <div class="ld resp">
+            <div class="mk" x-text="t.ownerLabel"></div>
+            <template x-if="selectedCase?.owner">
+              <div class="respcard">
+                <span class="avatar" x-text="selectedCase.owner.split(' ').filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase()"></span>
+                <div class="rt">
+                  <div class="mv" x-text="selectedCase.owner"></div>
+                  <small x-text="t.ownerHint"></small>
+                </div>
+              </div>
+            </template>
+            <template x-if="!selectedCase?.owner">
+              <div>
+                <div class="mv na" x-text="t.noDataTitle"></div>
+                <small class="respnota" x-text="t.ownerMissingHint"></small>
+              </div>
+            </template>
+            <a
+              class="teamsbtn"
+              x-show="selectedCase?.owner_email"
+              :href="'https://teams.microsoft.com/l/chat/0/0?users=' + encodeURIComponent(selectedCase?.owner_email || '')"
+              target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 4v-4h-0A2.5 2.5 0 0 1 4 13.5z"></path></svg>
+              <span x-text="t.contactTeams"></span>
+            </a>
+          </div>
+
+          <div class="ld">
+            <div class="mk" x-text="t.clientLabel"></div>
+            <div class="mv" x-text="selectedCase ? selectedCase.cliente_display : ''"></div>
+          </div>
+          <div class="ld">
+            <div class="mk" x-text="t.sectorLabel"></div>
+            <div class="mv" x-text="selectedCase ? (selectedCase.sector_label || selectedCase.sector) : ''"></div>
+          </div>
+          <div
+            class="ld"
+            x-data="{ get techs() { return selectedCase && selectedCase.tecnologia ? selectedCase.tecnologia : []; } }"
+            x-show="techs.length > 0">
+            <div class="mk" x-text="t.technologyLabel"></div>
+            <div class="techrow">
+              <template x-for="tech in techs" :key="tech">
+                <span class="tech" :title="tech" x-text="tech"></span>
+              </template>
+            </div>
+          </div>
+          <div
+            class="ld"
+            x-data="{ get plainTags() { return selectedCase ? (selectedCase.tags || []).filter(t => !(selectedCase.tecnologia || []).includes(t)) : []; } }"
+            x-show="plainTags.length > 0">
+            <div class="mk" x-text="t.tagsLabel"></div>
+            <div class="techrow">
+              <template x-for="tag in plainTags" :key="tag">
+                <span class="tech" :title="tag" x-text="tag"></span>
+              </template>
+            </div>
+          </div>
+          <div class="ld" x-show="selectedCase && selectedCase.partner && selectedCase.partner.length">
+            <div class="mk" x-text="t.partnerLabel"></div>
+            <div class="mv" x-text="selectedCase ? (selectedCase.partner || []).join(', ') : ''"></div>
+          </div>
+          <div class="ld">
+            <div class="mk" x-text="t.projectTypeLabel"></div>
+            <div class="mv" x-text="selectedCase ? selectedCase.tipo_proyecto : ''"></div>
+          </div>
+          <div class="ld">
+            <div class="mk" x-text="t.yearLabel"></div>
+            <div class="mv" x-text="selectedCase ? selectedCase.anio : ''"></div>
+          </div>
+          <div class="ld">
+            <div class="mk" x-text="t.amountLabel"></div>
+            <div class="mv" x-text="selectedCase ? selectedCase.importe_label : ''"></div>
+          </div>
+
+          <div class="n2">
+            <div class="ld">
+              <div class="mk" x-text="t.engagementTypeLabel"></div>
+              <div class="mv" x-show="selectedCase?.engagement?.tipologia" x-text="selectedCase?.engagement?.tipologia"></div>
+              <div class="mv na" x-show="!selectedCase?.engagement?.tipologia" x-text="t.noData"></div>
+            </div>
+            <div class="ld">
+              <div class="mk" x-text="t.durationLabel"></div>
+              <div class="mv" x-show="selectedCase?.engagement?.duracion" x-text="selectedCase?.engagement?.duracion"></div>
+              <div class="mv na" x-show="!selectedCase?.engagement?.duracion" x-text="t.noData"></div>
+            </div>
+            <div class="ld">
+              <div class="mk" x-text="t.teamLabel"></div>
+              <div class="mv" x-show="selectedCase?.engagement?.equipo" x-text="selectedCase?.engagement?.equipo"></div>
+              <div class="mv na" x-show="!selectedCase?.engagement?.equipo" x-text="t.noData"></div>
+            </div>
+            <div class="ld">
+              <div class="mk" x-text="t.techStrategyLabel"></div>
+              <div class="mv" x-show="selectedCase?.estrategia?.posicion" x-text="selectedCase?.estrategia?.posicion"></div>
+              <div class="mv na" x-show="!selectedCase?.estrategia?.posicion" x-text="t.noData"></div>
+            </div>
+            <div class="ld">
+              <div class="mk" x-text="t.maturityLabel"></div>
+              <div class="mv" x-show="selectedCase?.madurez" x-text="selectedCase?.madurez"></div>
+              <div class="mv na" x-show="!selectedCase?.madurez" x-text="t.noData"></div>
+            </div>
+            <div class="ld">
+              <div class="mk" x-text="t.practiceLabel"></div>
+              <div class="mv" x-show="selectedCase?.practica" x-text="selectedCase?.practica"></div>
+              <div class="mv na" x-show="!selectedCase?.practica" x-text="t.noData"></div>
+            </div>
+            <div class="ld">
+              <div class="mk" x-text="t.referenceableLabel"></div>
+              <div class="mv" x-show="selectedCase?.cliente_referenciable === true" x-text="t.referenceableYes"></div>
+              <div class="mv" x-show="selectedCase?.cliente_referenciable === false" x-text="t.referenceableNo"></div>
+              <div class="mv na" x-show="selectedCase?.cliente_referenciable === undefined || selectedCase?.cliente_referenciable === null" x-text="t.noData"></div>
+            </div>
+          </div>
+
+          <div class="fuente">
+            <span x-text="t.sourceLabel + ':'"></span>
+            <b x-text="selectedCase?.procedencia?.fichero || t.sourceUndeclared"></b>
+          </div>
+        </aside>
       </div>
 
-      <footer class="modal-footer">
-        <button 
-          type="button" 
-          class="modal-btn-secondary" 
+      <div class="fpie">
+        <button
+          type="button"
+          class="modal-btn-secondary"
           @click="closeModal()"
           x-text="t.close">
           Cerrar
         </button>
-      </footer>
+      </div>
     </div>
   </div>
 

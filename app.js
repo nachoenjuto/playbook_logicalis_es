@@ -42,6 +42,13 @@ function catalogApp() {
     searchMode: 'hybrid', // 'hybrid' (default) | 'semantic' | 'lexical'
     miniSearch: null,
 
+    // Minimum cosine similarity for a case to count as a semantic match, in
+    // 'semantic' and 'hybrid' modes. User-adjustable (Issue: local embedding
+    // models can have a high similarity baseline for unrelated text depending
+    // on the dataset, so a single hardcoded cutoff doesn't fit every corpus —
+    // exposed as a control instead of a fixed constant).
+    semanticThreshold: 0.75,
+
     // Semantic Vector Engine state (Epic 7, Issues #35-#38)
     modelStatus: 'idle', // 'idle' | 'loading' | 'ready' | 'error'
     modelLoadProgress: 0, // 0-100, updated via transformers.js progress_callback
@@ -86,6 +93,7 @@ function catalogApp() {
     modalOpen: false,
     modalLoading: false,
     modalHtml: '',
+    modalSections: [], // [{ title, bodyHtml }] — modalHtml split at each <h2> (see splitModalSections)
     previousFocusedElement: null,
     sanitizeConfig: SANITIZE_CONFIG,
 
@@ -124,7 +132,56 @@ function catalogApp() {
         modelStatusReady: 'Búsqueda semántica activa (WASM local)',
         modelStatusError: 'Búsqueda semántica no disponible en este navegador; usando búsqueda léxica',
         modelStatusTimeout: 'La descarga del modelo semántico está tardando demasiado; usando búsqueda léxica',
-        modelNotReadyTooltip: 'El modelo semántico aún no está listo'
+        modelNotReadyTooltip: 'El modelo semántico aún no está listo',
+        semanticThresholdLabel: 'Relevancia mínima',
+        semanticThresholdTooltip: 'Similitud mínima para considerar un caso relevante en modo Semántica/Híbrido. Súbelo para resultados más estrictos, bájalo para ampliar la búsqueda.',
+        // Ficha "Completa" — block titles and sub-labels
+        fichaBlock1: 'Contexto y reto de negocio',
+        fichaBlock2: 'Cómo se lo cuentas al cliente',
+        fichaBlock3: 'Solución',
+        fichaBlock4: 'Resultados y valor entregado',
+        fichaBlock5: 'Kit de conversación comercial',
+        fichaPainLabel: 'El problema, como lo dice el cliente',
+        fichaTriggersLabel: 'Qué convirtió esto en una compra',
+        fichaCostLabel: 'Coste de no hacer nada',
+        fichaWhyTechLabel: 'Por qué esta tecnología y no otra',
+        fichaQuestionsLabel: 'Preguntas para detectar este dolor',
+        fichaSignalsLabel: 'Señales de que tiene este problema',
+        fichaBuyerLabel: 'Quién compra',
+        fichaObjectionsLabel: 'Lo que te van a decir',
+        fichaFirstStepLabel: 'Primer paso · qué proponer',
+        // Ficha "Completa" — "sin datos disponibles" placeholders
+        noDataTitle: 'Sin datos disponibles',
+        missingCommercialTitle: 'Falta el título comercial: el resultado en el idioma del cliente, sin tecnología.',
+        missingPainQuote: 'Falta la frase que resume el dolor del cliente, dicha como la diría él.',
+        missingWhyTech: 'Falta el porqué de la elección tecnológica para este cliente.',
+        missingKit: 'Sin kit de conversación todavía: son las preguntas, objeciones y primer paso que convierten esta ficha en una herramienta de venta.',
+        missingFirstStep: 'Falta el primer paso a proponer (taller, PoC…).',
+        // Ficha "Completa" — sidebar
+        ownerLabel: 'Responsable de la ficha',
+        ownerHint: 'Quien estuvo en el proyecto y puede completar la ficha',
+        ownerMissingHint: 'Sin responsable asignado todavía.',
+        contactTeams: 'Contactar por Teams',
+        clientLabel: 'Cliente',
+        sectorLabel: 'Sector',
+        technologyLabel: 'Tecnología',
+        tagsLabel: 'Etiquetas',
+        partnerLabel: 'Partner',
+        projectTypeLabel: 'Tipo de proyecto',
+        yearLabel: 'Año',
+        amountLabel: 'Importe',
+        engagementTypeLabel: 'Tipo de encargo',
+        durationLabel: 'Duración',
+        teamLabel: 'Equipo que hizo falta',
+        techStrategyLabel: 'Estrategia tecnológica',
+        maturityLabel: 'Madurez del cliente',
+        practiceLabel: 'Práctica',
+        referenceableLabel: '¿Se puede citar el nombre del cliente?',
+        referenceableYes: 'Sí, referencia pública',
+        referenceableNo: 'No: usar descripción anónima',
+        noData: 'Sin dato',
+        sourceLabel: 'Fuente',
+        sourceUndeclared: 'sin declarar'
       },
       en: {
         heroEyebrow: 'Data & AI · Logicalis Spain',
@@ -159,7 +216,56 @@ function catalogApp() {
         modelStatusReady: 'Semantic search active (local WASM)',
         modelStatusError: 'Semantic search unavailable in this browser; using exact text search',
         modelStatusTimeout: 'The semantic model download is taking too long; using exact text search',
-        modelNotReadyTooltip: 'Semantic model is still initializing'
+        modelNotReadyTooltip: 'Semantic model is still initializing',
+        semanticThresholdLabel: 'Minimum relevance',
+        semanticThresholdTooltip: 'Minimum similarity for a case to count as relevant in Semantic/Hybrid mode. Raise it for stricter results, lower it to broaden the search.',
+        // Ficha "Completa" — block titles and sub-labels
+        fichaBlock1: 'Context and business challenge',
+        fichaBlock2: 'How you tell it to the client',
+        fichaBlock3: 'Solution',
+        fichaBlock4: 'Results and value delivered',
+        fichaBlock5: 'Sales conversation kit',
+        fichaPainLabel: "The problem, in the client's own words",
+        fichaTriggersLabel: 'What turned this into a purchase',
+        fichaCostLabel: 'Cost of doing nothing',
+        fichaWhyTechLabel: 'Why this technology and not another',
+        fichaQuestionsLabel: 'Questions to detect this pain point',
+        fichaSignalsLabel: 'Signals that a client has this problem',
+        fichaBuyerLabel: 'Who buys',
+        fichaObjectionsLabel: "What they'll tell you",
+        fichaFirstStepLabel: 'First step · what to propose',
+        // Ficha "Completa" — "no data available" placeholders
+        noDataTitle: 'No data available',
+        missingCommercialTitle: "Missing the commercial title: the outcome in the client's language, no tech jargon.",
+        missingPainQuote: "Missing the quote that captures the client's pain, in their own words.",
+        missingWhyTech: 'Missing why this technology was chosen for this client.',
+        missingKit: 'No sales kit yet: the questions, objections and first step that turn this sheet into a sales tool.',
+        missingFirstStep: 'Missing the first step to propose (workshop, PoC…).',
+        // Ficha "Completa" — sidebar
+        ownerLabel: 'Sheet owner',
+        ownerHint: 'Who was on the project and can complete this sheet',
+        ownerMissingHint: 'No owner assigned yet.',
+        contactTeams: 'Contact via Teams',
+        clientLabel: 'Client',
+        sectorLabel: 'Sector',
+        technologyLabel: 'Technology',
+        tagsLabel: 'Tags',
+        partnerLabel: 'Partner',
+        projectTypeLabel: 'Project type',
+        yearLabel: 'Year',
+        amountLabel: 'Amount',
+        engagementTypeLabel: 'Engagement type',
+        durationLabel: 'Duration',
+        teamLabel: 'Team required',
+        techStrategyLabel: 'Technology strategy',
+        maturityLabel: 'Client maturity',
+        practiceLabel: 'Practice',
+        referenceableLabel: "Can the client's name be cited?",
+        referenceableYes: 'Yes, public reference',
+        referenceableNo: 'No: use anonymous description',
+        noData: 'No data',
+        sourceLabel: 'Source',
+        sourceUndeclared: 'not declared'
       }
     },
 
@@ -797,7 +903,7 @@ function catalogApp() {
             c._relevanceScore = Math.max(0, cosine);
             return c;
           })
-          .filter(c => (c._relevanceScore || 0) > 0.40)
+          .filter(c => (c._relevanceScore || 0) >= this.semanticThreshold)
           .sort((a, b) => (b._relevanceScore || 0) - (a._relevanceScore || 0));
       }
 
@@ -817,10 +923,10 @@ function catalogApp() {
           return c;
         })
         .filter(c => {
-          // Include if lexical matched OR semantic similarity is strong (>= 0.65)
+          // Include if lexical matched OR semantic similarity clears the (user-adjustable) threshold
           const matchedLex = lexScoreMap.has(c.id);
           const cosine = this.semanticScores.get(c.id) ?? 0;
-          return matchedLex || cosine >= 0.65;
+          return matchedLex || cosine >= this.semanticThreshold;
         })
         .sort((a, b) => (b._relevanceScore || 0) - (a._relevanceScore || 0));
     },
@@ -852,6 +958,34 @@ function catalogApp() {
     },
 
     /**
+     * Splits the already-sanitized markdown HTML into named sections at each
+     * <h2> boundary — fichas/*.md always start each section with "## Title".
+     * Generic over however many <h2>s exist, no hardcoded section count/order,
+     * so this keeps working if a ficha's markdown structure ever changes.
+     */
+    splitModalSections(html) {
+      if (typeof document === 'undefined' || !html) return [];
+      const container = document.createElement('div');
+      container.innerHTML = html;
+
+      const sections = [];
+      let current = null;
+      for (const node of Array.from(container.childNodes)) {
+        if (node.nodeType === 1 && node.tagName === 'H2') {
+          current = { title: node.textContent.trim(), body: document.createElement('div') };
+          sections.push(current);
+          continue;
+        }
+        if (!current) {
+          current = { title: '', body: document.createElement('div') };
+          sections.push(current);
+        }
+        current.body.appendChild(node);
+      }
+      return sections.map((s) => ({ title: s.title, bodyHtml: s.body.innerHTML }));
+    },
+
+    /**
      * Modal drawer for viewing full use case markdown (Epic 6, Issues #32, #33).
      * Accessible: saves focus, activates trap, loads sanitized markdown.
      */
@@ -861,6 +995,7 @@ function catalogApp() {
       this.modalOpen = true;
       this.modalLoading = true;
       this.modalHtml = '';
+      this.modalSections = [];
 
       // Move focus into the modal once opened
       setTimeout(() => {
@@ -875,10 +1010,12 @@ function catalogApp() {
 
         // Safe pipeline: marked -> DOMPurify -> inject (ADR-0003, AC-006, Issue #32)
         this.modalHtml = this.renderSanitizedMarkdown(mdText);
+        this.modalSections = this.splitModalSections(this.modalHtml);
       } catch (err) {
         console.error('Failed to load case card markdown:', err);
         const safeErrMsg = String(err.message || 'Error').replace(/</g, '&lt;');
         this.modalHtml = `<p class="error-msg">Error al cargar la ficha: ${safeErrMsg}</p>`;
+        this.modalSections = [{ title: '', bodyHtml: this.modalHtml }];
       } finally {
         this.modalLoading = false;
       }
@@ -891,6 +1028,7 @@ function catalogApp() {
       this.modalOpen = false;
       this.selectedCase = null;
       this.modalHtml = '';
+      this.modalSections = [];
 
       // Restore focus to trigger element for screen readers & keyboard navigation
       if (this.previousFocusedElement && typeof this.previousFocusedElement.focus === 'function') {
