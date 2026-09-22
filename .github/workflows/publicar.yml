@@ -61,12 +61,18 @@ jobs:
         if: ${{ !inputs.calibrar }}
         run: node tools/embeddings.mjs
 
-      - name: Subir lo regenerado
+      - name: Comprobación de integridad
         if: ${{ !inputs.calibrar }}
+        run: node tools/embeddings.mjs --comprobar
+
+      - name: Subir lo regenerado
+        if: ${{ !inputs.calibrar && github.actor != 'github-actions[bot]' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.es.json index.en.json build_meta.json explorador.html embeddings.es.json embeddings.en.json
           git diff --staged --quiet && echo "nada que actualizar" && exit 0
           git commit -m "Catálogo regenerado: índice y vectores"
-          git push
+          # si alguien ha subido algo mientras tanto, se rehace encima en vez de fallar
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
