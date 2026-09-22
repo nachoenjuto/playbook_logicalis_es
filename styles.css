@@ -73,6 +73,13 @@
   --transition-normal: 220ms cubic-bezier(.4, 0, .2, 1);
 }
 
+/* El lienzo escalado (lienzo.js): 1600 px de ancho, escalado a la ventana, con bandas del color
+   del fondo si el monitor es más ancho que el tope. Dentro, todo va en px de diseño. */
+#lienzo { position: relative; }
+html.escalado, html.escalado body { overflow: hidden; height: 100%; }
+html.escalado body { background: var(--bg-page); }
+html.escalado #lienzo { overflow: hidden; }
+
 /* Reset & Base */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -412,7 +419,7 @@ header {
   background: var(--glass-2); border: 1px solid var(--edge); border-radius: 16px;
   padding: 6px 0 10px; box-shadow: var(--sheen), var(--drop);
   backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%);
-  position: sticky; top: 84px; max-height: calc(100vh - 100px); overflow-y: auto;
+  position: sticky; top: 84px; max-height: calc(var(--lh, 100vh) - 100px); overflow-y: auto;
 }
 
 .facets-header {
@@ -610,7 +617,7 @@ header {
 }
 
 .modal-container, .fichawrap {
-  background: #fff; border-radius: 20px; width: 100%; max-width: 1240px; max-height: 92vh;
+  background: #fff; border-radius: 20px; width: 100%; max-width: 1240px; max-height: calc(var(--lh, 100vh) * .92);
   display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(22, 32, 68, .35);
   border: 1px solid var(--edge); overflow: hidden; position: relative;
 }
