@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Catálogo de Casos de Uso y Éxito de la Unidad - Logicalis Spain. Soluciones en Cloud, Data, AI y Ciberseguridad.">
   <meta name="theme-color" content="#143CCD">
-  <meta name="build-id" content="868266cd9_1790077442">
+  <meta name="build-id" content="0ceb62b7b_1790079114">
   <meta
     http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net; img-src 'self' data:;">
+    content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net https://api.github.com; img-src 'self' data:;">
   <title>Catálogo de Casos de Éxito | Logicalis</title>
 
   <!-- Google Fonts: Roboto Slab (display) + Montserrat (UI/body) — Logicalis corporate type pairing -->
@@ -17,7 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Logicalis Design System Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=868266cd9_1790077442">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="styles.css?v=0ceb62b7b_1790079114">
 
   <!-- Third-party CDN Dependencies with Subresource Integrity (SRI) -->
   <script
@@ -49,7 +50,14 @@
   </script>
 
   <!-- Application Logic -->
-  <script src="app.js?v=868266cd9_1790077442"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"
+    integrity="sha384-+pxiN6T7yvpryuJmE1gM9PX7yQit15auDb+ZwwvJOd/4be2Cie5/IuVXgQb/S9du"
+    crossorigin="anonymous"
+    defer></script>
+
+  <script src="editor.js"></script>
+  <script src="app.js?v=0ceb62b7b_1790079114"></script>
 
   <!-- Alpine.js 3.x with defer -->
   <script
@@ -251,6 +259,13 @@
             </div>
 
             <div class="sb-modos">
+            <div class="sb-fila">
+            <!-- añadir un caso a mano: abre la misma ficha, en blanco -->
+            <button type="button" class="btn-nuevo" @click="nuevaFicha()">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              <span x-text="t.edNuevo">Añadir caso de uso</span>
+            </button>
+
             <!-- Semantic relevance threshold: user-adjustable, since a fixed cosine
                  cutoff doesn't fit every embedding model/dataset (see app.js semanticThreshold) -->
             <div
@@ -266,6 +281,7 @@
                 step="0.01"
                 x-model.number="semanticThreshold">
               <span class="threshold-value" x-text="semanticThreshold.toFixed(2)">0.75</span>
+            </div>
             </div>
 
             <div class="search-mode-switcher" role="group" aria-label="Modo de búsqueda">
@@ -472,9 +488,17 @@
       x-transition:leave-end="transform-scale-down">
 
       <div class="fcab">
-        <span class="tag sector" x-show="selectedCase" x-text="selectedCase ? (selectedCase.sector_label || selectedCase.sector) : ''"></span>
-        <span class="fanio" x-show="selectedCase" x-text="selectedCase ? selectedCase.anio : ''"></span>
-        <span class="fbanda" x-show="selectedCase" x-text="selectedCase ? selectedCase.importe_label : ''"></span>
+        <span class="tag sector" x-show="selectedCase && !edicion" x-text="selectedCase ? (selectedCase.sector_label || selectedCase.sector) : ''"></span>
+        <span class="fanio" x-show="selectedCase && !edicion" x-text="selectedCase ? selectedCase.anio : ''"></span>
+        <span class="fbanda" x-show="selectedCase && !edicion" x-text="selectedCase ? selectedCase.importe_label : ''"></span>
+        <button
+          type="button"
+          class="fedit"
+          x-show="selectedCase && !edicion"
+          @click="editarFicha()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></svg>
+          <span x-text="t.edEditar">Editar</span>
+        </button>
         <button
           type="button"
           class="fx"
@@ -487,25 +511,17 @@
       </div>
 
       <div class="fhead">
-        <div class="feye" x-show="selectedCase" x-text="selectedCase ? (selectedCase.tipo_proyecto || '') : ''"></div>
-        <h1 id="modal-case-title" x-text="selectedCase ? selectedCase.title : ''"></h1>
-        <div
-          class="modal-tags-row"
-          x-data="{ get allTags() { return selectedCase ? [...(selectedCase.tecnologia || []), ...(selectedCase.tags || []).filter(t => !(selectedCase.tecnologia || []).includes(t))] : []; } }"
-          x-show="allTags.length > 0">
-          <template x-for="tag in allTags" :key="tag">
-            <span class="tag" :title="tag" x-text="tag"></span>
-          </template>
-        </div>
+        <div class="feye" x-show="selectedCase && !edicion" x-text="selectedCase ? (selectedCase.tipo_proyecto || '') : ''"></div>
+        <h1 id="modal-case-title" x-text="edNueva ? t.edNuevoTitulo : (edicion ? t.edEditando + ' · ' + (edForm.title || '') : (selectedCase ? selectedCase.title : ''))"></h1>
       </div>
 
       <!-- Loading state inside modal with aria-live="polite" (Issue #33) -->
-      <div class="modal-loading" x-show="modalLoading" aria-live="polite">
+      <div class="modal-loading" x-show="(modalLoading && !edicion) || edCargando" aria-live="polite">
         <div class="modal-spinner"></div>
         <p x-text="t.loadingCaseDetails">Cargando ficha del caso...</p>
       </div>
 
-      <div class="fcuerpo" x-show="!modalLoading">
+      <div class="fcuerpo" x-show="!modalLoading && !edicion">
         <div class="fmain">
 
           <!-- Bloque 1 · Contexto (dato real: fichas/*.md, sección "Contexto y Desafío") -->
@@ -776,7 +792,120 @@
         </aside>
       </div>
 
-      <div class="fpie">
+      <!-- ===================== EDITOR ===================== -->
+      <div class="edwrap" x-show="edicion && !edCargando">
+
+        <div class="edintro">
+          <div>
+            <b x-text="edNueva ? t.edIntroNuevoT : t.edIntroEditarT"></b>
+            <span x-text="edNueva ? t.edIntroNuevo : t.edIntroEditar"></span>
+          </div>
+        </div>
+
+        <template x-for="g in edCampos" :key="g.grupo">
+          <section class="edgrupo">
+            <h3 x-text="edTituloGrupo(g)"></h3>
+            <div class="edrejilla">
+              <template x-for="c in g.campos" :key="c.k">
+                <div class="edcampo" :class="{ 'ancho': ['larga','lista','pares'].includes(c.tipo), 'edcheck': c.tipo === 'bool' }">
+                  <template x-if="c.tipo !== 'bool'">
+                    <label :for="'ed-' + c.k">
+                      <span x-text="edEtiqueta(c)"></span>
+                      <span class="req" x-show="c.obligatorio">*</span>
+                    </label>
+                  </template>
+
+                  <template x-if="c.tipo === 'texto'">
+                    <input type="text" :id="'ed-' + c.k" :value="edValor(c)" @input="edPon(c, $event.target.value)">
+                  </template>
+                  <template x-if="c.tipo === 'num'">
+                    <input type="number" :id="'ed-' + c.k" :value="edValor(c)" @input="edPon(c, $event.target.value)">
+                  </template>
+                  <template x-if="c.tipo === 'larga'">
+                    <textarea :id="'ed-' + c.k" :value="edValor(c)" @input="edPon(c, $event.target.value)"></textarea>
+                  </template>
+                  <template x-if="c.tipo === 'lista' || c.tipo === 'pares'">
+                    <textarea :id="'ed-' + c.k" :value="edValor(c)" @input="edPon(c, $event.target.value)"></textarea>
+                  </template>
+                  <template x-if="c.tipo === 'opcion'">
+                    <select :id="'ed-' + c.k" @change="edPon(c, $event.target.value)">
+                      <option value=""></option>
+                      <template x-for="o in edOpciones(c)" :key="o">
+                        <option :value="o" :selected="edValor(c) === o" x-text="o"></option>
+                      </template>
+                    </select>
+                  </template>
+                  <template x-if="c.tipo === 'tri'">
+                    <select :id="'ed-' + c.k" @change="edPon(c, $event.target.value)">
+                      <option value="" :selected="edValor(c) === ''" x-text="t.noData"></option>
+                      <option value="si" :selected="edValor(c) === 'si'" x-text="t.referenceableYes"></option>
+                      <option value="no" :selected="edValor(c) === 'no'" x-text="t.referenceableNo"></option>
+                    </select>
+                  </template>
+                  <template x-if="c.tipo === 'bool'">
+                    <input type="checkbox" :id="'ed-' + c.k" :checked="!!edValor(c)" @change="edPon(c, $event.target.checked)">
+                  </template>
+                  <template x-if="c.tipo === 'bool'">
+                    <label :for="'ed-' + c.k" x-text="edEtiqueta(c)"></label>
+                  </template>
+
+                  <span class="pista" x-show="c.pista" x-text="c.pista"></span>
+                </div>
+              </template>
+            </div>
+          </section>
+        </template>
+
+        <section class="edgrupo">
+          <h3 x-text="t.edTexto"></h3>
+          <template x-for="(s, i) in edSecciones" :key="i">
+            <div class="edsec edcampo">
+              <input type="text" :value="s.titulo" @input="edSecciones[i].titulo = $event.target.value" :placeholder="t.edSeccion">
+              <textarea :value="s.cuerpo" @input="edSecciones[i].cuerpo = $event.target.value"></textarea>
+            </div>
+          </template>
+          <button type="button" class="btn-plano" @click="edSecciones.push({ titulo: '', cuerpo: '' })" x-text="t.edAnadirSeccion"></button>
+        </section>
+
+        <div class="edguardar">
+          <h4 x-text="t.edGuardarT"></h4>
+          <p class="nota" x-text="t.edGuardarNota"></p>
+          <div class="edrejilla">
+            <div class="edcampo">
+              <label for="ed-repo" x-text="t.edRepoL"></label>
+              <input type="text" id="ed-repo" x-model="edRepo">
+            </div>
+            <div class="edcampo">
+              <label for="ed-rama" x-text="t.edRamaL"></label>
+              <input type="text" id="ed-rama" x-model="edRama">
+            </div>
+            <div class="edcampo">
+              <label for="ed-token" x-text="t.edTokenL"></label>
+              <input type="password" id="ed-token" x-model="edToken" autocomplete="off" placeholder="github_pat_...">
+            </div>
+          </div>
+          <div class="edcampo edcheck" style="margin-top:10px">
+            <input type="checkbox" id="ed-recordar" x-model="edRecordar">
+            <label for="ed-recordar" x-text="t.edRecordar"></label>
+          </div>
+
+          <div class="edmsg mal" x-show="edError" x-text="edError"></div>
+          <div class="edmsg bien" x-show="edAviso">
+            <span x-text="edAviso"></span>
+            <template x-if="edEnlace"><a :href="edEnlace" target="_blank" rel="noopener" x-text="t.edVerCommit"></a></template>
+          </div>
+
+          <div class="edpie" style="margin-top:14px">
+            <button type="button" class="btn-guardar" :disabled="edGuardando" @click="edGuarda()"
+              x-text="edGuardando ? t.edGuardando : t.edGuardar"></button>
+            <button type="button" class="btn-plano" @click="edDescargar()" x-text="t.edDescargar"></button>
+            <span class="crece"></span>
+            <button type="button" class="btn-plano" @click="cerrarEdicion()" x-text="t.edCancelar"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="fpie" x-show="!edicion">
         <button
           type="button"
           class="modal-btn-secondary"

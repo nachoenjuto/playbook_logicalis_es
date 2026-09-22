@@ -20,7 +20,7 @@ const SANITIZE_CONFIG = {
 };
 
 function catalogApp() {
-  return {
+  const app = {
     // Current Language state (AC-008, RF-010)
     currentLang: 'es',
 
@@ -115,6 +115,37 @@ function catalogApp() {
         sortAlpha: 'Alfabético',
         searchPlaceholder: 'Buscar por tecnología, sector, palabra clave o problema...',
         clearSearch: 'Limpiar búsqueda',
+        edEditar: 'Editar',
+        edNuevo: 'Añadir caso de uso',
+        edNuevoTitulo: 'Caso de uso nuevo',
+        edEditando: 'Editando',
+        edTexto: 'Texto de la ficha',
+        edSeccion: 'Título de la sección',
+        edAnadirSeccion: 'Añadir una sección',
+        edIntroEditarT: 'Estás editando la ficha. ',
+        edIntroEditar: 'Los cambios se guardan como un commit en el repositorio; el catálogo y la búsqueda se regeneran solos en un minuto. Se edita el idioma que estás viendo: la otra versión se cambia aparte.',
+        edIntroNuevoT: 'Caso de uso nuevo. ',
+        edIntroNuevo: 'Rellena al menos los campos marcados con asterisco. Al guardar se crea la ficha en el idioma que estás viendo; la otra versión se añade después.',
+        edGuardarT: 'Guardar en GitHub',
+        edGuardarNota: 'Hace falta un token personal de GitHub con permiso de escritura en este repositorio. No se guarda en ningún sitio salvo que marques la casilla, y entonces solo mientras esta pestaña siga abierta. Si prefieres no usar token, descarga el fichero y súbelo a mano.',
+        edRepoL: 'Repositorio',
+        edRamaL: 'Rama',
+        edTokenL: 'Token de GitHub',
+        edRecordar: 'Recordar el token mientras esta pestaña siga abierta',
+        edGuardar: 'Guardar en GitHub',
+        edGuardando: 'Guardando…',
+        edDescargar: 'Descargar el fichero',
+        edCancelar: 'Cancelar',
+        edVerCommit: 'Ver el commit',
+        edGuardada: 'Ficha guardada. El catálogo y la búsqueda se regeneran en aproximadamente un minuto.',
+        edFaltan: 'Faltan campos obligatorios',
+        edSinToken: 'Pega tu token de GitHub para guardar, o descarga el fichero y súbelo a mano.',
+        edToken401: 'El token no es válido o ha caducado.',
+        edToken403: 'El token no tiene permiso de escritura en este repositorio.',
+        edConflicto: 'Alguien ha cambiado esta ficha mientras la editabas. Vuelve a abrirla y repite el cambio.',
+        ed404: 'No se encuentra el repositorio o la rama. Revisa los dos campos.',
+        edYaExiste: 'Ya existe una ficha con ese identificador. Cambia el título o el identificador.',
+        edFallo: 'No se ha podido guardar',
         filtersTitle: 'Filtros',
         clearAllFilters: 'Limpiar todo',
         activeFiltersLabel: 'Filtros activos',
@@ -205,6 +236,37 @@ function catalogApp() {
         sortAlpha: 'Alphabetical',
         searchPlaceholder: 'Search by technology, industry, keyword, or challenge...',
         clearSearch: 'Clear search',
+        edEditar: 'Edit',
+        edNuevo: 'Add use case',
+        edNuevoTitulo: 'New use case',
+        edEditando: 'Editing',
+        edTexto: 'Case sheet text',
+        edSeccion: 'Section title',
+        edAnadirSeccion: 'Add a section',
+        edIntroEditarT: 'You are editing this case sheet. ',
+        edIntroEditar: 'Changes are saved as a commit in the repository; the catalog and the search rebuild themselves within a minute. You are editing the language you are viewing: the other version is changed separately.',
+        edIntroNuevoT: 'New use case. ',
+        edIntroNuevo: 'Fill in at least the fields marked with an asterisk. Saving creates the sheet in the language you are viewing; the other version is added later.',
+        edGuardarT: 'Save to GitHub',
+        edGuardarNota: 'You need a personal GitHub token with write access to this repository. It is not stored anywhere unless you tick the box, and then only while this tab stays open. If you would rather not use a token, download the file and upload it by hand.',
+        edRepoL: 'Repository',
+        edRamaL: 'Branch',
+        edTokenL: 'GitHub token',
+        edRecordar: 'Remember the token while this tab stays open',
+        edGuardar: 'Save to GitHub',
+        edGuardando: 'Saving…',
+        edDescargar: 'Download the file',
+        edCancelar: 'Cancel',
+        edVerCommit: 'View the commit',
+        edGuardada: 'Case sheet saved. The catalog and the search rebuild in about a minute.',
+        edFaltan: 'Required fields missing',
+        edSinToken: 'Paste your GitHub token to save, or download the file and upload it by hand.',
+        edToken401: 'The token is not valid or has expired.',
+        edToken403: 'The token has no write access to this repository.',
+        edConflicto: 'Someone changed this case sheet while you were editing it. Reopen it and redo your change.',
+        ed404: 'Repository or branch not found. Check both fields.',
+        edYaExiste: 'A case sheet with that identifier already exists. Change the title or the identifier.',
+        edFallo: 'Could not save',
         filtersTitle: 'Filters',
         clearAllFilters: 'Clear all',
         activeFiltersLabel: 'Active filters',
@@ -329,6 +391,8 @@ function catalogApp() {
       if (typeof window !== 'undefined' && /[?&]lang=en(?:&|$)/.test(window.location.search)) {
         this.currentLang = 'en';
       }
+
+      if (typeof this.initEditor === 'function') this.initEditor();
 
       // Load initial catalog & vectors in the chosen language
       this.loadCatalog(this.currentLang);
@@ -1073,6 +1137,8 @@ function catalogApp() {
      * Closes modal drawer and restores focus to previously active element (Issue #33).
      */
     closeModal() {
+      this.edicion = false;
+      this.edNueva = false;
       this.modalOpen = false;
       this.selectedCase = null;
       this.modalHtml = '';
@@ -1114,6 +1180,10 @@ function catalogApp() {
       }
     }
   };
+  // el editor de fichas vive en editor.js y se mezcla aquí. Con descriptores, no con
+  // Object.assign: assign EJECUTA los getters (filteredCases, sortedCases…) y los convertiría
+  // en valores fijos calculados con el catálogo todavía vacío.
+  return Object.defineProperties(app, Object.getOwnPropertyDescriptors(window.playbookEditor || {}));
 }
 
 /* Layout of the explorer on wide screens (the original playbook did the same): the header,

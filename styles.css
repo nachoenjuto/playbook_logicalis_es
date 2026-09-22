@@ -299,6 +299,8 @@ body.explorador .page-inner { padding-top: 90px; }
 .sb-input { position: relative; flex: 1 1 auto; min-width: 0; }
 .sb-modos { flex: none; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-end;
   gap: 8px; min-height: 106px; }
+.sb-fila { display: flex; gap: 8px; align-items: stretch; }
+.sb-fila .threshold-control { flex: 1; min-width: 0; }
 .searchwrap { position: relative; display: block; min-width: 0; }
 /* ordenar: el desplegable de siempre, con su icono */
 .sortwrap { position: relative; flex: none; display: inline-flex; align-items: center; margin-left: auto; }
