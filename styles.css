@@ -306,7 +306,7 @@ body.explorador .page-inner { padding-top: 90px; }
 .sb-modos > * { width: 100%; }
 .searchwrap { position: relative; display: block; min-width: 0; }
 /* ordenar: el desplegable de siempre, con su icono */
-.sortwrap { position: relative; flex: none; display: inline-flex; align-items: center; margin-left: auto; }
+.sortwrap { position: relative; flex: none; display: inline-flex; align-items: center; }
 .sortwrap svg { position: absolute; left: 13px; width: 16px; height: 16px; color: var(--muted); pointer-events: none; }
 .sortsel {
   appearance: none; -webkit-appearance: none; border: 1px solid var(--edge); border-radius: 12px; height: 49px; padding: 0 34px 0 38px;
