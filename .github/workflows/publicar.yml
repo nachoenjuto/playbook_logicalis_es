@@ -1,0 +1,72 @@
+# Regenera el catálogo en cada subida: el índice (Python) y los vectores de la búsqueda
+# semántica (Node), y sube lo regenerado. Así nadie tiene que instalar nada ni acordarse de
+# ejecutar los generadores: se escribe la ficha en fichas/, se sube, y la web se actualiza.
+name: Publicar catálogo
+
+on:
+  push:
+    branches: [main, nacho, gerard]
+    paths:
+      - 'fichas/**'
+      - 'taxonomia/**'
+      - 'tools/**'
+      - '.github/workflows/publicar.yml'
+  workflow_dispatch:
+    inputs:
+      calibrar:
+        description: 'Solo comprobar con qué texto se calcularon los vectores (no guarda nada)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # el modelo de embeddings pesa unos 120 MB: se guarda en caché para no bajarlo cada vez
+      - uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.cache/huggingface
+          key: embeddings-${{ runner.os }}-transformers-2.17.2
+
+      - run: npm install --no-save @xenova/transformers@2.17.2
+
+      - name: Índice del catálogo
+        run: python tools/build.py
+
+      - name: Calibración de los vectores (solo comprobar)
+        if: ${{ inputs.calibrar }}
+        run: node tools/embeddings.mjs --calibrar
+
+      - name: Vectores de la búsqueda semántica
+        if: ${{ !inputs.calibrar }}
+        run: node tools/embeddings.mjs
+
+      - name: Subir lo regenerado
+        if: ${{ !inputs.calibrar }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.es.json index.en.json build_meta.json explorador.html embeddings.es.json embeddings.en.json
+          git diff --staged --quiet && echo "nada que actualizar" && exit 0
+          git commit -m "Catálogo regenerado: índice y vectores"
+          git push
