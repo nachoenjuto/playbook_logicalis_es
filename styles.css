@@ -281,7 +281,8 @@ body.explorador .page-inner { padding-top: 90px; }
 }
 .backbtn:hover { border-color: var(--blue); color: var(--blue); }
 
-.vhead { margin-bottom: 26px; text-align: left; }
+.vhead { margin-bottom: 26px; text-align: left; display: flex; align-items: flex-start; gap: 20px; }
+.vhead-txt { flex: 1; min-width: 0; }
 .vhead .vtitle {
   font-family: var(--font-display); font-weight: 600; font-size: 26px;
   line-height: 1.25; letter-spacing: -.2px; color: var(--ink);
@@ -302,8 +303,7 @@ body.explorador .page-inner { padding-top: 90px; }
 .sb-input { position: relative; flex: 1 1 auto; min-width: 0; }
 .sb-modos { flex: none; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-end;
   gap: 8px; min-height: 106px; }
-.sb-fila { display: flex; gap: 8px; align-items: stretch; }
-.sb-fila .threshold-control { flex: 1; min-width: 0; }
+.sb-modos > * { width: 100%; }
 .searchwrap { position: relative; display: block; min-width: 0; }
 /* ordenar: el desplegable de siempre, con su icono */
 .sortwrap { position: relative; flex: none; display: inline-flex; align-items: center; margin-left: auto; }
@@ -376,7 +376,7 @@ body.explorador .page-inner { padding-top: 90px; }
 /* Semantic relevance threshold slider */
 /* la relevancia minima: la misma caja que los demas controles */
 .threshold-control {
-  flex: none; height: 49px;
+  flex: none; height: 49px; justify-content: flex-start;
   display: flex; align-items: center; gap: 10px;
   font-size: 13.5px; font-weight: 500; color: var(--sec);
   padding: 0 16px; border-radius: 12px;

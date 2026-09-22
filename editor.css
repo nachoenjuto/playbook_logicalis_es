@@ -23,7 +23,8 @@
   border-radius: 12px; transition: background .16s, border-color .16s;
 }
 .btn-nuevo:hover { background: rgba(27, 75, 255, .12); border-style: solid; }
-.sb-abajo .btn-nuevo { flex: none; }
+.vhead .btn-nuevo { flex: none; height: 40px; align-self: flex-start; }
+.btn-nuevo[x-cloak] { display: none !important; }
 .btn-nuevo svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 
 /* ---------- lo editable, dentro de la propia ficha ----------

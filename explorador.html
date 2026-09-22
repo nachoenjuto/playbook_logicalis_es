@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Catálogo de Casos de Uso y Éxito de la Unidad - Logicalis Spain. Soluciones en Cloud, Data, AI y Ciberseguridad.">
   <meta name="theme-color" content="#143CCD">
-  <meta name="build-id" content="8c60340a7_1790084595">
+  <meta name="build-id" content="f874b5a08_1790085044">
   <meta
     http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net https://api.github.com; img-src 'self' data:;">
@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Logicalis Design System Stylesheet -->
-  <link rel="stylesheet" href="editor.css?v=8c60340a7_1790084595">
-  <link rel="stylesheet" href="styles.css?v=8c60340a7_1790084595">
+  <link rel="stylesheet" href="editor.css?v=f874b5a08_1790085044">
+  <link rel="stylesheet" href="styles.css?v=f874b5a08_1790085044">
 
   <!-- Third-party CDN Dependencies with Subresource Integrity (SRI) -->
   <script
@@ -45,7 +45,7 @@
     crossorigin="anonymous">
   <script
     type="module"
-    src="transformers-bridge.js?v=8c60340a7_1790084595"
+    src="transformers-bridge.js?v=f874b5a08_1790085044"
     crossorigin="anonymous">
   </script>
 
@@ -56,8 +56,8 @@
     crossorigin="anonymous"
     defer></script>
 
-  <script src="editor.js?v=8c60340a7_1790084595"></script>
-  <script src="app.js?v=8c60340a7_1790084595"></script>
+  <script src="editor.js?v=f874b5a08_1790085044"></script>
+  <script src="app.js?v=f874b5a08_1790085044"></script>
 
   <!-- Alpine.js 3.x with defer -->
   <script
@@ -167,8 +167,15 @@
     <div class="page-inner">
 
       <div class="vhead">
-        <h2 class="vtitle" x-text="t.catalogTitle">Casos de uso</h2>
-        <p class="vsub" x-text="t.catalogSubtitle">Todo lo que hemos hecho, filtrable por lo que te importe.</p>
+        <div class="vhead-txt">
+          <h2 class="vtitle" x-text="t.catalogTitle">Casos de uso</h2>
+          <p class="vsub" x-text="t.catalogSubtitle">Todo lo que hemos hecho, filtrable por lo que te importe.</p>
+        </div>
+        <!-- añadir un caso a mano: solo en modo editor, a la altura del título -->
+        <button type="button" class="btn-nuevo" x-show="edModo" x-cloak @click="nuevaFicha()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          <span x-text="t.edNuevo">Añadir caso de uso</span>
+        </button>
       </div>
 
       <!-- Explorer: Facets Sidebar + (Search + Results), side by side from the same top edge -->
@@ -289,12 +296,6 @@
             </div>
 
             <div class="sb-abajo">
-            <!-- añadir un caso a mano: abre la misma ficha, en blanco -->
-            <button type="button" class="btn-nuevo" x-show="edModo" @click="nuevaFicha()">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-              <span x-text="t.edNuevo">Añadir caso de uso</span>
-            </button>
-
             <label class="sortwrap" :title="t.sortLabel">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M11 5h10M11 9h7M11 13h4"/><path d="M5 5v14M5 19l-3-3M5 19l3-3"/>
