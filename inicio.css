@@ -1,0 +1,68 @@
+/* =======================================================================
+   INICIO · las cuatro ventanas
+   Va sobre styles.css (tokens, cabecera y fondo del catálogo). Aquí solo
+   lo propio de esta página: las cuatro ventanas del inicio, tumbadas
+   (texto a la izquierda, ilustración a la derecha) y centradas en pantalla.
+   Lo que aún no está (Guía comercial, Inteligencia, Añadir o editar) se
+   desenfoca al pasar por encima y dice «Próximamente».
+   ======================================================================= */
+main.inicio{max-width:1400px;margin:0 auto;padding:clamp(18px,3vh,34px) 2rem clamp(24px,4vh,48px);
+  min-height:calc(100vh - 78px);display:flex;flex-direction:column;justify-content:center}
+
+.destinos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:22px;width:100%;margin:auto}
+
+.destino{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);grid-template-rows:auto 1fr auto;
+  grid-template-areas:"h il" "p il" "c il";column-gap:22px;min-height:0;
+  padding:clamp(18px,2.6vh,26px) 26px clamp(14px,2vh,20px) 28px;
+  background:var(--glass-2);border:1px solid var(--edge);border-radius:0;box-shadow:var(--sheen),var(--drop);
+  color:inherit;text-decoration:none;text-align:left;cursor:pointer;
+  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);
+  transition:box-shadow .2s,border-color .2s}
+.destino:hover{border-color:rgba(27,75,255,.55);box-shadow:0 0 0 4px rgba(27,75,255,.10),0 12px 30px rgba(27,75,255,.16)}
+.destino:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.destino h3{grid-area:h;font-family:var(--font-display);font-weight:600;font-size:clamp(19px,1.6vw,23px);line-height:1.28;color:var(--ink)}
+.destino .dsub{grid-area:p;font-size:14px;color:var(--sec);margin-top:8px;line-height:1.6;align-self:start}
+.destino .dil{grid-area:il;margin:0;display:flex;align-items:center;justify-content:center;min-height:0;min-width:0}
+.destino .dil svg{display:block;width:100%;height:100%;max-height:100%}
+.destino .dcta{grid-area:c;align-self:end;margin-top:clamp(10px,1.8vh,16px);padding-top:clamp(8px,1.4vh,12px);border-top:1px solid var(--line-soft);
+  font-size:13.5px;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:7px}
+.destino .dcta .fl{transition:transform .2s}
+.destino:hover .dcta .fl{transform:translateX(4px)}
+
+/* lo que aún no está: al pasar por encima se desenfoca y dice «Próximamente» */
+.destino.pronto{cursor:default}
+.destino.pronto>*:not(.velo){transition:filter .25s ease,opacity .25s ease}
+.destino.pronto:hover>*:not(.velo){filter:blur(6px);opacity:.55}
+.destino.pronto .velo{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:2}
+.destino.pronto:hover .velo{opacity:1}
+.destino.pronto .velo b{font-family:var(--font-display);font-weight:600;font-size:26px;color:var(--ink);letter-spacing:-.2px}
+.destino.pronto .velo small{font-size:13px;color:var(--sec)}
+
+/* las ilustraciones: líneas y tarjetas en grises, el azul de acento */
+.il .card{fill:#fff;stroke:rgba(22,32,68,.12);stroke-width:1}
+.il .card2{fill:rgba(255,255,255,.72);stroke:rgba(22,32,68,.09);stroke-width:1}
+.il .ln{stroke:#D9DDE7;stroke-width:5;stroke-linecap:round}
+.il .ln.s{stroke:#E6E9F0}
+.il .ln.b{stroke:var(--blue)}
+.il .bar{fill:#DFE3EE}
+.il .bar.b{fill:var(--blue)}
+.il .wire{fill:none;stroke:#CBD0DC;stroke-width:1.5}
+.il .wire.d{stroke-dasharray:3 4}
+.il .node{fill:#fff;stroke:rgba(22,32,68,.14);stroke-width:1}
+.il .ico{fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.il .dot{fill:var(--blue)}
+.il .empty{fill:none;stroke:#CBD0DC;stroke-width:1.2;stroke-dasharray:3 3}
+.il .pill{fill:var(--blue)}
+.il .pillico{fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.il.s7 .card,.il.s7 .node{filter:url(#som7)}
+.il.s4 .card,.il.s4 .node{filter:url(#som4)}
+.il.s5 .card,.il.s5 .node{filter:url(#som5)}
+.il.s6 .card,.il.s6 .node{filter:url(#som6)}
+
+@media (max-width:980px){
+  main.inicio{min-height:0;display:block}
+  .destinos{grid-template-columns:1fr;grid-auto-rows:auto}
+  .destino{grid-template-columns:1fr;grid-template-areas:"h" "p" "il" "c"}
+  .destino .dil svg{height:auto;max-height:200px}
+}

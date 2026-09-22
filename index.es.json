@@ -1,5 +1,5 @@
 {
-  "version": "7e22b291d_1790067239",
+  "version": "6b39ee1a2_1790068782",
   "lang": "es",
   "facets": [
     {
@@ -72,145 +72,6 @@
         {
           "id": "Construcción",
           "label": "Construcción"
-        }
-      ]
-    },
-    {
-      "key": "problema",
-      "label": "Problema de negocio",
-      "type": "multi_select",
-      "dynamic": false,
-      "grupo": "principal",
-      "options": [
-        {
-          "id": "documentos",
-          "label": "Nos ahogamos en documentos y papeleo"
-        },
-        {
-          "id": "atencion",
-          "label": "La atención al cliente está saturada"
-        },
-        {
-          "id": "plataforma",
-          "label": "Mi plataforma de datos es cara, lenta y vieja"
-        },
-        {
-          "id": "confianza",
-          "label": "No me fío de mis datos y el regulador aprieta"
-        },
-        {
-          "id": "vender",
-          "label": "Quiero vender más a los clientes que ya tengo"
-        },
-        {
-          "id": "operaciones",
-          "label": "Operamos a ciegas y las incidencias nos pillan"
-        },
-        {
-          "id": "repetitivo",
-          "label": "Mi gente pierde horas en tareas repetitivas"
-        },
-        {
-          "id": "empezar",
-          "label": "Quiero IA pero no sé por dónde empezar"
-        }
-      ]
-    },
-    {
-      "key": "problema_tecnico",
-      "label": "Problema técnico",
-      "type": "multi_select",
-      "dynamic": false,
-      "grupo": "principal",
-      "options": [
-        {
-          "id": "datos-dispersos",
-          "label": "Datos dispersos, sin plataforma unificada"
-        },
-        {
-          "id": "integracion-manual",
-          "label": "Integraciones y procesos manuales"
-        },
-        {
-          "id": "sin-gobierno",
-          "label": "Sin gobierno, calidad ni trazabilidad del dato"
-        },
-        {
-          "id": "reporting-manual",
-          "label": "Reporting manual y planificación en hojas de cálculo"
-        },
-        {
-          "id": "sin-observabilidad",
-          "label": "Sin observabilidad ni diagnóstico de incidencias"
-        },
-        {
-          "id": "documentos-a-mano",
-          "label": "Documentos procesados a mano"
-        },
-        {
-          "id": "atencion-sin-automatizar",
-          "label": "Atención y consultas sin asistentes"
-        },
-        {
-          "id": "sin-modelos",
-          "label": "Sin modelos predictivos en producción"
-        },
-        {
-          "id": "gobernar-ia",
-          "label": "Necesidad de gobernar y escalar la IA"
-        }
-      ]
-    },
-    {
-      "key": "solucion",
-      "label": "Familia de solución",
-      "type": "multi_select",
-      "dynamic": false,
-      "grupo": "principal",
-      "options": [
-        {
-          "id": "plataforma-datos",
-          "label": "Modernización de plataforma de datos"
-        },
-        {
-          "id": "etl",
-          "label": "Modernización de procesos e integración"
-        },
-        {
-          "id": "bi-epm",
-          "label": "Business Intelligence y planificación"
-        },
-        {
-          "id": "gobierno",
-          "label": "Gobierno del dato, seguridad y compliance"
-        },
-        {
-          "id": "documental",
-          "label": "Inteligencia documental"
-        },
-        {
-          "id": "asistentes",
-          "label": "Asistentes y agentes conversacionales"
-        },
-        {
-          "id": "predictiva",
-          "label": "Analítica predictiva y propensión"
-        },
-        {
-          "id": "observabilidad",
-          "label": "Observabilidad y AIOps"
-        },
-        {
-          "id": "tiempo-real",
-          "label": "Tiempo real y arquitecturas de eventos"
-        },
-        {
-          "id": "adopcion",
-          "label": "Adopción de IA y puesto de trabajo"
-        },
-        {
-          "id": "desarrollo",
-          "label": "Desarrollo moderno asistido por IA"
         }
       ]
     },
@@ -852,139 +713,11 @@
       ]
     },
     {
-      "key": "clasificacion",
-      "label": "Clasificación tecnológica",
-      "type": "multi_select",
-      "dynamic": false,
-      "grupo": "principal",
-      "options": [
-        {
-          "id": "observabilidad-ai",
-          "label": "Observabilidad & AI"
-        },
-        {
-          "id": "agentic-ai",
-          "label": "Agentic AI"
-        },
-        {
-          "id": "call-centers",
-          "label": "Call Centers"
-        },
-        {
-          "id": "automatizacion",
-          "label": "Automatización"
-        },
-        {
-          "id": "asistentes",
-          "label": "Asistentes conversacionales"
-        },
-        {
-          "id": "analitica",
-          "label": "Analítica de datos"
-        },
-        {
-          "id": "machine-learning",
-          "label": "Machine Learning"
-        },
-        {
-          "id": "gobierno-dato",
-          "label": "Gobierno del dato"
-        },
-        {
-          "id": "plataforma",
-          "label": "Plataforma de datos"
-        },
-        {
-          "id": "documental",
-          "label": "Inteligencia documental"
-        },
-        {
-          "id": "adopcion-ia",
-          "label": "Adopción de IA"
-        },
-        {
-          "id": "desarrollo-ia",
-          "label": "Desarrollo asistido por IA"
-        }
-      ]
-    },
-    {
-      "key": "estrategia",
-      "label": "Estrategia tecnológica",
-      "type": "single_select",
-      "dynamic": false,
-      "grupo": "principal",
-      "options": [
-        {
-          "id": "hyperscaler",
-          "label": "Cloud"
-        },
-        {
-          "id": "hibrido",
-          "label": "Híbrida"
-        },
-        {
-          "id": "abierto",
-          "label": "Open source"
-        },
-        {
-          "id": "propietario",
-          "label": "On-prem y fabricante"
-        }
-      ]
-    },
-    {
-      "key": "estado_oportunidad",
-      "label": "Estado de la oportunidad",
-      "type": "single_select",
-      "dynamic": false,
-      "grupo": "principal",
-      "options": [
-        {
-          "id": "ganada",
-          "label": "Ganada"
-        },
-        {
-          "id": "en-curso",
-          "label": "En curso"
-        },
-        {
-          "id": "perdida",
-          "label": "Perdida"
-        },
-        {
-          "id": "propuesta",
-          "label": "Propuesta"
-        }
-      ]
-    },
-    {
-      "key": "referenciable",
-      "label": "Cliente referenciable",
-      "type": "single_select",
-      "dynamic": false,
-      "grupo": "principal",
-      "options": [
-        {
-          "id": "si",
-          "label": "Sí"
-        },
-        {
-          "id": "no",
-          "label": "No"
-        },
-        {
-          "id": "sin-confirmar",
-          "label": "Sin confirmar"
-        }
-      ]
-    },
-    {
       "key": "tipo_proyecto",
       "label": "Tipo de Proyecto",
       "type": "single_select",
       "dynamic": false,
-      "grupo": "mas",
+      "grupo": "principal",
       "options": [
         {
           "id": "MVP/PoC",
@@ -1013,7 +746,7 @@
       "label": "Unidad de Negocio",
       "type": "single_select",
       "dynamic": false,
-      "grupo": "mas",
+      "grupo": "principal",
       "options": [
         {
           "id": "Data & AI",
@@ -1030,56 +763,6 @@
         {
           "id": "Business Applications",
           "label": "Business Applications"
-        }
-      ]
-    },
-    {
-      "key": "estado_ficha",
-      "label": "Estado de la ficha",
-      "type": "single_select",
-      "dynamic": false,
-      "grupo": "mas",
-      "options": [
-        {
-          "id": "borrador",
-          "label": "Borrador"
-        },
-        {
-          "id": "por-validacion",
-          "label": "Pendiente de validación"
-        },
-        {
-          "id": "validada",
-          "label": "Validada"
-        }
-      ]
-    },
-    {
-      "key": "importe",
-      "label": "Tamaño del proyecto",
-      "type": "single_select",
-      "dynamic": false,
-      "grupo": "mas",
-      "options": [
-        {
-          "id": "0-25",
-          "label": "Hasta 25 k€"
-        },
-        {
-          "id": "25-50",
-          "label": "25 a 50 k€"
-        },
-        {
-          "id": "50-100",
-          "label": "50 a 100 k€"
-        },
-        {
-          "id": "100-250",
-          "label": "100 a 250 k€"
-        },
-        {
-          "id": "250+",
-          "label": "Más de 250 k€"
         }
       ]
     },
@@ -1109,7 +792,7 @@
       "label": "Partner",
       "type": "multi_select",
       "dynamic": false,
-      "grupo": "mas",
+      "grupo": "principal",
       "options": [
         {
           "id": "Microsoft",
@@ -1138,126 +821,6 @@
         {
           "id": "Google Cloud",
           "label": "Google Cloud"
-        }
-      ]
-    },
-    {
-      "key": "sistemas",
-      "label": "Sistemas integrados",
-      "type": "multi_select",
-      "dynamic": false,
-      "grupo": "mas",
-      "options": [
-        {
-          "id": "ServiceNow",
-          "label": "ServiceNow"
-        },
-        {
-          "id": "Jira",
-          "label": "Jira"
-        },
-        {
-          "id": "Genesys",
-          "label": "Genesys"
-        },
-        {
-          "id": "SAP",
-          "label": "SAP"
-        },
-        {
-          "id": "Salesforce",
-          "label": "Salesforce"
-        },
-        {
-          "id": "Microsoft Dynamics",
-          "label": "Microsoft Dynamics"
-        },
-        {
-          "id": "Microsoft Teams",
-          "label": "Microsoft Teams"
-        },
-        {
-          "id": "Confluence",
-          "label": "Confluence"
-        },
-        {
-          "id": "Zendesk",
-          "label": "Zendesk"
-        },
-        {
-          "id": "HubSpot",
-          "label": "HubSpot"
-        },
-        {
-          "id": "Propio del cliente",
-          "label": "Propio del cliente"
-        }
-      ]
-    },
-    {
-      "key": "tipologia",
-      "label": "Tipo de encargo",
-      "type": "single_select",
-      "dynamic": false,
-      "grupo": "mas",
-      "options": [
-        {
-          "id": "assessment",
-          "label": "Assessment / PoC"
-        },
-        {
-          "id": "proyecto",
-          "label": "Proyecto cerrado"
-        },
-        {
-          "id": "gestionado",
-          "label": "Servicio gestionado"
-        },
-        {
-          "id": "squad",
-          "label": "Squad ágil / resourcing"
-        }
-      ]
-    },
-    {
-      "key": "ambito",
-      "label": "Ámbito",
-      "type": "single_select",
-      "dynamic": false,
-      "grupo": "mas",
-      "options": [
-        {
-          "id": "publico",
-          "label": "Sector público"
-        },
-        {
-          "id": "privado",
-          "label": "Sector privado"
-        }
-      ]
-    },
-    {
-      "key": "madurez",
-      "label": "Madurez del cliente",
-      "type": "single_select",
-      "dynamic": false,
-      "grupo": "mas",
-      "options": [
-        {
-          "id": "explorador",
-          "label": "Explorador"
-        },
-        {
-          "id": "constructor",
-          "label": "Constructor"
-        },
-        {
-          "id": "escalador",
-          "label": "Escalador"
-        },
-        {
-          "id": "optimizador",
-          "label": "Optimizador"
         }
       ]
     }

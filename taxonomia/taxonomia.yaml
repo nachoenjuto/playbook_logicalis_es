@@ -9,6 +9,7 @@
 #   dynamic   true = las opciones salen de las fichas (año, cliente); false = son las de esta lista
 #   grupo     principal (siempre a la vista) o mas (dentro de «Más filtros»)
 #   interna   true = solo se enseña con sesión de empleado (nombre del cliente)
+#   oculta    true = declarada pero sin pintar en el explorador (pendiente de que Alberto la apruebe)
 #   derivada  cómo la calcula el build cuando la ficha no trae el campo
 #   options   id (lo que va en la ficha; en las facetas de Alberto es la etiqueta en castellano),
 #             es / en (etiquetas; si faltan, la etiqueta es el id)
@@ -41,6 +42,7 @@ facets:
   - {id: Medios y entretenimiento, en: Media and Entertainment}
   - {id: Construcción, en: Construction}
 - key: problema
+  oculta: true
   label: {es: Problema de negocio, en: Business problem}
   type: multi_select
   options:
@@ -59,6 +61,7 @@ facets:
   dynamic: false
   grupo: principal
 - key: problema_tecnico
+  oculta: true
   label: {es: Problema técnico, en: Technical problem}
   type: multi_select
   options:
@@ -78,6 +81,7 @@ facets:
   dynamic: false
   grupo: principal
 - key: solucion
+  oculta: true
   label: {es: Familia de solución, en: Solution family}
   type: multi_select
   options:
@@ -258,6 +262,7 @@ facets:
   - {id: SQL Server}
   - {id: DataDog}
 - key: clasificacion
+  oculta: true
   label: {es: Clasificación tecnológica, en: Technology classification}
   type: multi_select
   options:
@@ -276,6 +281,7 @@ facets:
   dynamic: false
   grupo: principal
 - key: estrategia
+  oculta: true
   label: {es: Estrategia tecnológica, en: Technology strategy}
   type: single_select
   options:
@@ -286,6 +292,7 @@ facets:
   dynamic: false
   grupo: principal
 - key: estado_oportunidad
+  oculta: true
   label: {es: Estado de la oportunidad, en: Opportunity status}
   type: single_select
   options:
@@ -296,6 +303,7 @@ facets:
   dynamic: false
   grupo: principal
 - key: referenciable
+  oculta: true
   label: {es: Cliente referenciable, en: Referenceable client}
   type: single_select
   derivada: 'cliente_publico: true → si; false → no; sin dato → sin-confirmar'
@@ -309,7 +317,7 @@ facets:
   label: {es: Tipo de Proyecto, en: Project Type}
   type: single_select
   dynamic: false
-  grupo: mas
+  grupo: principal
   options:
   - {id: MVP/PoC}
   - {id: Vertical}
@@ -320,13 +328,14 @@ facets:
   label: {es: Unidad de Negocio, en: Business Unit}
   type: single_select
   dynamic: false
-  grupo: mas
+  grupo: principal
   options:
   - {id: Data & AI}
   - {id: Cloud & Managed Services}
   - {id: Security}
   - {id: Business Applications}
 - key: estado_ficha
+  oculta: true
   label: {es: Estado de la ficha, en: Card status}
   type: single_select
   grupo: mas
@@ -336,6 +345,7 @@ facets:
   - {id: validada, es: Validada, en: Validated}
   dynamic: false
 - key: cliente
+  oculta: true
   label: {es: Cliente, en: Client}
   type: single_select
   grupo: mas
@@ -343,6 +353,7 @@ facets:
   dynamic: true
   derivada: cliente_display, solo con sesión de empleado
 - key: importe
+  oculta: true
   label: {es: Tamaño del proyecto, en: Project size}
   type: single_select
   grupo: mas
@@ -362,7 +373,7 @@ facets:
   label: {es: Partner, en: Partner}
   type: multi_select
   dynamic: false
-  grupo: mas
+  grupo: principal
   options:
   - {id: Microsoft}
   - {id: AWS}
@@ -372,6 +383,7 @@ facets:
   - {id: IBM}
   - {id: Google Cloud}
 - key: sistemas
+  oculta: true
   label: {es: Sistemas integrados, en: Integrated systems}
   type: multi_select
   grupo: mas
@@ -389,6 +401,7 @@ facets:
   - {id: Propio del cliente, en: Client's own system}
   dynamic: false
 - key: tipologia
+  oculta: true
   label: {es: Tipo de encargo, en: Engagement type}
   type: single_select
   grupo: mas
@@ -399,6 +412,7 @@ facets:
   - {id: squad, es: Squad ágil / resourcing, en: Agile squad / resourcing}
   dynamic: false
 - key: ambito
+  oculta: true
   label: {es: Ámbito, en: Scope}
   type: single_select
   grupo: mas
@@ -408,6 +422,7 @@ facets:
   - {id: privado, es: Sector privado, en: Private sector}
   dynamic: false
 - key: madurez
+  oculta: true
   label: {es: Madurez del cliente, en: Client maturity}
   type: single_select
   grupo: mas

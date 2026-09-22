@@ -3,9 +3,11 @@
 """Genera el índice del catálogo a partir de las fichas y de la taxonomía.
 
     python tools/build.py            escribe index.es.json, index.en.json, build_meta.json y
-                                     actualiza el build-id de index.html (caché)
+                                     actualiza el build-id de explorador.html (caché)
     python tools/build.py --comprobar   no escribe nada: compara con lo que hay y avisa
     python tools/build.py --interno     incluye las facetas marcadas «interna» (nombre del cliente)
+
+Páginas: index.html (portada) -> inicio.html (inicio) -> explorador.html (el catálogo, app.js + styles.css).
 
 Qué lee:
     fichas/<id>.<idioma>.md      una ficha por caso e idioma: cabecera YAML entre «---» y cuerpo Markdown
@@ -28,6 +30,7 @@ Reglas:
   - «publicar: false» en la cabecera deja la ficha fuera del índice (borradores, ejemplos).
   - Las etiquetas (tags) que el índice anterior tuviera de más para un caso (el enriquecimiento del
     generador de Alberto) se conservan detrás de las de la ficha.
+  - Las facetas con «oculta: true» en la taxonomía no se emiten (declaradas para más adelante).
   - Los embeddings (embeddings.<idioma>.json) no se tocan aquí: tools/embeddings.py.
 """
 import argparse
@@ -166,7 +169,7 @@ def construye_indice(idioma, fichas, facetas, interno, version):
 
     salida_facetas = []
     for f in facetas:
-        if f.get("interna") and not interno:
+        if f.get("oculta") or (f.get("interna") and not interno):
             continue
         if f.get("dynamic"):
             usados = sorted({v for c in casos for v in valores(c, f["key"])}, reverse=(f["key"] == "anio"))
@@ -189,8 +192,8 @@ def build_id():
 
 
 def actualiza_html(bid):
-    """El build-id de index.html: la meta y los «?v=» de styles.css y app.js (caché del navegador)."""
-    ruta = os.path.join(RAIZ, "index.html")
+    """El build-id de explorador.html: la meta y los «?v=» de styles.css y app.js (caché del navegador)."""
+    ruta = os.path.join(RAIZ, "explorador.html")
     h = io.open(ruta, encoding="utf-8").read()
     h2 = re.sub(r'(<meta name="build-id" content=")[^"]*(")', rf'\g<1>{bid}\g<2>', h, count=1)
     h2 = re.sub(r'((?:styles\.css|app\.js)\?v=)[^"&]*', rf'\g<1>{bid}', h2)

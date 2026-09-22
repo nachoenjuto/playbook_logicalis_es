@@ -106,7 +106,6 @@ function catalogApp() {
         searchPlaceholder: 'Buscar por tecnología, sector, palabra clave o problema...',
         clearSearch: 'Limpiar búsqueda',
         filtersTitle: 'Filtros',
-        moreFilters: 'Más filtros',
         clearAllFilters: 'Limpiar todo',
         activeFiltersLabel: 'Filtros activos',
         showingResults: 'Mostrando',
@@ -191,7 +190,6 @@ function catalogApp() {
         searchPlaceholder: 'Search by technology, industry, keyword, or challenge...',
         clearSearch: 'Clear search',
         filtersTitle: 'Filters',
-        moreFilters: 'More filters',
         clearAllFilters: 'Clear all',
         activeFiltersLabel: 'Active filters',
         showingResults: 'Showing',
@@ -311,7 +309,12 @@ function catalogApp() {
         }
       }
 
-      // Load initial catalog & vectors in default language
+      // Language chosen on the home page (inicio.html) travels in the URL: explorador.html?lang=en
+      if (typeof window !== 'undefined' && /[?&]lang=en(?:&|$)/.test(window.location.search)) {
+        this.currentLang = 'en';
+      }
+
+      // Load initial catalog & vectors in the chosen language
       this.loadCatalog(this.currentLang);
     },
 
@@ -698,23 +701,6 @@ function catalogApp() {
 
     sortedFacetOptions(facet) {
       return this.facetSorted[facet.key] || facet.options || [];
-    },
-
-    // Facets of a group («principal» or «mas», from taxonomia/taxonomia.yaml) that have at least one
-    // option in use. A facet declared in the taxonomy but not yet filled by any ficha is not rendered.
-    visibleFacets(grupo) {
-      return (this.catalogData.facets || []).filter(
-        (f) => (f.grupo || 'principal') === grupo && this.sortedFacetOptions(f).length > 0
-      );
-    },
-
-    // Active selections inside a group (badge on the "Más filtros" heading).
-    activeCountIn(grupo) {
-      return this.visibleFacets(grupo).reduce((n, f) => n + (this.activeFilters[f.key] || []).length, 0);
-    },
-
-    get moreFiltersOpen() {
-      return this.activeCountIn('mas') > 0;
     },
 
     facetCount(facet, option) {

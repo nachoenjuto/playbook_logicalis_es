@@ -1,0 +1,76 @@
+/* =======================================================================
+   PORTADA · The Use Case Playbook
+   Dos mitades sobre blanco, patrón editorial. Izquierda: logo, etiqueta,
+   el título grande, la línea, la frase del explorador, el botón de Microsoft
+   y la nota de uso interno. Derecha: la ilustración del repositorio con el
+   isotipo de Logicalis en marca de agua detrás, los dos en bloque.
+   Paleta oficial: azul #1B4BFF, rojo #FF1414, negro #111, grises.
+   Tipografías: Montserrat (todo, título incluido). Roboto Slab solo en el
+   contador de la ilustración.
+   ======================================================================= */
+:root{ --iso:url("assets/isotipo-logicalis.png"); }
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#fff}
+body{font-family:'Montserrat',sans-serif;color:#111;-webkit-font-smoothing:antialiased;min-height:100vh}
+button{font-family:inherit}
+
+#cover{display:grid;grid-template-columns:45% 55%;align-items:stretch;min-height:100vh;background:#fff;overflow:hidden}
+#cover.saliendo{animation:cvfuera .42s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes cvfuera{to{opacity:0;transform:scale(1.02)}}
+
+/* ---------- izquierda ---------- */
+.cv-izq{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;min-height:100vh;
+  padding:clamp(40px,6vh,64px) clamp(40px,7vw,110px);background:transparent;color:#111}
+.cv-izq-logo{position:absolute;top:clamp(32px,4.6vh,48px);left:clamp(40px,7vw,110px);height:clamp(54px,7.4vh,70px);width:auto;margin:0}
+.cv-izq-cuerpo{position:relative;max-width:640px;animation:cvcard .9s cubic-bezier(.22,.9,.35,1) .2s both}
+@keyframes cvcard{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cv-izq-kicker{font-size:10.5px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#1B4BFF;margin:0 0 clamp(16px,2.6vh,26px)}
+/* el título en Montserrat (22/09), antes iba en Roboto Slab */
+.cv-izq-h1{font-family:'Montserrat',sans-serif;font-weight:600;font-size:clamp(46px,5.5vw,86px);line-height:1;letter-spacing:-.03em;color:#111;margin:0;white-space:nowrap}
+.cv-izq-rule{width:clamp(150px,14vw,210px);height:3px;background:#111;margin:clamp(26px,4vh,40px) 0 clamp(24px,3.6vh,36px)}
+.cv-izq-txt{font-weight:400;font-size:14px;line-height:1.7;color:#4B5563;margin:0}
+.cv-izq-pie{margin:22px 0 0;padding-left:12px;border-left:1px solid #D9DEEA;font-size:11px;line-height:1.6;color:#8A93A8;max-width:400px}
+
+/* el botón de Microsoft, como lo pinta Microsoft: blanco, borde gris, los cuatro cuadros */
+.cv-sso{appearance:none;cursor:pointer;position:relative;display:inline-flex;align-items:center;gap:12px;height:44px;
+  margin:clamp(26px,3.8vh,34px) 0 0;padding:0 18px 0 14px;border-radius:0;background:#fff;border:1px solid #8C8C8C;color:#5E5E5E;
+  font-size:15px;font-weight:600;transition:background .18s,border-color .18s}
+.cv-sso:hover{background:#F7F7F7;border-color:#5E5E5E}
+.cv-sso:focus-visible{outline:2px solid #1B4BFF;outline-offset:3px}
+.cv-sso .ms{flex:none;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center}
+.cv-sso svg{width:20px;height:20px;flex:none}
+.cv-sso .anillo{display:none;width:16px;height:16px;border-radius:50%;border:2px solid rgba(94,94,94,.3);border-top-color:#5E5E5E;animation:cvgira .8s linear infinite}
+@keyframes cvgira{to{transform:rotate(360deg)}}
+.cv-sso.cargando{pointer-events:none;background:#F7F7F7}
+.cv-sso.cargando svg{display:none}
+.cv-sso.cargando .anillo{display:block}
+
+/* ---------- derecha: la ilustración y el infinito, en bloque ---------- */
+.cv-der{position:relative;overflow:visible;background:transparent;min-height:100vh}
+.cv-repo{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;z-index:2;pointer-events:none}
+.cv-bloque{position:relative;width:min(76%,740px)}
+/* el isotipo detrás, plano y en azul: con mucho más contraste que antes (22/09) */
+.cv-bloque .cv-wm{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150%;aspect-ratio:1001/465;background:#1B4BFF;opacity:.30;z-index:0;
+  filter:blur(1.5px);pointer-events:none;-webkit-mask:var(--iso) center/contain no-repeat;mask:var(--iso) center/contain no-repeat}
+.cv-repo svg{position:relative;z-index:1;width:100%;height:auto;display:block;overflow:visible;animation:cvcard 1s cubic-bezier(.22,.9,.35,1) .35s both}
+.cv-il .card{fill:#fff;stroke:rgba(22,32,68,.14);stroke-width:1}
+.cv-il .ln{stroke:#D9DDE7;stroke-width:5;stroke-linecap:round}
+.cv-il .ln.s{stroke:#E6E9F0}
+.cv-il .bar{fill:#DFE3EE}
+.cv-il .bar.b{fill:#FF1414}
+.cv-il .ico{fill:none;stroke:#1B4BFF;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cv-il .pill{fill:#1B4BFF}
+.cv-il text{fill:#fff}
+
+@media (max-width:900px){
+  #cover{grid-template-columns:1fr}
+  .cv-izq{min-height:0;padding:110px 28px 40px}
+  .cv-izq-logo{left:28px;top:32px}
+  .cv-izq-h1{font-size:clamp(44px,11vw,64px)}
+  .cv-der{min-height:52vh}
+  .cv-repo{justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  .cv-izq-cuerpo,.cv-repo svg,#cover.saliendo{animation:none}
+}
