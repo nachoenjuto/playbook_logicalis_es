@@ -35,15 +35,26 @@ const lee = (f) => JSON.parse(fs.readFileSync(path.join(RAIZ, f), 'utf8'));
 const existe = (f) => fs.existsSync(path.join(RAIZ, f));
 
 /** Las recetas de texto que se prueban en --calibrar. La primera es la que se usa al generar. */
+const cuerpo = (c) => {
+  // el texto de la ficha (fichas/<id>.<idioma>.md) sin la cabecera YAML
+  try {
+    const md = fs.readFileSync(path.join(RAIZ, c.ficha_ref), 'utf8');
+    return md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '').trim();
+  } catch {
+    return '';
+  }
+};
+
 const RECETAS = {
   'titulo+briefing+tags': (c) => [c.title, c.briefing, (c.tags || []).join(', ')].filter(Boolean).join('\n'),
-  'titulo+briefing': (c) => [c.title, c.briefing].filter(Boolean).join('\n'),
-  'titulo+briefing+tags+tecnologia': (c) =>
-    [c.title, c.briefing, (c.tags || []).join(', '), (c.tecnologia || []).join(', ')].filter(Boolean).join('\n'),
+  'titulo+briefing+tags (punto)': (c) => [c.title, c.briefing, (c.tags || []).join(', ')].filter(Boolean).join('. '),
+  'titulo+tags+briefing': (c) => [c.title, (c.tags || []).join(', '), c.briefing].filter(Boolean).join('\n'),
+  'titulo+cuerpo': (c) => [c.title, cuerpo(c)].filter(Boolean).join('\n'),
+  'solo-cuerpo': (c) => cuerpo(c),
+  'titulo+briefing+tags+cuerpo': (c) =>
+    [c.title, c.briefing, (c.tags || []).join(', '), cuerpo(c)].filter(Boolean).join('\n'),
   'titulo+cliente+sector+briefing+tags': (c) =>
     [c.title, c.cliente_display, c.sector_label || c.sector, c.briefing, (c.tags || []).join(', ')].filter(Boolean).join('\n'),
-  'solo-briefing': (c) => c.briefing || '',
-  'solo-titulo': (c) => c.title || '',
 };
 const RECETA_POR_DEFECTO = 'titulo+briefing+tags';
 
