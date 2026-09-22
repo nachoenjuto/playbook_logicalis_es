@@ -1,4 +1,5 @@
 ---
+publicar: false  # ejemplo inventado del catálogo original, no es un caso real
 id: banco-fraude-ml
 lang: es
 title: Sistema de Detección de Fraude en Tiempo Real con Modelos de Machine Learning

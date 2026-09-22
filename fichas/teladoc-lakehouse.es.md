@@ -1,4 +1,5 @@
 ---
+publicar: false  # ejemplo inventado del catálogo original, no es un caso real
 id: teladoc-lakehouse
 lang: es
 title: Plataforma Lakehouse para Analítica Clínica e Interoperabilidad Hospitalaria

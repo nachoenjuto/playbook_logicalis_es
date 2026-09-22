@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Catálogo de Casos de Uso y Éxito de la Unidad - Logicalis Spain. Soluciones en Cloud, Data, AI y Ciberseguridad.">
   <meta name="theme-color" content="#143CCD">
-  <meta name="build-id" content="01f8084a0_1790080000">
+  <meta name="build-id" content="7e22b291d_1790067239">
   <meta
     http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net; img-src 'self' data:;">
@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Logicalis Design System Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=01f8084a0_1790080000">
+  <link rel="stylesheet" href="styles.css?v=7e22b291d_1790067239">
 
   <!-- Third-party CDN Dependencies with Subresource Integrity (SRI) -->
   <script
@@ -49,7 +49,7 @@
   </script>
 
   <!-- Application Logic -->
-  <script src="app.js?v=01f8084a0_1790080000"></script>
+  <script src="app.js?v=7e22b291d_1790067239"></script>
 
   <!-- Alpine.js 3.x with defer -->
   <script
@@ -149,8 +149,10 @@
             </div>
           </div>
 
-          <!-- Dynamic Facet Groups: 100% Data-Driven from catalogData.facets (AC-007) -->
-          <template x-for="facet in catalogData.facets" :key="facet.key">
+          <!-- Dynamic Facet Groups: 100% Data-Driven from catalogData.facets (AC-007).
+               Two groups from taxonomia/taxonomia.yaml: «principal» always visible, «mas» folded
+               under "Más filtros". Facets with no option in use are not rendered. -->
+          <template x-for="facet in visibleFacets('principal')" :key="facet.key">
             <details class="fgroup">
               <summary class="facet-heading">
                 <span x-text="facet.label"></span>
@@ -194,6 +196,59 @@
               </button>
             </details>
           </template>
+          <details class="fgroup fgroup-more" x-show="visibleFacets('mas').length > 0" :open="moreFiltersOpen">
+            <summary class="facet-heading">
+              <span x-text="t.moreFilters">Más filtros</span>
+              <span class="facet-active-count" x-show="activeCountIn('mas') > 0" x-text="activeCountIn('mas')"></span>
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <template x-for="facet in visibleFacets('mas')" :key="facet.key">
+            <details class="fgroup">
+              <summary class="facet-heading">
+                <span x-text="facet.label"></span>
+                <span
+                  class="facet-active-count"
+                  x-show="(activeFilters[facet.key] || []).length > 0"
+                  x-text="(activeFilters[facet.key] || []).length"></span>
+                <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <input
+                type="search"
+                class="facet-search-input"
+                x-show="facetSearchable(facet)"
+                x-model="facetSearch[facet.key]"
+                :placeholder="t.facetSearch"
+                :aria-label="t.facetSearch + ' ' + facet.label">
+              <ul class="facet-options-list">
+                <template x-for="option in visibleFacetOptions(facet)" :key="option.id">
+                  <li>
+                    <label class="facet-option-label">
+                      <input
+                        :type="facet.type === 'single_select' ? 'radio' : 'checkbox'"
+                        :name="facet.type === 'single_select' ? 'facet-' + facet.key : null"
+                        class="facet-checkbox"
+                        :checked="isFilterActive(facet.key, option.id)"
+                        @change="toggleFilter(facet, option.id)">
+                      <span class="facet-option-text" x-text="option.label"></span>
+                      <span class="facet-option-count" x-text="facetCount(facet, option)"></span>
+                    </label>
+                  </li>
+                </template>
+              </ul>
+              <button
+                type="button"
+                class="facet-toggle-more"
+                x-show="facetHasMore(facet)"
+                @click="toggleFacetExpanded(facet.key)"
+                x-text="expandedFacets[facet.key] ? t.showLess : t.showMore + ' (' + facetHiddenCount(facet) + ')'">
+              </button>
+            </details>
+            </template>
+          </details>
         </aside>
 
         <!-- Results: search + controls sit right above the cards, in the same column -->

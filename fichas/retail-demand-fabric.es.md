@@ -1,4 +1,5 @@
 ---
+publicar: false  # ejemplo inventado del catálogo original, no es un caso real
 id: retail-demand-fabric
 lang: es
 title: Previsión de Demanda y Optimización de Cadena de Suministro con Microsoft Fabric

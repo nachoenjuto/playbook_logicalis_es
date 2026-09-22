@@ -1,0 +1,419 @@
+# Taxonomía del catálogo: las facetas del explorador y sus categorías.
+# Es la única fuente de los filtros: tools/build.py la lee y la vuelca en index.es.json e index.en.json,
+# que es lo que carga app.js (que no tiene ninguna faceta escrita a mano).
+#
+# Cada faceta:
+#   key       campo de la cabecera YAML de fichas/<id>.<idioma>.md (el mismo en los dos idiomas)
+#   label     etiqueta del filtro en cada idioma
+#   type      single_select (una opción, como un radio) o multi_select (varias)
+#   dynamic   true = las opciones salen de las fichas (año, cliente); false = son las de esta lista
+#   grupo     principal (siempre a la vista) o mas (dentro de «Más filtros»)
+#   interna   true = solo se enseña con sesión de empleado (nombre del cliente)
+#   derivada  cómo la calcula el build cuando la ficha no trae el campo
+#   options   id (lo que va en la ficha; en las facetas de Alberto es la etiqueta en castellano),
+#             es / en (etiquetas; si faltan, la etiqueta es el id)
+#
+# Las seis primeras claves (sector, tecnologia, tipo_proyecto, partner, bu, anio) son las del catálogo
+# de Alberto y sus opciones son las suyas. El resto viene del playbook de Gerard (lista de facetas de
+# Nacho, 21/09/2026): solo se pintan cuando alguna ficha trae el campo.
+version: 2
+facets:
+- key: sector
+  label: {es: Sector, en: Industry}
+  type: single_select
+  dynamic: false
+  grupo: principal
+  options:
+  - {id: Salud, en: Healthcare}
+  - {id: Banca y Finanzas, en: Banking & Finance}
+  - {id: Seguros, en: Insurance}
+  - {id: Telecomunicaciones, en: Telecommunications}
+  - {id: Industria y Fabricación, en: Manufacturing}
+  - {id: Retail y Consumo, en: Retail & Consumer}
+  - {id: Sector Público, en: Public Sector}
+  - {id: Energía y Utilities, en: Energy & Utilities}
+  - {id: Logística y Transporte, en: Logistics & Transport}
+  - {id: No determinado}
+  - {id: Tecnología y Servicios Digitales, en: Technology and Digital Services}
+  - {id: Inmobiliario, en: Real Estate}
+  - {id: Formación y Servicios Profesionales, en: Training and Professional Services}
+  - {id: Turismo y ocio, en: Tourism and Leisure}
+  - {id: Medios y entretenimiento, en: Media and Entertainment}
+  - {id: Construcción, en: Construction}
+- key: problema
+  label: {es: Problema de negocio, en: Business problem}
+  type: multi_select
+  options:
+  - {id: documentos, es: Nos ahogamos en documentos y papeleo, en: We are drowning in documents and paperwork}
+  - {id: atencion, es: La atención al cliente está saturada, en: Our customer service is overwhelmed}
+  - {id: plataforma, es: 'Mi plataforma de datos es cara, lenta y vieja', en: 'My data platform is expensive, slow
+      and outdated'}
+  - {id: confianza, es: No me fío de mis datos y el regulador aprieta, en: I do not trust my data and the regulator
+      is tightening}
+  - {id: vender, es: Quiero vender más a los clientes que ya tengo, en: I want to sell more to the customers I already
+      have}
+  - {id: operaciones, es: Operamos a ciegas y las incidencias nos pillan, en: We operate blind and incidents catch
+      us off guard}
+  - {id: repetitivo, es: Mi gente pierde horas en tareas repetitivas, en: My people lose hours on repetitive tasks}
+  - {id: empezar, es: Quiero IA pero no sé por dónde empezar, en: I want AI but I do not know where to start}
+  dynamic: false
+  grupo: principal
+- key: problema_tecnico
+  label: {es: Problema técnico, en: Technical problem}
+  type: multi_select
+  options:
+  - {id: datos-dispersos, es: 'Datos dispersos, sin plataforma unificada', en: 'Scattered data, no unified platform'}
+  - {id: integracion-manual, es: Integraciones y procesos manuales, en: Manual integrations and processes}
+  - {id: sin-gobierno, es: 'Sin gobierno, calidad ni trazabilidad del dato', en: 'No data governance, quality or
+      lineage'}
+  - {id: reporting-manual, es: Reporting manual y planificación en hojas de cálculo, en: Manual reporting and spreadsheet
+      planning}
+  - {id: sin-observabilidad, es: Sin observabilidad ni diagnóstico de incidencias, en: No observability or incident
+      diagnosis}
+  - {id: documentos-a-mano, es: Documentos procesados a mano, en: Documents processed by hand}
+  - {id: atencion-sin-automatizar, es: Atención y consultas sin asistentes, en: Customer care and queries without
+      assistants}
+  - {id: sin-modelos, es: Sin modelos predictivos en producción, en: No predictive models in production}
+  - {id: gobernar-ia, es: Necesidad de gobernar y escalar la IA, en: Need to govern and scale AI}
+  dynamic: false
+  grupo: principal
+- key: solucion
+  label: {es: Familia de solución, en: Solution family}
+  type: multi_select
+  options:
+  - {id: plataforma-datos, es: Modernización de plataforma de datos, en: Data platform modernisation}
+  - {id: etl, es: Modernización de procesos e integración, en: Process modernisation and integration}
+  - {id: bi-epm, es: Business Intelligence y planificación, en: Business Intelligence and planning}
+  - {id: gobierno, es: 'Gobierno del dato, seguridad y compliance', en: 'Data governance, security and compliance'}
+  - {id: documental, es: Inteligencia documental, en: Document intelligence}
+  - {id: asistentes, es: Asistentes y agentes conversacionales, en: Conversational assistants and agents}
+  - {id: predictiva, es: Analítica predictiva y propensión, en: Predictive analytics and propensity}
+  - {id: observabilidad, es: Observabilidad y AIOps, en: Observability and AIOps}
+  - {id: tiempo-real, es: Tiempo real y arquitecturas de eventos, en: Real time and event-driven architectures}
+  - {id: adopcion, es: Adopción de IA y puesto de trabajo, en: AI adoption and the digital workplace}
+  - {id: desarrollo, es: Desarrollo moderno asistido por IA, en: Modern AI-assisted development}
+  dynamic: false
+  grupo: principal
+- key: tecnologia
+  label: {es: Tecnología, en: Technology}
+  type: multi_select
+  dynamic: false
+  grupo: principal
+  options:
+  - {id: Azure}
+  - {id: AWS}
+  - {id: Databricks}
+  - {id: Microsoft Fabric}
+  - {id: Snowflake}
+  - {id: Power BI}
+  - {id: OpenAI}
+  - {id: Kubernetes}
+  - {id: Apache Spark}
+  - {id: Terraform}
+  - {id: Python}
+  - {id: Modelado y analítica de grafos, en: Graph modeling and analytics}
+  - {id: IA generativa, en: Generative AI}
+  - {id: Servicios AWS de datos y machine learning}
+  - {id: Google BigQuery}
+  - {id: Google Cloud Logging}
+  - {id: Vertex AI}
+  - {id: Grafana Cloud}
+  - {id: Cloud Run}
+  - {id: Retrieval-Augmented Generation (RAG)}
+  - {id: OpenTelemetry}
+  - {id: OpenLLMetry}
+  - {id: OpenShift}
+  - {id: Oracle Database}
+  - {id: YOLO}
+  - {id: Explainable AI (XAI)}
+  - {id: Spanner Graph}
+  - {id: BigQuery ML}
+  - {id: Zabbix}
+  - {id: FortiManager}
+  - {id: ServiceNow}
+  - {id: VMware}
+  - {id: Active Directory}
+  - {id: Model Context Protocol (MCP)}
+  - {id: Power Apps}
+  - {id: Power Automate}
+  - {id: Direct Lake}
+  - {id: Amazon S3}
+  - {id: Amazon SQS}
+  - {id: AWS Lambda}
+  - {id: Amazon Bedrock}
+  - {id: CloudWatch}
+  - {id: Grafana}
+  - {id: IAM}
+  - {id: Cost Explorer}
+  - {id: Watsonx.ai}
+  - {id: Watsonx Discovery}
+  - {id: Code Engine}
+  - {id: Excel}
+  - {id: M3}
+  - {id: Oracle}
+  - {id: OpenCode}
+  - {id: Qdrant}
+  - {id: Apache Camel K}
+  - {id: Apache Kafka}
+  - {id: PostgreSQL}
+  - {id: Java}
+  - {id: Quarkus}
+  - {id: GitHub Copilot}
+  - {id: Cursor.ai}
+  - {id: dbt}
+  - {id: Jira}
+  - {id: AWS Glue}
+  - {id: Amazon MSK}
+  - {id: AWS Lake Formation}
+  - {id: AWS KMS}
+  - {id: AWS CloudTrail}
+  - {id: AWS Config}
+  - {id: Amazon SNS}
+  - {id: Amazon EC2}
+  - {id: Amazon API Gateway}
+  - {id: Amazon Athena}
+  - {id: AWS CDK}
+  - {id: AWS Glue Data Quality}
+  - {id: Deequ}
+  - {id: Copilot Studio}
+  - {id: Azure AI Foundry Agent Service}
+  - {id: AWS Bedrock AgentCore}
+  - {id: LangChain}
+  - {id: CrewAI}
+  - {id: Amazon Q Business}
+  - {id: Microsoft Copilot}
+  - {id: Azure OpenAI}
+  - {id: Neo4j}
+  - {id: MongoDB}
+  - {id: Elasticsearch}
+  - {id: Amazon SageMaker}
+  - {id: Ansible}
+  - {id: OpenText}
+  - {id: SAP Content Server}
+  - {id: SAP RISE}
+  - {id: ArchiveLink}
+  - {id: Amazon S3 File Gateway}
+  - {id: AWS Direct Connect}
+  - {id: AWS Site-to-Site VPN}
+  - {id: Amazon VPC}
+  - {id: Amazon Route 53}
+  - {id: Elastic Load Balancing}
+  - {id: AWS Auto Scaling}
+  - {id: AWS CloudFormation}
+  - {id: AWS Systems Manager}
+  - {id: Amazon Textract}
+  - {id: Tesseract}
+  - {id: Snowpark Python}
+  - {id: Snowflake ML}
+  - {id: Snowflake Horizon}
+  - {id: Business Central}
+  - {id: Ollama}
+  - {id: LibreChat}
+  - {id: Alfresco}
+  - {id: DB2}
+  - {id: Debezium}
+  - {id: Amazon S3 Glacier}
+  - {id: AWS Step Functions}
+  - {id: AWS Elemental MediaConvert}
+  - {id: Amazon CloudFront}
+  - {id: Amazon DynamoDB}
+  - {id: Amazon EventBridge}
+  - {id: Jenkins}
+  - {id: Claude}
+  - {id: RDS PostgreSQL}
+  - {id: Prometheus}
+  - {id: Grafana Alloy}
+  - {id: AWS CodeCommit}
+  - {id: Azure Data Factory}
+  - {id: Azure Data Lake Storage Gen2}
+  - {id: Azure DevOps}
+  - {id: Azure Key Vault}
+  - {id: Microsoft Purview}
+  - {id: Confluent Cloud}
+  - {id: Qlik Sense}
+  - {id: Opera Cloud}
+  - {id: Simphony}
+  - {id: SAP S/4HANA Cloud}
+  - {id: AWS Fargate}
+  - {id: Amazon ECS}
+  - {id: Amazon Aurora}
+  - {id: Amazon DocumentDB}
+  - {id: GitHub Actions}
+  - {id: AWS Secrets Manager}
+  - {id: React}
+  - {id: TypeScript}
+  - {id: Amazon Cognito}
+  - {id: Keycloak}
+  - {id: SharePoint}
+  - {id: Microsoft Teams}
+  - {id: SAP}
+  - {id: MySQL}
+  - {id: MySQL Workbench}
+  - {id: Metabase}
+  - {id: Delta Lake}
+  - {id: Sistema de Inteligencia Artificial, en: Artificial Intelligence system}
+  - {id: Apache Airflow}
+  - {id: Scala}
+  - {id: Amazon EMR}
+  - {id: SQL Server}
+  - {id: DataDog}
+- key: clasificacion
+  label: {es: Clasificación tecnológica, en: Technology classification}
+  type: multi_select
+  options:
+  - {id: observabilidad-ai, es: Observabilidad & AI, en: Observability & AI}
+  - {id: agentic-ai, es: Agentic AI, en: Agentic AI}
+  - {id: call-centers, es: Call Centers, en: Call Centres}
+  - {id: automatizacion, es: Automatización, en: Automation}
+  - {id: asistentes, es: Asistentes conversacionales, en: Conversational assistants}
+  - {id: analitica, es: Analítica de datos, en: Data analytics}
+  - {id: machine-learning, es: Machine Learning, en: Machine Learning}
+  - {id: gobierno-dato, es: Gobierno del dato, en: Data governance}
+  - {id: plataforma, es: Plataforma de datos, en: Data platform}
+  - {id: documental, es: Inteligencia documental, en: Document intelligence}
+  - {id: adopcion-ia, es: Adopción de IA, en: AI adoption}
+  - {id: desarrollo-ia, es: Desarrollo asistido por IA, en: AI-assisted development}
+  dynamic: false
+  grupo: principal
+- key: estrategia
+  label: {es: Estrategia tecnológica, en: Technology strategy}
+  type: single_select
+  options:
+  - {id: hyperscaler, es: Cloud, en: Cloud}
+  - {id: hibrido, es: Híbrida, en: Hybrid}
+  - {id: abierto, es: Open source, en: Open source}
+  - {id: propietario, es: On-prem y fabricante, en: On-prem and vendor stack}
+  dynamic: false
+  grupo: principal
+- key: estado_oportunidad
+  label: {es: Estado de la oportunidad, en: Opportunity status}
+  type: single_select
+  options:
+  - {id: ganada, es: Ganada, en: Won}
+  - {id: en-curso, es: En curso, en: In progress}
+  - {id: perdida, es: Perdida, en: Lost}
+  - {id: propuesta, es: Propuesta, en: Proposal}
+  dynamic: false
+  grupo: principal
+- key: referenciable
+  label: {es: Cliente referenciable, en: Referenceable client}
+  type: single_select
+  derivada: 'cliente_publico: true → si; false → no; sin dato → sin-confirmar'
+  options:
+  - {id: si, es: Sí, en: 'Yes'}
+  - {id: 'no', es: 'No', en: 'No'}
+  - {id: sin-confirmar, es: Sin confirmar, en: Unconfirmed}
+  dynamic: false
+  grupo: principal
+- key: tipo_proyecto
+  label: {es: Tipo de Proyecto, en: Project Type}
+  type: single_select
+  dynamic: false
+  grupo: mas
+  options:
+  - {id: MVP/PoC}
+  - {id: Vertical}
+  - {id: Transversal, en: Cross-cutting}
+  - {id: Plataforma, en: Platform}
+  - {id: Formación, en: Training}
+- key: bu
+  label: {es: Unidad de Negocio, en: Business Unit}
+  type: single_select
+  dynamic: false
+  grupo: mas
+  options:
+  - {id: Data & AI}
+  - {id: Cloud & Managed Services}
+  - {id: Security}
+  - {id: Business Applications}
+- key: estado_ficha
+  label: {es: Estado de la ficha, en: Card status}
+  type: single_select
+  grupo: mas
+  options:
+  - {id: borrador, es: Borrador, en: Draft}
+  - {id: por-validacion, es: Pendiente de validación, en: Pending validation}
+  - {id: validada, es: Validada, en: Validated}
+  dynamic: false
+- key: cliente
+  label: {es: Cliente, en: Client}
+  type: single_select
+  grupo: mas
+  interna: true
+  dynamic: true
+  derivada: cliente_display, solo con sesión de empleado
+- key: importe
+  label: {es: Tamaño del proyecto, en: Project size}
+  type: single_select
+  grupo: mas
+  options:
+  - {id: 0-25, es: Hasta 25 k€, en: Up to €25k}
+  - {id: 25-50, es: 25 a 50 k€, en: €25k to €50k}
+  - {id: 50-100, es: 50 a 100 k€, en: €50k to €100k}
+  - {id: 100-250, es: 100 a 250 k€, en: €100k to €250k}
+  - {id: 250+, es: Más de 250 k€, en: Over €250k}
+  dynamic: false
+- key: anio
+  label: {es: Año, en: Year}
+  type: single_select
+  dynamic: true
+  grupo: mas
+- key: partner
+  label: {es: Partner, en: Partner}
+  type: multi_select
+  dynamic: false
+  grupo: mas
+  options:
+  - {id: Microsoft}
+  - {id: AWS}
+  - {id: Databricks}
+  - {id: Snowflake}
+  - {id: Cisco}
+  - {id: IBM}
+  - {id: Google Cloud}
+- key: sistemas
+  label: {es: Sistemas integrados, en: Integrated systems}
+  type: multi_select
+  grupo: mas
+  options:
+  - {id: ServiceNow}
+  - {id: Jira}
+  - {id: Genesys}
+  - {id: SAP}
+  - {id: Salesforce}
+  - {id: Microsoft Dynamics}
+  - {id: Microsoft Teams}
+  - {id: Confluence}
+  - {id: Zendesk}
+  - {id: HubSpot}
+  - {id: Propio del cliente, en: Client's own system}
+  dynamic: false
+- key: tipologia
+  label: {es: Tipo de encargo, en: Engagement type}
+  type: single_select
+  grupo: mas
+  options:
+  - {id: assessment, es: Assessment / PoC, en: Assessment / PoC}
+  - {id: proyecto, es: Proyecto cerrado, en: Fixed-scope project}
+  - {id: gestionado, es: Servicio gestionado, en: Managed service}
+  - {id: squad, es: Squad ágil / resourcing, en: Agile squad / resourcing}
+  dynamic: false
+- key: ambito
+  label: {es: Ámbito, en: Scope}
+  type: single_select
+  grupo: mas
+  derivada: sector 'Sector Público' → publico; el resto → privado
+  options:
+  - {id: publico, es: Sector público, en: Public sector}
+  - {id: privado, es: Sector privado, en: Private sector}
+  dynamic: false
+- key: madurez
+  label: {es: Madurez del cliente, en: Client maturity}
+  type: single_select
+  grupo: mas
+  options:
+  - {id: explorador, es: Explorador, en: Explorer}
+  - {id: constructor, es: Constructor, en: Builder}
+  - {id: escalador, es: Escalador, en: Scaler}
+  - {id: optimizador, es: Optimizador, en: Optimiser}
+  dynamic: false
