@@ -34,4 +34,7 @@ servidor de ficheros (`python -m http.server 8723` en esta carpeta, o el `.claud
 3. Commit y push. GitHub Pages publica la rama configurada en Settings › Pages.
 
 Hasta que se regeneren los vectores, un caso nuevo se encuentra por texto (léxico), no por
-búsqueda semántica.
+búsqueda semántica. El generador de vectores está pendiente (el modelo es el mismo que usa el
+navegador, `Xenova/multilingual-e5-small`, con el prefijo `passage: `).
+
+Requisitos del generador: Python 3 y PyYAML (`pip install pyyaml`). En Mac, `python3 tools/build.py`.

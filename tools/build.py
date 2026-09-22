@@ -32,7 +32,8 @@ Reglas:
   - Las etiquetas (tags) que el índice anterior tuviera de más para un caso (el enriquecimiento del
     generador de Alberto) se conservan detrás de las de la ficha.
   - Las facetas con «oculta: true» en la taxonomía no se emiten (declaradas para más adelante).
-  - Los embeddings (embeddings.<idioma>.json) no se tocan aquí: tools/embeddings.py.
+  - Los embeddings (embeddings.<idioma>.json) no se tocan aquí; regenerarlos para las fichas nuevas está
+    pendiente (mismo modelo que usa el navegador, Xenova/multilingual-e5-small, con el prefijo «passage: »).
 """
 import argparse
 import datetime as dt
@@ -274,7 +275,7 @@ def main():
             con = {it.get("id") for it in json.load(io.open(ruta, encoding="utf-8")).get("items", [])}
             faltan = [c["id"] for c in resultado[idioma]["cases"] if c["id"] not in con]
             if faltan:
-                print(f"aviso: {len(faltan)} casos sin embedding en {idioma} (python tools/embeddings.py): "
+                print(f"aviso: {len(faltan)} casos sin embedding en {idioma} (se encuentran por texto, no por semántica): "
                       + ", ".join(faltan[:8]) + (" …" if len(faltan) > 8 else ""))
 
     if args.comprobar:
