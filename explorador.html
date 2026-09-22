@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Catálogo de Casos de Uso y Éxito de la Unidad - Logicalis Spain. Soluciones en Cloud, Data, AI y Ciberseguridad.">
   <meta name="theme-color" content="#143CCD">
-  <meta name="build-id" content="e86609967_1790071738">
+  <meta name="build-id" content="77c68b45f_1790076395">
   <meta
     http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net; img-src 'self' data:;">
@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Logicalis Design System Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=e86609967_1790071738">
+  <link rel="stylesheet" href="styles.css?v=77c68b45f_1790076395">
 
   <!-- Third-party CDN Dependencies with Subresource Integrity (SRI) -->
   <script
@@ -49,7 +49,7 @@
   </script>
 
   <!-- Application Logic -->
-  <script src="app.js?v=e86609967_1790071738"></script>
+  <script src="app.js?v=77c68b45f_1790076395"></script>
 
   <!-- Alpine.js 3.x with defer -->
   <script
@@ -80,6 +80,14 @@
         <p x-text="t.heroEyebrow">Repositorio de casos de uso</p>
       </div>
 
+      <div class="hdtools">
+        <a class="hdinicio" :href="currentLang === 'en' ? 'inicio.html?lang=en' : 'inicio.html'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>
+          </svg>
+          <span x-text="t.backHome">Inicio</span>
+        </a>
+
       <!-- Bilingual Language Selector (AC-008, Issue #31) -->
       <nav class="langpill" aria-label="Selector de idioma">
         <button
@@ -99,6 +107,7 @@
           EN
         </button>
       </nav>
+      </div>
     </div>
   </header>
 
@@ -106,7 +115,6 @@
   <main id="main-content" class="results-area">
     <div class="page-inner">
 
-      <a class="backbtn" :href="currentLang === 'en' ? 'inicio.html?lang=en' : 'inicio.html'"><span aria-hidden="true">&larr;</span> <span x-text="t.backHome">Inicio</span></a>
       <div class="vhead">
         <h2 class="vtitle" x-text="t.catalogTitle">Casos de uso</h2>
         <p class="vsub" x-text="t.catalogSubtitle">Todo lo que hemos hecho, filtrable por lo que te importe.</p>
@@ -201,6 +209,8 @@
         <div>
           <!-- MiniSearch Full-Text Search Input (Issue #29) + Search Mode Controls & Semantic Model Status (Epic 7, Issues #35, #37, #38) -->
           <div class="searchbar">
+            <div class="sb-busca">
+            <div class="sb-input">
             <label class="searchwrap">
               <svg class="lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="11" cy="11" r="8"></circle>
@@ -225,6 +235,7 @@
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
             </button>
+            </div>
 
             <label class="sortwrap" :title="t.sortLabel">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -237,6 +248,25 @@
                 <option value="alfabetico" x-text="t.sortAlpha">Ordenar: alfabético</option>
               </select>
             </label>
+            </div>
+
+            <div class="sb-modos">
+            <!-- Semantic relevance threshold: user-adjustable, since a fixed cosine
+                 cutoff doesn't fit every embedding model/dataset (see app.js semanticThreshold) -->
+            <div
+              class="threshold-control"
+              x-show="modelStatus === 'ready' && searchMode !== 'lexical'"
+              :title="t.semanticThresholdTooltip">
+              <label :for="'semantic-threshold'" x-text="t.semanticThresholdLabel">Relevancia mínima</label>
+              <input
+                id="semantic-threshold"
+                type="range"
+                min="0.3"
+                max="0.95"
+                step="0.01"
+                x-model.number="semanticThreshold">
+              <span class="threshold-value" x-text="semanticThreshold.toFixed(2)">0.75</span>
+            </div>
 
             <div class="search-mode-switcher" role="group" aria-label="Modo de búsqueda">
               <button
@@ -266,22 +296,6 @@
                 <span x-text="t.searchModeLexical">Texto exacto</span>
               </button>
             </div>
-
-            <!-- Semantic relevance threshold: user-adjustable, since a fixed cosine
-                 cutoff doesn't fit every embedding model/dataset (see app.js semanticThreshold) -->
-            <div
-              class="threshold-control"
-              x-show="modelStatus === 'ready' && searchMode !== 'lexical'"
-              :title="t.semanticThresholdTooltip">
-              <label :for="'semantic-threshold'" x-text="t.semanticThresholdLabel">Relevancia mínima</label>
-              <input
-                id="semantic-threshold"
-                type="range"
-                min="0.3"
-                max="0.95"
-                step="0.01"
-                x-model.number="semanticThreshold">
-              <span class="threshold-value" x-text="semanticThreshold.toFixed(2)">0.75</span>
             </div>
           </div>
 
