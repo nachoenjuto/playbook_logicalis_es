@@ -56,6 +56,8 @@
     });
     var a = document.getElementById('ir-explorador');
     if (a) a.href = lang === 'en' ? 'explorador.html?lang=en' : 'explorador.html';
+    // el idioma queda en la URL, para que un F5 o un enlace guardado lo conserven
+    try { history.replaceState(null, '', lang === 'en' ? 'inicio.html?lang=en' : 'inicio.html'); } catch (e) {}
   }
 
   document.querySelectorAll('.lang-btn').forEach(function (b) {

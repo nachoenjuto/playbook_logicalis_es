@@ -283,7 +283,7 @@ header {
 .sortwrap { position: relative; flex: none; display: inline-flex; align-items: center; margin-left: auto; }
 .sortwrap svg { position: absolute; left: 13px; width: 16px; height: 16px; color: var(--muted); pointer-events: none; }
 .sortsel {
-  appearance: none; -webkit-appearance: none; border: 1px solid var(--edge); border-radius: 12px; padding: 13px 34px 13px 38px;
+  appearance: none; -webkit-appearance: none; border: 1px solid var(--edge); border-radius: 12px; height: 49px; padding: 0 34px 0 38px;
   font-size: 13.5px; font-family: inherit; color: var(--sec); background: var(--glass-3)
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239AA0AA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 12px center / 14px;
   outline: none; cursor: pointer; box-shadow: var(--sheen-soft); transition: border-color .16s, color .16s;
@@ -313,17 +313,17 @@ header {
    the source design; reuses its "pill" visual language (see .langpill).
    Both sit inline in .searchbar, to the right of the input. */
 .search-mode-switcher {
-  flex: none; margin-left: auto;
-  display: inline-flex; background: var(--glass-2); padding: .2rem; border-radius: var(--radius-full);
+  flex: none; margin-left: auto; height: 49px;
+  display: inline-flex; align-items: stretch; background: var(--glass-3); padding: 5px; border-radius: 12px;
   border: 1px solid var(--edge); box-shadow: var(--sheen-soft);
 }
 .search-mode-btn {
-  appearance: none; background: transparent; border: none; cursor: pointer;
-  color: var(--sec); padding: .4rem .85rem; font-size: .78rem; font-weight: 600;
-  border-radius: var(--radius-full); transition: all var(--transition-fast);
+  appearance: none; background: transparent; border: none; cursor: pointer; font-family: inherit;
+  color: var(--sec); padding: 0 14px; font-size: 13.5px; font-weight: 600; white-space: nowrap;
+  border-radius: 9px; transition: background .16s, color .16s;
   display: inline-flex; align-items: center; gap: .3rem;
 }
-.search-mode-btn:hover:not(:disabled) { color: var(--ink); }
+.search-mode-btn:hover:not(:disabled) { color: var(--ink); background: rgba(27, 75, 255, .07); }
 .search-mode-btn.active { background: var(--blue); color: #fff; }
 .search-mode-btn:disabled { opacity: .5; cursor: not-allowed; }
 
@@ -346,16 +346,17 @@ header {
 }
 
 /* Semantic relevance threshold slider */
+/* la relevancia minima: la misma caja que los demas controles */
 .threshold-control {
-  flex: none; margin-left: auto;
-  display: inline-flex; align-items: center; gap: .5rem;
-  font-size: .75rem; font-weight: 500; color: var(--sec);
-  padding: .3rem .8rem; border-radius: var(--radius-full);
-  border: 1px solid var(--edge); background: var(--glass-2);
+  flex: none; margin-left: auto; height: 49px;
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 13.5px; font-weight: 600; color: var(--sec);
+  padding: 0 16px; border-radius: 12px;
+  border: 1px solid var(--edge); background: var(--glass-3); box-shadow: var(--sheen-soft);
 }
 .threshold-control label { white-space: nowrap; cursor: help; }
 .threshold-control input[type="range"] {
-  width: 90px; accent-color: var(--blue); cursor: pointer;
+  width: 110px; accent-color: var(--blue); cursor: pointer;
 }
 .threshold-control .threshold-value {
   font-variant-numeric: tabular-nums; font-weight: 700; color: var(--blue-dark);
