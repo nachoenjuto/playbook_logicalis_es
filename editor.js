@@ -236,14 +236,19 @@
         });
       });
 
-      // --- listas: cada elemento se edita y hay un «+» para añadir
+      // --- listas: cada elemento se edita, lleva su cruz para quitarlo y hay un «+» para añadir
       raiz.querySelectorAll('[data-edlist]').forEach((cont) => {
         const clave = cont.getAttribute('data-edlist');
         const clase = cont.getAttribute('data-edclase') || '';
         const etiqueta = (cont.tagName === 'OL' || cont.tagName === 'UL') ? 'li' : 'span';
+        const textoDe = (c) => {
+          const copia = c.cloneNode(true);
+          copia.querySelectorAll('.edx').forEach((x) => x.remove());
+          return copia.innerText.trim();
+        };
         const recoge = () => {
           const v = [...cont.children].filter((c) => !c.classList.contains('edmas'))
-            .map((c) => c.innerText.trim()).filter(Boolean);
+            .map(textoDe).filter(Boolean);
           yo.edPonRuta(clave, v);
           cont.classList.add('edcambiado');
         };
@@ -252,6 +257,14 @@
           c.classList.add('edon');
           c.addEventListener('input', recoge);
           c.addEventListener('blur', recoge);
+          const x = document.createElement('span');
+          x.className = 'edx';
+          x.textContent = '\u00d7';
+          x.title = yo.t.edQuitar;
+          x.setAttribute('contenteditable', 'false');
+          x.addEventListener('mousedown', (e) => { e.preventDefault(); });
+          x.addEventListener('click', (e) => { e.stopPropagation(); c.remove(); recoge(); });
+          c.appendChild(x);
         };
         [...cont.children].forEach(prepara);
         const mas = document.createElement(etiqueta);
@@ -325,7 +338,16 @@
         const ta = document.createElement('textarea');
         ta.className = 'edmd';
         ta.value = sec ? sec.cuerpo : '';
-        ta.rows = Math.max(6, Math.round(ta.value.length / 95) + 2);
+        // alto de salida calculado del propio texto: la ventana todavía se está abriendo y
+        // un elemento sin dibujar mide cero, así que no vale medirlo
+        ta.rows = Math.max(4, ta.value.split(String.fromCharCode(10)).reduce((n, l) => n + Math.max(1, Math.ceil(l.length / 95)), 0));
+        const estira = () => {
+          if (!ta.scrollHeight) return;
+          ta.style.height = 'auto';
+          ta.style.height = (ta.scrollHeight + 2) + 'px';
+        };
+        ta.addEventListener('input', estira);
+        [150, 500, 1000].forEach((ms) => setTimeout(estira, ms));
         ta.addEventListener('input', () => {
           if (!this.edSecciones[n]) this.edSecciones[n] = { titulo: '', cuerpo: '' };
           this.edSecciones[n].cuerpo = ta.value;

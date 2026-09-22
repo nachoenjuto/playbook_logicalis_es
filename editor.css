@@ -26,26 +26,25 @@
 .sb-abajo .btn-nuevo { flex: none; }
 .btn-nuevo svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 
-/* ---------- lo editable, dentro de la propia ficha ---------- */
-/* un subrayado tenue dice qué se puede escribir, sin cambiar la tipografía ni el color */
-.edon {
-  outline: none;
-  box-shadow: inset 0 -1px 0 rgba(27, 75, 255, .28);
-  border-radius: 3px;
-  transition: background .14s, box-shadow .14s;
-  min-width: 26px;
-  cursor: text;
-}
-.edon:hover { background: rgba(27, 75, 255, .04); }
-.edon:focus { background: rgba(27, 75, 255, .07); box-shadow: inset 0 0 0 1px rgba(27, 75, 255, .45); }
+/* ---------- lo editable, dentro de la propia ficha ----------
+   Al entrar en modo edición la ficha NO cambia: ni marcos, ni fondos, ni subrayados. Lo único
+   que se ve es el cursor donde se escribe, lo que se ha tocado en azul, y en las listas una
+   cruz por etiqueta y un «+» para añadir. */
+.edon { outline: none; cursor: text; }
+.edon:focus { background: rgba(27, 75, 255, .05); border-radius: 3px; }
+/* un campo vacío tiene que poder pincharse: un guion tenue marca el sitio */
+.edon:empty { min-width: 42px; display: inline-block; }
+.edon:empty::before { content: '—'; color: var(--muted); opacity: .45; }
 /* lo que se ha tocado y aún no está guardado */
 .edcambiado, .edcambiado * { color: var(--blue) !important; }
-.edcambiado { box-shadow: inset 0 -1px 0 var(--blue); }
-/* el hueco de un campo vacío no puede desaparecer */
-.edon:empty::before { content: '·'; color: var(--muted); opacity: .5; }
 
-/* el «+» para añadir un elemento a una lista */
-.edmas { cursor: pointer; opacity: .75; border-style: dashed !important; }
+/* la cruz de cada etiqueta y el «+» para añadir: lo único que se añade a la vista */
+.edx {
+  cursor: pointer; margin-left: 6px; opacity: .5; font-weight: 600; user-select: none;
+  font-size: .9em; line-height: 1;
+}
+.edx:hover { opacity: 1; color: var(--red); }
+.edmas { cursor: pointer; opacity: .6; }
 .edmas:hover { opacity: 1; color: var(--blue); }
 .edmas.boton {
   appearance: none; display: block; margin-top: 8px; background: none; cursor: pointer;
@@ -55,12 +54,13 @@
 .edmas.boton:hover { background: rgba(27, 75, 255, .07); }
 
 /* el texto de la ficha, en Markdown, en el mismo sitio donde se lee */
+/* el texto en bruto ocupa el sitio del texto compuesto, sin caja: misma letra, mismo color */
 textarea.edmd {
-  width: 100%; font-family: inherit; font-size: 14px; line-height: 1.65; color: var(--sec);
-  background: #fff; border: 1px solid rgba(27, 75, 255, .28); border-radius: 10px;
-  padding: 12px 14px; outline: none; resize: vertical; min-height: 120px;
+  display: block; width: 100%; font-family: inherit; font-size: 14px; line-height: 1.65;
+  color: var(--sec); background: transparent; border: 0; padding: 0; margin: 0;
+  outline: none; resize: none; overflow: hidden; min-height: 3em;
 }
-textarea.edmd:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(27, 75, 255, .10); }
+textarea.edmd:focus { background: rgba(27, 75, 255, .05); border-radius: 3px; }
 textarea.edmd.edcambiado { color: var(--blue) !important; }
 
 /* el desplegable de «¿cliente referenciable?» */
