@@ -94,14 +94,65 @@
     edRama: RAMA_POR_DEFECTO,
     edToken: '',
     edRecordar: false,
+    edModo: false,           // hay token: se puede escribir
+    edPanel: false,          // el panel del círculo está abierto
+    edUsuario: '',           // quién es, según GitHub
+    edComprobando: false,
 
     initEditor() {
       try {
         this.edRama = localStorage.getItem('pb_rama') || RAMA_POR_DEFECTO;
         this.edRepo = localStorage.getItem('pb_repo') || REPO_POR_DEFECTO;
         this.edToken = sessionStorage.getItem('pb_token') || '';
+        this.edUsuario = sessionStorage.getItem('pb_usuario') || '';
         this.edRecordar = !!this.edToken;
+        this.edModo = !!this.edToken;
       } catch (e) { /* navegador sin almacenamiento: se pide cada vez */ }
+    },
+
+    /** Entrar en modo editor: se comprueba el token contra GitHub y que tenga escritura aquí.
+     *  El token no sale hacia ningún sitio que no sea api.github.com. */
+    async edActiva() {
+      this.edError = '';
+      if (!this.edToken) return;
+      this.edComprobando = true;
+      const cab = {
+        'Authorization': `Bearer ${this.edToken}`,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      };
+      try {
+        const quien = await fetch('https://api.github.com/user', { headers: cab });
+        if (!quien.ok) throw new Error(quien.status === 401 ? this.t.edToken401 : await this.edMensajeError(quien));
+        const usuario = (await quien.json()).login || '';
+        const repo = await fetch(`https://api.github.com/repos/${this.edRepo}`, { headers: cab });
+        if (!repo.ok) throw new Error(repo.status === 404 ? this.t.ed404 : await this.edMensajeError(repo));
+        const d = await repo.json();
+        if (!d.permissions || !d.permissions.push) throw new Error(this.t.edToken403);
+        this.edUsuario = usuario;
+        this.edModo = true;
+        this.edPanel = false;
+        try {
+          if (this.edRecordar) {
+            sessionStorage.setItem('pb_token', this.edToken);
+            sessionStorage.setItem('pb_usuario', usuario);
+          } else {
+            sessionStorage.removeItem('pb_token');
+            sessionStorage.removeItem('pb_usuario');
+          }
+        } catch (e) { /* sin almacenamiento: el token vive solo en memoria */ }
+      } catch (e) {
+        this.edError = e.message;
+      } finally {
+        this.edComprobando = false;
+      }
+    },
+
+    /** Salir del modo editor: el token se olvida. */
+    edSale() {
+      if (this.edicion) this.cerrarEdicion();
+      this.edToken = ''; this.edUsuario = ''; this.edModo = false; this.edPanel = false; this.edError = '';
+      try { sessionStorage.removeItem('pb_token'); sessionStorage.removeItem('pb_usuario'); } catch (e) {}
     },
 
     // ---------- abrir ----------
@@ -362,10 +413,6 @@
         'X-GitHub-Api-Version': '2022-11-28',
       };
       try {
-        try { localStorage.setItem('pb_rama', this.edRama); localStorage.setItem('pb_repo', this.edRepo); } catch (e) {}
-        if (this.edRecordar) { try { sessionStorage.setItem('pb_token', this.edToken); } catch (e) {} }
-        else { try { sessionStorage.removeItem('pb_token'); } catch (e) {} }
-
         // el sha actual: sin él GitHub no deja sobrescribir, y con él avisa si alguien tocó la ficha
         let sha = null;
         const actual = await fetch(`${api}?ref=${encodeURIComponent(this.edRama)}`, { headers: cab, cache: 'no-cache' });

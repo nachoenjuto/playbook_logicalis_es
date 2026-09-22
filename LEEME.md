@@ -27,20 +27,27 @@ servidor de ficheros (`python -m http.server 8723` en esta carpeta, o el `.claud
 
 ## El editor de fichas
 
-En el explorador, cada ficha abierta tiene un botón **Editar** junto a la X, y la barra de búsqueda
-tiene **Añadir caso de uso**. Los dos abren el mismo formulario, con todos los campos de la ficha
-agrupados como se leen (identificación, cómo se lo cuentas al cliente, solución, resultados, kit de
-conversación, responsable) y el texto en Markdown por secciones.
+La web es de solo lectura para todo el mundo. Para poder escribir hay que entrar en **modo
+editor**: el círculo con la persona y el lápiz, a la derecha de la cabecera. Al pulsarlo se pide un
+**token personal de GitHub**; la página lo comprueba contra GitHub, mira que tenga permiso de
+escritura en este repositorio y, si lo tiene, aparecen los botones **Editar** (en cada ficha, junto
+a la X) y **Añadir caso de uso** (en la barra de búsqueda). Cada uno usa el suyo, así que en el
+historial queda quién hizo cada cambio; quien no tenga token, solo lee.
 
-Al guardar, la página hace un commit en `fichas/` con la API de GitHub y el Action regenera el
-índice y los vectores: en un minuto se ve en la web. Hace falta un **token personal de GitHub**
-con permiso de escritura en este repositorio (Settings › Developer settings › Personal access
-tokens › Fine-grained, solo este repositorio, permiso *Contents: read and write*, con caducidad).
-El token no se guarda en ningún sitio salvo que se marque la casilla, y entonces solo mientras la
-pestaña siga abierta. Quien prefiera no usar token puede **descargar el fichero** y subirlo a mano.
+El token se saca en GitHub › Settings › Developer settings › Personal access tokens › Fine-grained:
+solo este repositorio, permiso *Contents: read and write*, con caducidad. No se guarda en ningún
+sitio salvo que se marque «recordar», y entonces solo mientras la pestaña siga abierta. Solo viaja
+a api.github.com.
 
-Se edita el idioma que se está viendo: la ficha en el otro idioma se cambia aparte. Si alguien ha
-tocado la ficha mientras se editaba, GitHub lo detecta y el editor avisa en vez de machacar.
+**Editar es sobre la propia ficha**: no hay formulario aparte. La ficha se queda como está y se
+escribe encima de cada dato (título, cliente, sector, año, tecnologías, etiquetas, el problema,
+disparadores, métricas, el kit, el responsable y el texto de cada bloque en Markdown). Lo que se
+toca se pone en azul hasta que se guarda. Las listas llevan un «+» para añadir.
+
+Al guardar, la página hace un commit en `fichas/` y el Action regenera el índice y los vectores: en
+un minuto se ve en la web. Quien prefiera no usar token puede **descargar el fichero** y subirlo a
+mano. Se edita el idioma que se está viendo: la ficha del otro idioma se cambia aparte. Si alguien
+ha tocado la ficha mientras se editaba, GitHub lo detecta y el editor avisa en vez de machacar.
 
 ## Cómo se añade un caso
 

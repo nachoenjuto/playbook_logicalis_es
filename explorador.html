@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Catálogo de Casos de Uso y Éxito de la Unidad - Logicalis Spain. Soluciones en Cloud, Data, AI y Ciberseguridad.">
   <meta name="theme-color" content="#143CCD">
-  <meta name="build-id" content="e8834f750_1790079990">
+  <meta name="build-id" content="a086a7f6d_1790082477">
   <meta
     http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net https://api.github.com; img-src 'self' data:;">
@@ -18,7 +18,7 @@
 
   <!-- Logicalis Design System Stylesheet -->
   <link rel="stylesheet" href="editor.css">
-  <link rel="stylesheet" href="styles.css?v=e8834f750_1790079990">
+  <link rel="stylesheet" href="styles.css?v=a086a7f6d_1790082477">
 
   <!-- Third-party CDN Dependencies with Subresource Integrity (SRI) -->
   <script
@@ -57,7 +57,7 @@
     defer></script>
 
   <script src="editor.js"></script>
-  <script src="app.js?v=e8834f750_1790079990"></script>
+  <script src="app.js?v=a086a7f6d_1790082477"></script>
 
   <!-- Alpine.js 3.x with defer -->
   <script
@@ -115,6 +115,49 @@
           EN
         </button>
       </nav>
+
+      <!-- modo editor: quien pega su token de GitHub puede escribir en las fichas -->
+      <div class="edwrap-btn">
+        <button type="button" class="edbtn" :class="{ 'on': edModo }" @click.stop="edPanel = !edPanel"
+          :title="edModo ? (t.edModoOn + (edUsuario ? ' · ' + edUsuario : '')) : t.edModoOff"
+          :aria-expanded="edPanel ? 'true' : 'false'">
+          <svg class="persona" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8.5" r="3.6"/><path d="M4.8 20c.6-3.7 3.6-6 7.2-6s6.6 2.3 7.2 6"/>
+          </svg>
+          <span class="lapiz" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/></svg>
+          </span>
+        </button>
+
+        <div class="edpanel" x-show="edPanel" x-cloak @click.outside="edPanel = false">
+          <div class="edpanel-cab">
+            <b x-text="edModo ? t.edModoOn : t.edModoOff"></b>
+            <small x-text="edModo ? (edUsuario ? t.edComo + ' ' + edUsuario : '') : t.edModoAyuda"></small>
+          </div>
+
+          <template x-if="!edModo">
+            <div>
+              <label class="edpl" for="ed-token" x-text="t.edTokenL"></label>
+              <input type="password" id="ed-token" class="edmini ancho" x-model="edToken"
+                autocomplete="off" placeholder="github_pat_…" @keydown.enter="edActiva()">
+              <label class="edrec"><input type="checkbox" x-model="edRecordar"><span x-text="t.edRecordar"></span></label>
+              <div class="edmsg mal" x-show="edError" x-text="edError"></div>
+              <button type="button" class="btn-guardar ancho" :disabled="edComprobando || !edToken"
+                @click="edActiva()" x-text="edComprobando ? t.edComprobando : t.edEntrar"></button>
+              <a class="edayuda" href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener"
+                x-text="t.edComoToken"></a>
+            </div>
+          </template>
+
+          <template x-if="edModo">
+            <div>
+              <div class="edpl" x-text="t.edDestino"></div>
+              <div class="eddest"><b x-text="edRepo"></b><span x-text="' · ' + edRama"></span></div>
+              <button type="button" class="btn-plano ancho" @click="edSale()" x-text="t.edSalir"></button>
+            </div>
+          </template>
+        </div>
+      </div>
       </div>
     </div>
   </header>
@@ -247,7 +290,7 @@
 
             <div class="sb-abajo">
             <!-- añadir un caso a mano: abre la misma ficha, en blanco -->
-            <button type="button" class="btn-nuevo" @click="nuevaFicha()">
+            <button type="button" class="btn-nuevo" x-show="edModo" @click="nuevaFicha()">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
               <span x-text="t.edNuevo">Añadir caso de uso</span>
             </button>
@@ -495,7 +538,7 @@
         <button
           type="button"
           class="fedit"
-          x-show="selectedCase && !edicion"
+          x-show="edModo && selectedCase && !edicion"
           @click="editarFicha()">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></svg>
           <span x-text="t.edEditar">Editar</span>
@@ -807,10 +850,7 @@
           <span class="edtit" x-text="edNueva ? t.edNuevoTitulo : t.edEditando"></span>
           <span class="edcuenta" x-show="edCambios.length" x-text="edCambios.length + ' ' + t.edCambiosN"></span>
           <span class="crece"></span>
-          <input type="text" class="edmini" x-model="edRepo" :title="t.edRepoL" :placeholder="t.edRepoL">
-          <input type="text" class="edmini corto" x-model="edRama" :title="t.edRamaL" :placeholder="t.edRamaL">
-          <input type="password" class="edmini" x-model="edToken" autocomplete="off" :title="t.edTokenL" :placeholder="t.edTokenL">
-          <label class="edrec" :title="t.edRecordar"><input type="checkbox" x-model="edRecordar"><span x-text="t.edRecordarCorto"></span></label>
+          <span class="eddest peq" x-text="edRepo + ' · ' + edRama"></span>
           <button type="button" class="btn-plano" @click="edDescargar()" x-text="t.edDescargar"></button>
           <button type="button" class="btn-plano" @click="cerrarEdicion()" x-text="t.edCancelar"></button>
           <button type="button" class="btn-guardar" :disabled="edGuardando" @click="edGuarda()"

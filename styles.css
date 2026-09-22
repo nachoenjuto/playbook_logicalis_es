@@ -230,6 +230,7 @@ header {
 
 /* «Inicio» en la barra azul, junto al selector de idioma */
 .hdtools { display: inline-flex; align-items: center; gap: 12px; flex: none; }
+.hdtools .edwrap-btn { margin-left: 6px; }
 .hdinicio {
   display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px;
   border: 1px solid rgba(255, 255, 255, .35); background: rgba(255, 255, 255, .10);
