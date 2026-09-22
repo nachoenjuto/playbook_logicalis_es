@@ -60,18 +60,23 @@
     try { history.replaceState(null, '', lang === 'en' ? 'inicio.html?lang=en' : 'inicio.html'); } catch (e) {}
   }
 
+  // el contador de la ilustración: los casos publicados en el idioma elegido (pueden no coincidir)
+  function cuenta() {
+    var pedido = lang;
+    fetch('index.' + pedido + '.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (pedido !== lang) return;
+        var n = d && Array.isArray(d.cases) ? d.cases.length : 0;
+        var el = document.getElementById('in-n');
+        if (n && el) el.textContent = String(n);
+      })
+      .catch(function () {});
+  }
+
   document.querySelectorAll('.lang-btn').forEach(function (b) {
-    b.addEventListener('click', function () { lang = b.getAttribute('data-lang') === 'en' ? 'en' : 'es'; pinta(); });
+    b.addEventListener('click', function () { lang = b.getAttribute('data-lang') === 'en' ? 'en' : 'es'; pinta(); cuenta(); });
   });
   pinta();
-
-  // el contador de la ilustración: los casos publicados
-  fetch('index.es.json', { cache: 'no-cache' })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (d) {
-      var n = d && Array.isArray(d.cases) ? d.cases.length : 0;
-      var el = document.getElementById('in-n');
-      if (n && el) el.textContent = String(n);
-    })
-    .catch(function () {});
+  cuenta();
 })();

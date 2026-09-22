@@ -1,5 +1,5 @@
 {
-  "version": "c8ad9743c_1790071390",
+  "version": "e86609967_1790071738",
   "lang": "es",
   "facets": [
     {
@@ -865,6 +865,7 @@
       "briefing": "Una administración provincial necesitaba evaluar cómo mejorar la ordenación y gestión de los documentos asociados a expedientes administrativos, inicialmente en el ámbito de las subvenciones de concurrencia. La diversidad de formatos, la posible presencia de documentos escaneados de baja calidad y la ausencia de criterios de clasificación completamente definidos dificultaban la automatización y podían exigir una revisión manual significativa. El reto consistía en determinar la viabilidad técnica de una solución basada en inteligencia artificial capaz de extraer información, clasificar documentos y proporcionar resultados trazables, manteniendo el cumplimiento de los requisitos de seguridad y protección de datos.",
       "ficha_ref": "fichas/administracion-provincial-clasificacion-expedientes.es.md",
       "ambito": "publico",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -920,6 +921,7 @@
       "briefing": "La organización necesitaba consolidar la gestión de elegibilidad y del catálogo de productos y servicios como una capacidad común, trazable y reutilizable para distintas plataformas internas, aseguradoras y modelos operativos. La situación de partida combinaba procesos locales, integraciones distribuidas, formatos legacy y lógicas específicas por país o entidad, lo que dificultaba determinar de forma homogénea qué servicios podía utilizar cada miembro. El reto consistía en evolucionar la plataforma existente sin interrumpir la operación, habilitando una migración progresiva, convivencia temporal con el modelo legacy, validación por oleadas y capacidad de rollback por aseguradora.",
       "ficha_ref": "fichas/aseguradora-internacional-elegibilidad-catalogo.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -958,6 +960,7 @@
       "briefing": "La aseguradora disponía de un modelo de churn aplicado principalmente a seguros de decesos, con resultados satisfactorios para apoyar la retención de clientes. Sin embargo, necesitaba ampliar sus capacidades comerciales para identificar oportunidades de up-selling de nuevas garantías y ampliación de coberturas, así como de cross-selling de seguros de hogar. La ausencia de histórico suficiente para algunos productos dificultaba la selección de públicos objetivo mediante técnicas tradicionales.",
       "ficha_ref": "fichas/aseguradora-nacional-modelos-venta-cruzada.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -996,6 +999,7 @@
       "briefing": "Una empresa constructora necesitaba agilizar el análisis de diseños y presupuestos constructivos en formato BC3 para identificar materiales valorables y relacionarlos con una base de datos de impacto ambiental. El proceso requería descomponer manualmente las partidas, interpretar descripciones heterogéneas y localizar materiales comparables, lo que limitaba la productividad, dificultaba la escalabilidad y aumentaba el esfuerzo de validación. El proyecto se definió como un MVP mediante sesiones de co-creación, descubrimiento funcional y profundización técnica.",
       "ficha_ref": "fichas/constructora-nacional-materiales.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1034,6 +1038,7 @@
       "briefing": "Una organización educativa disponía de conocimiento relevante en su gestor documental corporativo, pero necesitaba facilitar el acceso a esa información de forma más rápida, natural y usable para sus empleados. El reto consistía en habilitar consultas en lenguaje natural sobre la documentación existente, inicialmente en español, evitando respuestas ajenas al repositorio autorizado y manteniendo los controles de seguridad ya aplicados en los sistemas corporativos. La propuesta también contemplaba el uso de un canal de colaboración habitual para ampliar la adopción del servicio.",
       "ficha_ref": "fichas/educativa-copiloto-documental.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1072,6 +1077,7 @@
       "briefing": "La organización necesita evaluar de forma rápida y estructurada la evolución de su entorno Power BI hacia Microsoft Fabric. El reto consiste en comprender el estado actual de los datasets, orígenes de datos, volúmenes, usuarios, patrones de consumo y licenciamiento, así como identificar las implicaciones técnicas de una posible migración. El análisis presta especial atención al consumo de información desde Power Apps y Power Automate, incluyendo las limitaciones de las interfaces de acceso y de los mecanismos de exposición de datos.",
       "ficha_ref": "fichas/entorno-power-powerbi-assessment-fabric.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1105,6 +1111,7 @@
       "briefing": "Un fabricante industrial necesitaba evaluar y preparar la migración de su base de datos operativa desde DB2 hacia PostgreSQL, minimizando la interrupción de sus aplicaciones y reduciendo los riesgos asociados a la conversión de objetos, procedimientos almacenados y consultas. La complejidad del entorno incluía dependencias entre aplicaciones, conexiones JDBC, lógica implementada en SQL y PL/SQL, así como distintos tipos de datos y objetos con posibles incompatibilidades entre motores. La propuesta planteaba una metodología iterativa para conocer el entorno, clasificar los riesgos y validar progresivamente la viabilidad técnica de la migración.",
       "ficha_ref": "fichas/fabricante-industrial-migracion-bbdd.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1139,6 +1146,7 @@
       "briefing": "Una organización industrial busca supervisar de forma integral el estado de varias plantas de fabricación y avanzar hacia un modelo de operación más anticipativo. El reto parte de la ausencia de monitorización continua en determinadas instalaciones y de la existencia de detenciones no programadas, especialmente en plantas con alta demanda. La propuesta plantea estandarizar los modelos de análisis y las soluciones digitales entre distintos tipos de planta, comenzando por instalaciones ubicadas en Chile.",
       "ficha_ref": "fichas/fabricante-industrial-smart-plant.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1191,6 +1199,7 @@
       "briefing": "Una organización industrial con datos sensibles busca acelerar la adopción práctica de la inteligencia artificial sin generar saturación tecnológica ni riesgos de seguridad. La propuesta parte de la necesidad de transformar una oferta de cursos aislados en un itinerario progresivo de capacidades, diferenciando las necesidades del equipo técnico y de los perfiles de negocio. El reto incluye preparar a los equipos para desarrollar soluciones con IA generativa, integrar agentes con sistemas corporativos y establecer criterios de soberanía del dato, privacidad de los prompts, cumplimiento normativo, control de costes y observabilidad.",
       "ficha_ref": "fichas/fabricante-papel-formacion-ia.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1235,6 +1244,7 @@
       "briefing": "Una organización gestora de activos inmobiliarios necesitaba agilizar la revisión, validación y generación de documentación asociada a la plusvalía municipal (IIVTNU). El proceso dependía de documentos heterogéneos, como escrituras, registros, información catastral e históricos transaccionales, que debían interpretarse y trasladarse manualmente a los sistemas operativos. Esta situación generaba una elevada carga administrativa, riesgo de errores de transcripción, inconsistencias en la titularidad o los valores catastrales y dificultades para mantener una trazabilidad completa del proceso.",
       "ficha_ref": "fichas/gestora-activos-inmobiliaria-automatizacion-plusvalias.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1288,6 +1298,7 @@
       "briefing": "Un grupo hotelero nacional se encontraba inmerso en una transformación estratégica para avanzar hacia un modelo de negocio más orientado al dato. La información comercial, de puntos de venta y financiera estaba distribuida entre diferentes sistemas y servicios SaaS, dificultando la consolidación, la trazabilidad y el análisis homogéneo del negocio. El reto consistía en definir y construir una arquitectura informacional corporativa, escalable y flexible, capaz de integrar fuentes heterogéneas y establecer una base común para la toma de decisiones.",
       "ficha_ref": "fichas/hotelero-nacional-arquitectura-informacional.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1335,6 +1346,7 @@
       "briefing": "Una organización inmobiliaria busca modernizar sus prácticas de desarrollo de software mediante inteligencia artificial, evolucionando desde asistentes de código hacia modelos de colaboración agéntica y sistemas con mayor autonomía. El reto consiste en mejorar la productividad sin perder control sobre la calidad, la seguridad, la trazabilidad ni el conocimiento acumulado de los proyectos. La ausencia de especificaciones ejecutables, reglas comunes, memoria persistente y mecanismos de validación puede provocar resultados inconsistentes, deuda de contexto y una mayor superficie de riesgo en entornos con agentes conectados a herramientas corporativas.",
       "ficha_ref": "fichas/inmobiliaria-ia-desarrollo.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1387,6 +1399,7 @@
       "briefing": "Una organización del sector inmobiliario se encontraba incorporando capacidades de IA generativa para optimizar el procesamiento de documentación judicial. El reto consistía en analizar grandes volúmenes de documentos heterogéneos, como sentencias, demandas, resoluciones y comunicaciones, procedentes de distintas fuentes y formatos. La clasificación manual resultaba poco escalable y dificultaba la trazabilidad, la revisión de documentos no concluyentes y la identificación temprana de incidencias operativas.",
       "ficha_ref": "fichas/inmobiliaria-nacional-clasificador-documentos.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1422,6 +1435,7 @@
       "briefing": "El cliente gestionaba una infraestructura global de red y seguridad con un entorno de monitorización de alto volumen y carácter predominantemente reactivo. La operación requería correlacionar alertas procedentes de diferentes sistemas, priorizar incidencias, consultar documentación técnica y coordinar actuaciones entre los equipos de Service Desk y soporte especializado. Esta fragmentación dificultaba la identificación del contexto completo de cada evento, ralentizaba la resolución y limitaba la capacidad de aplicar respuestas preventivas o automatizadas de forma consistente.",
       "ficha_ref": "fichas/masorange-aiops.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1472,6 +1486,7 @@
       "briefing": "Un operador nacional de telecomunicaciones estaba evaluando cómo hacer que su solución IRIS de clasificación de imágenes fuera más explicable, auditable y observable desde el punto de vista operativo. El enfoque existente podía generar predicciones, pero ofrecía una visibilidad limitada sobre la evidencia que respaldaba cada decisión, la fiabilidad de las respuestas y las causas de los errores de clasificación. La propuesta abordaba la necesidad de detectar sesgos, incoherencias, deriva de datos, confusión entre clases y degradación del modelo a lo largo del tiempo, así como de establecer un enfoque defendible para entornos de producción y sujetos a auditoría.",
       "ficha_ref": "fichas/masorange-iris.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1527,6 +1542,7 @@
       "briefing": "El operador disponía de un modelo de gestión de logs basado en syslog, un concentrador y Google Cloud Logging, adecuado para la ingesta operativa, la consulta inmediata y la resolución de incidencias. Sin embargo, esta aproximación presentaba limitaciones para la analítica avanzada, la correlación masiva entre dominios tecnológicos, la explotación histórica y la automatización del diagnóstico. El reto consistía en evolucionar desde un modelo reactivo de logging hacia una plataforma de observabilidad inteligente, manteniendo la continuidad operativa y minimizando el impacto sobre los sistemas origen.",
       "ficha_ref": "fichas/masorange-logora.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1562,6 +1578,7 @@
       "briefing": "El operador afrontaba una elevada complejidad en la operación de sus redes RAN, core y transporte, con miles de alarmas, inventarios de topología estáticos y segmentados, y múltiples herramientas OSS difíciles de correlacionar. La identificación del origen de una incidencia podía prolongarse durante más de siete horas, especialmente en escenarios multivendor y de caída masiva de servicios. Los equipos de operación dedicaban un esfuerzo considerable a revisar alarmas, recopilar evidencias y relacionar manualmente eventos entre dominios, mientras que los enfoques tradicionales de análisis de causa raíz se apoyaban principalmente en reglas estáticas y umbrales.",
       "ficha_ref": "fichas/masorange-rca.es.md",
       "ambito": "privado",
+      "cliente_referenciable": true,
       "referenciable": "si"
     },
     {
@@ -1616,6 +1633,7 @@
       "briefing": "Una organización del sector audiovisual necesitaba reforzar la operación y evolución de su entorno de Big Data y Analytics, cubriendo tanto la gestión de la plataforma cloud como los nuevos desarrollos, el mantenimiento evolutivo y correctivo y el soporte técnico a las áreas de negocio. El reto incluía garantizar la disponibilidad de los servicios de datos, responder ante incidencias críticas fuera del horario laboral y mantener la capacidad de adaptación ante nuevos requisitos analíticos y tecnológicos. La propuesta planteaba la integración de un equipo especializado dentro del modelo operativo del cliente, con coordinación con sus equipos internos de operaciones, desarrollo y monitorización.",
       "ficha_ref": "fichas/medios-audiovisuales-servicio-bigdata.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1668,6 +1686,7 @@
       "briefing": "La organización necesitaba validar un nuevo modelo de orquestación y ejecución de procesos ETL que sustituyera una arquitectura fragmentada entre distintos servicios de ejecución, eventos y funciones. El modelo existente presentaba una gestión heterogénea de reintentos, generación de alertas y tickets fuera de contexto, baja trazabilidad de los errores y una elevada carga para los equipos de guardia. Además, el despliegue y las pruebas entre entornos se realizaban de forma manual, dificultando el mantenimiento, la escalabilidad y la autonomía de los equipos de desarrollo.",
       "ficha_ref": "fichas/medios-etl-airflow-piloto.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1711,6 +1730,7 @@
       "briefing": "El operador gestionaba un ecosistema de datos complejo, estacional y distribuido entre varias sociedades y áreas de negocio. Aunque disponía de un Data Warehouse SQL Server local con múltiples fuentes integradas y numerosos informes de Power BI, persistían silos de información, dependencia de ficheros Excel, procesos manuales y ausencia de definiciones unificadas para KPIs. Finanzas, RRHH y Operaciones trabajaban con datos desalineados y con diferentes niveles de actualización, lo que dificultaba conocer la rentabilidad real de la escuela de esquí, como el coste por hora de monitor o el margen por tipo de clase.",
       "ficha_ref": "fichas/operador-estaciones-montana-datos.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1748,6 +1768,7 @@
       "briefing": "La organización buscaba capacitar a su equipo directivo en el uso práctico, seguro y responsable de la inteligencia artificial generativa aplicada al entorno de trabajo. El reto consistía en trasladar las capacidades de Microsoft Copilot a tareas habituales como la preparación de informes, comités, presentaciones, reuniones, correos y análisis de datos, manteniendo criterios de verificación, protección de la información y alineamiento con la ciberseguridad corporativa. La propuesta contemplaba dos itinerarios formativos: uno basado en la integración con las aplicaciones de Microsoft 365 y Copilot Studio, y otro centrado exclusivamente en Copilot Chat.",
       "ficha_ref": "fichas/operador-mercado-energia-formacion-ia.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1791,6 +1812,7 @@
       "briefing": "Un operador de telecomunicaciones necesitaba evolucionar desde modelos de emulación de red complejos e intensivos en recursos hacia una representación semántica, escalable y orientada a las dependencias entre elementos. La identificación del impacto de cambios de configuración, rutas, políticas de seguridad y relaciones entre capas L2 y L3 requería un elevado conocimiento experto y podía generar riesgos operativos. El reto consistía en anticipar el alcance de una modificación antes de aplicarla en producción, explicar sus consecuencias de forma comprensible y contrastar posteriormente la predicción con la telemetría y los registros reales.",
       "ficha_ref": "fichas/operador-telecomunicaciones-telco-gemelo-digital.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1826,6 +1848,7 @@
       "briefing": "El organismo público buscaba comprender cómo la inteligencia artificial puede transformar el trabajo diario y mejorar la eficiencia, la creatividad y la colaboración entre sus equipos. La propuesta respondía a la necesidad de ofrecer una formación accesible para personas de distintas áreas y niveles técnicos, con especial atención a finanzas, atención al cliente y gestión legal. El reto consistía en trasladar el potencial de Microsoft Copilot a situaciones laborales concretas, manteniendo una perspectiva responsable sobre privacidad, seguridad, errores y posibles sesgos.",
       "ficha_ref": "fichas/organismo-publico-copilot.es.md",
       "ambito": "publico",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1871,6 +1894,7 @@
       "briefing": "Una organización pública cultural especializada en la conservación y difusión del patrimonio visual disponía de un sistema de información orientado principalmente a la gestión de imágenes. La creciente incorporación de contenidos audiovisuales exigía adaptar el catálogo, los procesos de ingesta y los portales de consulta para gestionar vídeos de forma estructurada. El reto consistía en definir una solución robusta para vídeo bajo demanda y streaming en directo, integrada con el archivo digital y los sistemas existentes, con capacidad de controlar el almacenamiento, la seguridad, los derechos de acceso y la evolución futura de la plataforma.",
       "ficha_ref": "fichas/organismo-publico-video-vod.es.md",
       "ambito": "publico",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1922,6 +1946,7 @@
       "briefing": "La organización sanitaria había iniciado una estrategia de modernización tecnológica mediante la adopción progresiva de AWS y el establecimiento de una Landing Zone. En este contexto, la plataforma informacional DataNext, desplegada en un entorno local, estaba experimentando un crecimiento sostenido de usuarios, requisitos funcionales y volumen de datos. Su arquitectura dependía principalmente de un escalado vertical, lo que limitaba la capacidad de ampliar almacenamiento y computación con agilidad.",
       "ficha_ref": "fichas/sanitaria-datanext-aws.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1978,6 +2003,7 @@
       "briefing": "La organización disponía de una plataforma OpenText on-premise utilizada principalmente como servidor de archivo y próxima a quedar fuera de soporte. El entorno debía seguir ofreciendo acceso documental desde SAP RISE y desde aplicaciones web utilizadas por terceros autorizados. El reto consistía en modernizar la arquitectura, mejorar la seguridad, disponibilidad y eficiencia operativa del almacenamiento a largo plazo, y migrar los documentos vivos al nuevo entorno cloud, manteniendo la información histórica en la plataforma existente según la decisión estratégica del cliente.",
       "ficha_ref": "fichas/servicios-inmobiliarios-content-server.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2013,6 +2039,7 @@
       "briefing": "La organización parte de un entorno intensivo en procesos relacionados con normativa, sistemas de calidad y formación, con una amplia base de clientes y un elevado potencial de automatización. La coexistencia de sistemas heterogéneos con bajo nivel de integración, junto con una alta carga de tareas manuales y repetitivas, dificulta la eficiencia operativa, la escalabilidad y la mejora del time-to-market. El reto consiste en identificar oportunidades reales de automatización e inteligencia artificial, validar su viabilidad y establecer una hoja de ruta priorizada para avanzar hacia un modelo operativo más eficiente.",
       "ficha_ref": "fichas/servicios-profesionales-assessment-automatizacion.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2047,6 +2074,7 @@
       "briefing": "Una organización fundacional dedicada a la investigación tecnológica y al impacto social quería evaluar la viabilidad de automatizar un proceso existente de análisis de documentación de proveedores. El reto se centraba en procesar facturas, albaranes, contratos, acuerdos de tratamiento de datos y otros documentos relacionados con la relación contractual, reduciendo la intervención manual sin sustituir las funciones de los equipos financieros o contables. La iniciativa se planteó como una prueba de concepto acotada, limitada a los casos de uso definidos por la organización y sin incluir personalizaciones ni integraciones adicionales fuera del alcance acordado.",
       "ficha_ref": "fichas/tecnologica-poc-facturas.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2083,6 +2111,7 @@
       "briefing": "Una universidad privada buscaba desarrollar las capacidades de su equipo para crear agentes inteligentes capaces de conversar con estudiantes y personal, pero también de ejecutar acciones sobre los procesos internos. El reto consistía en combinar comprensión del lenguaje natural, automatización de tareas y buenas prácticas de seguridad para abordar casos reales de admisiones, secretaría académica y calidad docente. La organización necesitaba reducir la dependencia de soporte externo, acelerar la adopción de la automatización y disponer de una metodología reutilizable para extender estos casos a otros departamentos.",
       "ficha_ref": "fichas/universidad-privada-formacion-agentes.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2141,6 +2170,7 @@
       "briefing": "Una organización hospitalaria necesitaba consolidar y normalizar la información clínica relacionada con los fallecimientos de pacientes a partir de fuentes internas independientes. La información no estaba integrada, lo que dificultaba el análisis diario por unidad médica, ubicación y motivo clínico. El reto consistía en crear un primer dominio reutilizable que sirviera como plantilla para futuros dominios asistenciales, garantizando automatización, trazabilidad, calidad del dato, seguridad y capacidad de reconstrucción ante errores o cambios en las reglas clínicas.",
       "ficha_ref": "fichas/universitario-arquitectura-clinica.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2178,6 +2208,7 @@
       "briefing": "El hospital necesitaba facilitar al personal asistencial el acceso rápido y contextualizado a protocolos clínicos, procedimientos internos y guías de actuación. La documentación estaba distribuida entre un directorio de archivos y un gestor documental corporativo, sin metadatos estructurados ni taxonomías predefinidas. La propuesta planteaba un piloto capaz de trabajar sobre más de dos mil documentos PDF, evitando el etiquetado manual y la preclasificación avanzada, y con una ejecución íntegramente local para preservar la confidencialidad de la información clínica.",
       "ficha_ref": "fichas/universitario-chatbot-asistencial-onprem.es.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     }
   ]

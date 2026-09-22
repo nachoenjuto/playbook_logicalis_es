@@ -379,6 +379,14 @@ function catalogApp() {
     switchLanguage(newLang) {
       if (newLang === this.currentLang) return;
       this.currentLang = newLang;
+      // the chosen language stays in the URL (explorador.html?lang=en), so F5 and shared links keep it
+      if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+        try {
+          const url = new URL(window.location.href);
+          if (newLang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
+          window.history.replaceState(null, '', url.pathname + (url.search || '') + url.hash);
+        } catch (e) { /* URL no editable: se ignora */ }
+      }
       this.semanticScores.clear();
       this.loadCatalog(newLang);
     },

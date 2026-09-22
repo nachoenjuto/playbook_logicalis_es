@@ -1,5 +1,5 @@
 {
-  "version": "c8ad9743c_1790071390",
+  "version": "e86609967_1790071738",
   "lang": "en",
   "facets": [
     {
@@ -865,6 +865,7 @@
       "briefing": "A provincial government administration needed to assess how to improve the organisation and management of documents associated with administrative case files, initially focusing on competitive grant procedures. The diversity of document formats, the potential presence of poor-quality scanned documents and the absence of fully defined classification criteria made automation difficult and could require significant manual review. The challenge was to determine the technical feasibility of an artificial intelligence solution capable of extracting information, classifying documents and providing traceable results while maintaining compliance with security and data protection requirements.",
       "ficha_ref": "fichas/administracion-provincial-clasificacion-expedientes.en.md",
       "ambito": "publico",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -920,6 +921,7 @@
       "briefing": "The organization needed to consolidate eligibility management and the products and services catalog into a common, traceable and reusable capability for different internal platforms, insurers and operating models. The starting point combined local processes, distributed integrations, legacy formats and country- or entity-specific logic, making it difficult to determine consistently which services each member was entitled to use. The challenge was to evolve the existing platform without disrupting operations by enabling progressive migration, temporary coexistence with the legacy model, wave-based validation and insurer-level rollback.",
       "ficha_ref": "fichas/aseguradora-internacional-elegibilidad-catalogo.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -958,6 +960,7 @@
       "briefing": "The insurer had a churn model, primarily applied to funeral insurance products, which had delivered satisfactory results in supporting customer retention. However, it needed to expand its commercial capabilities to identify opportunities for up-selling new benefits and extending existing coverage, as well as for cross-selling home insurance. The lack of sufficient historical data for certain products made it difficult to select target audiences using traditional techniques.",
       "ficha_ref": "fichas/aseguradora-nacional-modelos-venta-cruzada.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -997,6 +1000,7 @@
       "briefing": "A national construction company needed to streamline the analysis of construction designs and estimates in BC3 format in order to identify valuable materials and match them with an environmental impact database. The process required manually breaking down line items, interpreting heterogeneous descriptions and locating comparable materials. This limited productivity, hindered scalability and increased validation efforts.",
       "ficha_ref": "fichas/constructora-nacional-materiales.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1036,6 +1040,7 @@
       "briefing": "An educational organization held relevant knowledge in its corporate document management system but needed to make that information available to employees more quickly, naturally, and intuitively. The challenge was to enable natural-language queries across existing documentation, initially in Spanish, while preventing responses outside the authorized repository and preserving the security controls already applied across corporate systems. The proposal also included using a familiar collaboration channel to encourage service adoption.",
       "ficha_ref": "fichas/educativa-copiloto-documental.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1074,6 +1079,7 @@
       "briefing": "Context and Challenge The organization needs to rapidly and systematically assess the evolution of its Power BI environment towards Microsoft Fabric. The challenge is to understand the current state of datasets, data sources, volumes, users, consumption patterns and licensing, while also identifying the technical implications of a potential migration. The assessment places particular focus on information consumed through Power Apps and Power Automate, including the limitations of access interfaces and data exposure mechanisms.",
       "ficha_ref": "fichas/entorno-power-powerbi-assessment-fabric.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1108,6 +1114,7 @@
       "briefing": "An industrial manufacturer needed to assess and prepare the migration of its operational database from DB2 to PostgreSQL, minimising application disruption and reducing the risks associated with converting objects, stored procedures and queries. The complexity of the environment included dependencies between applications, JDBC connections, logic implemented in SQL and PL/SQL, and different data types and objects with potential incompatibilities between database engines. The proposed approach followed an iterative methodology to understand the environment, classify risks and progressively validate the technical feasibility of the migration.",
       "ficha_ref": "fichas/fabricante-industrial-migracion-bbdd.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1143,6 +1150,7 @@
       "briefing": "An industrial organization seeks to comprehensively monitor the condition of multiple manufacturing plants and move towards a more proactive operating model. The challenge stems from the lack of continuous monitoring at certain facilities and the occurrence of unplanned downtime, particularly at high-demand plants. The proposal aims to standardize analytical models and digital solutions across different plant types, starting with facilities located in Chile.",
       "ficha_ref": "fichas/fabricante-industrial-smart-plant.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1195,6 +1203,7 @@
       "briefing": "An industrial organisation with sensitive data seeks to accelerate the practical adoption of artificial intelligence without creating technology overload or security risks. The proposal addresses the need to transform a set of isolated courses into a progressive capability journey, differentiating the needs of technical teams from those of business profiles. The challenge includes preparing teams to develop generative AI solutions, integrate agents with corporate systems, and establish criteria for data sovereignty, prompt privacy, regulatory compliance, cost control and observability.",
       "ficha_ref": "fichas/fabricante-papel-formacion-ia.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1239,6 +1248,7 @@
       "briefing": "A real estate asset management company needed to streamline the review, validation and generation of documentation related to municipal capital gains tax (IIVTNU). The process relied on heterogeneous documents, including deeds, land registry records, cadastral information and transaction histories, which had to be manually interpreted and transferred to operational systems. This created a significant administrative burden, a risk of transcription errors, inconsistencies in ownership or cadastral values, and difficulties in maintaining complete process traceability.",
       "ficha_ref": "fichas/gestora-activos-inmobiliaria-automatizacion-plusvalias.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1292,6 +1302,7 @@
       "briefing": "A national hotel group was undergoing a strategic transformation to move towards a more data-driven business model. Commercial, point-of-sale and financial information was distributed across different systems and SaaS services, making consolidation, traceability and consistent business analysis difficult. The challenge was to define and build a scalable and flexible enterprise information architecture capable of integrating heterogeneous sources and establishing a common foundation for decision-making.",
       "ficha_ref": "fichas/hotelero-nacional-arquitectura-informacional.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1340,6 +1351,7 @@
       "briefing": "A real estate organization seeks to modernize its software development practices through artificial intelligence, evolving from code assistants towards agentic collaboration models and more autonomous systems. The challenge is to improve productivity without losing control over quality, security, traceability, or the knowledge accumulated across projects. The absence of executable specifications, shared rules, persistent memory, and validation mechanisms can lead to inconsistent results, context debt, and an expanded risk surface in environments where agents are connected to corporate tools.",
       "ficha_ref": "fichas/inmobiliaria-ia-desarrollo.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1392,6 +1404,7 @@
       "briefing": "A real estate organisation was introducing generative AI capabilities to optimise the processing of judicial documentation. The challenge involved analysing large volumes of heterogeneous documents, including judgments, claims, rulings and communications, received from different sources and in multiple formats. Manual classification was not sufficiently scalable and made it difficult to ensure traceability, review inconclusive documents and identify operational issues at an early stage.",
       "ficha_ref": "fichas/inmobiliaria-nacional-clasificador-documentos.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1430,6 +1443,7 @@
       "briefing": "The customer managed a global network and security infrastructure through a high-volume, predominantly reactive monitoring environment. Operations teams had to correlate alerts from different systems, prioritise incidents, consult technical documentation, and coordinate actions between the Service Desk and specialised support teams. This fragmentation made it difficult to establish the full context of each event, slowed resolution, and limited the consistent application of preventive or automated responses.",
       "ficha_ref": "fichas/masorange-aiops.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1480,6 +1494,7 @@
       "briefing": "A national telecommunications operator was evaluating how to make its IRIS image-classification solution more explainable, auditable and operationally observable. The existing approach could produce predictions, but it provided limited visibility into the evidence supporting each decision, the reliability of the responses and the causes of classification errors. The proposal addressed the need to detect bias, inconsistencies, data drift, class confusion and model degradation over time, while also establishing a defensible approach for production and audit-oriented environments.",
       "ficha_ref": "fichas/masorange-iris.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1541,6 +1556,7 @@
       "briefing": "The telecommunications operator had a log management model based on syslog, a shared collector and Google Cloud Logging. This approach was suitable for operational ingestion, immediate querying and incident resolution, but presented limitations for advanced analytics, large-scale correlation across technology domains, historical analysis and automated diagnosis. The challenge was to evolve from a reactive logging model towards an intelligent observability platform while maintaining operational continuity and minimising the impact on source systems.",
       "ficha_ref": "fichas/masorange-logora.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1577,6 +1593,7 @@
       "briefing": "The operator faced significant operational complexity across its RAN, core and transport networks, with thousands of alarms, static and segmented topology inventories, and multiple OSS tools that were difficult to correlate. Identifying the origin of an incident could take more than seven hours, particularly in multivendor environments and widespread service outage scenarios. Operations teams invested considerable effort in reviewing alarms, gathering evidence and manually relating events across domains, while traditional root cause analysis approaches relied mainly on static rules and thresholds.",
       "ficha_ref": "fichas/masorange-rca.en.md",
       "ambito": "privado",
+      "cliente_referenciable": true,
       "referenciable": "si"
     },
     {
@@ -1631,6 +1648,7 @@
       "briefing": "An organization in the audiovisual media sector needed to strengthen the operation and evolution of its Big Data and Analytics environment. The scope covered cloud platform management, new developments, evolutionary and corrective maintenance, and technical support for business teams. The challenge included ensuring data service availability, responding to critical incidents outside business hours, and maintaining the flexibility required to address new analytical and technology requirements.",
       "ficha_ref": "fichas/medios-audiovisuales-servicio-bigdata.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1683,6 +1701,7 @@
       "briefing": "The organization needed to validate a new model for orchestrating and executing ETL processes to replace a fragmented architecture spanning different execution services, events, and functions. The existing model featured inconsistent retry management, out-of-context alerts and ticket creation, limited error traceability, and a significant operational burden for on-call teams. In addition, deployment and testing across environments were performed manually, making maintenance and scalability more difficult and limiting development team autonomy.",
       "ficha_ref": "fichas/medios-etl-airflow-piloto.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1726,6 +1745,7 @@
       "briefing": "The operator managed a complex, seasonal data ecosystem distributed across several legal entities and business areas. Although it had an on-premises SQL Server Data Warehouse with multiple integrated sources and numerous Power BI reports, information silos, reliance on Excel files, manual processes and the absence of unified KPI definitions persisted. Finance, HR and Operations worked with misaligned data and different refresh frequencies, making it difficult to understand the ski school’s actual profitability, including the cost per instructor hour and margin by class type.",
       "ficha_ref": "fichas/operador-estaciones-montana-datos.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1762,6 +1782,7 @@
       "briefing": "The organisation sought to equip its executive team with the practical, secure and responsible use of generative artificial intelligence in the workplace. The challenge was to apply Microsoft Copilot capabilities to everyday activities such as preparing reports, committee materials, presentations, meetings, emails and data analyses, while maintaining verification practices, information protection and alignment with corporate cybersecurity policies. The proposal covered two training pathways: one focused on integration with Microsoft 365 applications and Copilot Studio, and another focused exclusively on Copilot Chat.",
       "ficha_ref": "fichas/operador-mercado-energia-formacion-ia.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1805,6 +1826,7 @@
       "briefing": "A telecommunications operator needed to evolve from complex, resource-intensive network emulation models towards a scalable semantic representation focused on dependencies between elements. Identifying the impact of changes to configurations, routes, security policies, and relationships across L2 and L3 layers required extensive expert knowledge and could create operational risks. The challenge was to anticipate the scope of a change before applying it in production, explain its consequences in an understandable way, and subsequently compare the prediction with actual telemetry and logs.",
       "ficha_ref": "fichas/operador-telecomunicaciones-telco-gemelo-digital.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1840,6 +1862,7 @@
       "briefing": "The public authority wanted to understand how artificial intelligence can transform day-to-day work and improve efficiency, creativity and collaboration across its teams. The proposal addressed the need to provide accessible training for people from different departments and with varying levels of technical expertise, with particular attention to finance, customer service and legal operations. The challenge was to translate the potential of Microsoft Copilot into concrete workplace scenarios while maintaining a responsible perspective on privacy, security, errors and potential bias.",
       "ficha_ref": "fichas/organismo-publico-copilot.en.md",
       "ambito": "publico",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1885,6 +1908,7 @@
       "briefing": "A public cultural organisation specialising in the preservation and dissemination of visual heritage operated an information system primarily designed to manage images. The growing incorporation of audiovisual content required the catalogue, ingestion processes and public portals to be adapted for the structured management of video. The challenge was to define a robust solution for Video on Demand and live streaming, integrated with the digital archive and existing systems, while providing control over storage, security, access rights and the platform’s future evolution.",
       "ficha_ref": "fichas/organismo-publico-video-vod.en.md",
       "ambito": "publico",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1936,6 +1960,7 @@
       "briefing": "The healthcare organisation had begun a technology modernisation strategy based on the progressive adoption of AWS and the establishment of a Landing Zone. In this context, the DataNext information platform, deployed on premises, was experiencing sustained growth in users, functional requirements and data volumes. Its architecture relied mainly on vertical scaling, limiting the ability to expand storage and computing resources with agility.",
       "ficha_ref": "fichas/sanitaria-datanext-aws.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -1992,6 +2017,7 @@
       "briefing": "The organisation operated an on-premises OpenText platform, used primarily as an archive server and approaching end of support. The environment needed to continue providing document access from SAP RISE and from web applications used by authorised third parties. The challenge was to modernise the architecture, improve the security, availability and operational efficiency of long-term storage, and migrate active documents to the new cloud environment while retaining historical information on the existing platform, in line with the client’s strategic decision.",
       "ficha_ref": "fichas/servicios-inmobiliarios-content-server.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2026,6 +2052,7 @@
       "briefing": "The organization operates in a process-intensive environment covering regulatory compliance, quality management systems and training. Its broad customer base and the repetitive, scalable nature of many activities create significant potential for automation. At the same time, heterogeneous systems with limited integration and a high volume of manual tasks hinder operational efficiency, scalability and time-to-market improvements.",
       "ficha_ref": "fichas/servicios-profesionales-assessment-automatizacion.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2057,6 +2084,7 @@
       "briefing": "A foundation focused on technological research and social impact wanted to assess the feasibility of automating an existing supplier-document analysis process. The challenge involved processing invoices, delivery notes, contracts, data processing agreements and other documents related to contractual relationships, while reducing manual intervention without replacing the responsibilities of finance or accounting teams. The initiative was structured as a limited proof of concept, restricted to the use cases defined by the organisation and excluding customisations or additional integrations beyond the agreed scope.",
       "ficha_ref": "fichas/tecnologica-poc-facturas.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2092,6 +2120,7 @@
       "briefing": "A private university sought to develop its team’s capabilities to create intelligent agents that could converse with students and staff while also executing actions across internal processes. The challenge was to combine natural language understanding, task automation and sound security practices to address real use cases in admissions, academic administration and teaching quality. The organisation needed to reduce its dependence on external support, accelerate automation adoption and establish a reusable methodology for extending these use cases to other departments.",
       "ficha_ref": "fichas/universidad-privada-formacion-agentes.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2150,6 +2179,7 @@
       "briefing": "A hospital organization needed to consolidate and normalize clinical information related to patient deaths from separate internal sources. Because the information was not integrated, daily analysis by medical unit, location, and clinical cause was difficult. The challenge was to create a reusable first domain that could serve as a template for future care domains while ensuring automation, traceability, data quality, security, and the ability to reconstruct datasets after errors or changes to clinical rules.",
       "ficha_ref": "fichas/universitario-arquitectura-clinica.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     },
     {
@@ -2187,6 +2217,7 @@
       "briefing": "The hospital needed to provide clinical staff with fast, contextual access to clinical protocols, internal procedures and operational guidelines. The documentation was distributed across a file directory and a corporate document management system, without structured metadata or predefined taxonomies. The proposed pilot was designed to work with more than two thousand PDF documents, avoiding manual tagging and advanced pre-classification, while running entirely on-premises to preserve the confidentiality of clinical information.",
       "ficha_ref": "fichas/universitario-chatbot-asistencial-onprem.en.md",
       "ambito": "privado",
+      "cliente_referenciable": false,
       "referenciable": "no"
     }
   ]

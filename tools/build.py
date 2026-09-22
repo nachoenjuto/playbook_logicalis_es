@@ -24,6 +24,7 @@ Reglas:
   - Un caso aparece en un idioma si existe su ficha en ese idioma. Si falta la inglesa, no sale en inglés.
   - Las facetas derivadas se calculan aquí cuando la ficha no trae el campo:
         referenciable  <- cliente_publico (true: si, false: no, sin dato: sin-confirmar)
+        cliente_referenciable <- el mismo dato en booleano, que es lo que enseña la ficha
         ambito         <- sector («Sector Público»: publico; el resto: privado)
   - Todo campo extra de la cabecera (pain, kit, estrategia, owner, procedencia...) pasa al índice tal cual:
     es lo que la ficha del modal enseña o marca como «sin datos disponibles».
@@ -119,9 +120,12 @@ def valores(caso, clave):
 
 def deriva(caso):
     """Facetas que se calculan cuando la ficha no trae el campo."""
+    cp = caso.get("cliente_publico")
     if "referenciable" not in caso:
-        cp = caso.get("cliente_publico")
         caso["referenciable"] = "si" if cp is True else "no" if cp is False else "sin-confirmar"
+    # el mismo dato como booleano, que es lo que lee la ficha del explorador (cliente_referenciable)
+    if "cliente_referenciable" not in caso:
+        caso["cliente_referenciable"] = True if cp is True else False if cp is False else None
     if "ambito" not in caso and caso.get("sector"):
         caso["ambito"] = "publico" if str(caso["sector"]).strip().lower() == "sector público" else "privado"
 
@@ -229,8 +233,8 @@ def compara(nuevo, ruta):
         if c["id"] not in vc:
             dif.append(f"caso nuevo: {c['id']}")
             continue
-        for k in vc[c["id"]]:
-            if vc[c["id"]][k] != c.get(k):
+        for k in sorted(set(vc[c["id"]]) | set(c)):
+            if vc[c["id"]].get(k) != c.get(k):
                 dif.append(f"caso {c['id']}: cambia {k}")
     for k in vc:
         if k not in {c["id"] for c in nuevo["cases"]}:
