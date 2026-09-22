@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Catálogo de Casos de Uso y Éxito de la Unidad - Logicalis Spain. Soluciones en Cloud, Data, AI y Ciberseguridad.">
   <meta name="theme-color" content="#143CCD">
-  <meta name="build-id" content="6b39ee1a2_1790068782">
+  <meta name="build-id" content="3533e31b0_1790069419">
   <meta
     http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net; img-src 'self' data:;">
@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Logicalis Design System Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=6b39ee1a2_1790068782">
+  <link rel="stylesheet" href="styles.css?v=3533e31b0_1790069419">
 
   <!-- Third-party CDN Dependencies with Subresource Integrity (SRI) -->
   <script
@@ -49,7 +49,7 @@
   </script>
 
   <!-- Application Logic -->
-  <script src="app.js?v=6b39ee1a2_1790068782"></script>
+  <script src="app.js?v=3533e31b0_1790069419"></script>
 
   <!-- Alpine.js 3.x with defer -->
   <script
@@ -59,7 +59,7 @@
     crossorigin="anonymous">
   </script>
 </head>
-<body x-data="catalogApp()" x-cloak>
+<body x-data="catalogApp()" x-cloak class="explorador">
 
   <!-- WCAG 2.1 AA Accessibility: Skip to main content -->
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
@@ -77,7 +77,7 @@
       <div class="titleblock">
         <a href="inicio.html" aria-label="Inicio"><img class="brand-logo-img" src="assets/logicalis-logo-white.webp" alt="Logicalis - Architects of Change" width="140" height="26"></a>
         <span class="tsep" aria-hidden="true"></span>
-        <p x-text="t.heroEyebrow">Data &amp; AI · Logicalis Spain</p>
+        <p x-text="t.heroEyebrow">Repositorio de casos de uso</p>
       </div>
 
       <!-- Bilingual Language Selector (AC-008, Issue #31) -->
@@ -106,9 +106,10 @@
   <main id="main-content" class="results-area">
     <div class="page-inner">
 
+      <a class="backbtn" :href="currentLang === 'en' ? 'inicio.html?lang=en' : 'inicio.html'"><span aria-hidden="true">&larr;</span> <span x-text="t.backHome">Inicio</span></a>
       <div class="vhead">
-        <h2 class="vtitle" x-text="t.catalogTitle">Catálogo de Casos de Uso y Éxito</h2>
-        <p class="vsub" x-text="t.catalogSubtitle">Explora soluciones empresariales validadas en Cloud, Data, AI y Ciberseguridad.</p>
+        <h2 class="vtitle" x-text="t.catalogTitle">Casos de uso</h2>
+        <p class="vsub" x-text="t.catalogSubtitle">Todo lo que hemos hecho, filtrable por lo que te importe.</p>
       </div>
 
       <!-- Explorer: Facets Sidebar + (Search + Results), side by side from the same top edge -->
@@ -225,6 +226,18 @@
               </svg>
             </button>
 
+            <label class="sortwrap" :title="t.sortLabel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 5h10M11 9h7M11 13h4"/><path d="M5 5v14M5 19l-3-3M5 19l3-3"/>
+              </svg>
+              <select class="sortsel" x-model="sortMode" :aria-label="t.sortLabel">
+                <option value="relevancia" x-text="t.sortRelevance">Ordenar: relevancia</option>
+                <option value="recientes" x-text="t.sortNewest">Ordenar: más recientes primero</option>
+                <option value="antiguos" x-text="t.sortOldest">Ordenar: más antiguos primero</option>
+                <option value="alfabetico" x-text="t.sortAlpha">Ordenar: alfabético</option>
+              </select>
+            </label>
+
             <div class="search-mode-switcher" role="group" aria-label="Modo de búsqueda">
               <button
                 type="button"
@@ -252,32 +265,6 @@
                 :aria-pressed="searchMode === 'lexical'">
                 <span x-text="t.searchModeLexical">Texto exacto</span>
               </button>
-            </div>
-
-            <!-- Semantic Model Status Indicator / Fallback Notice (Issue #35, #38) -->
-            <div
-              class="model-status-pill"
-              :class="'status-' + modelStatus"
-              role="status"
-              aria-live="polite">
-              <template x-if="modelStatus === 'loading'">
-                <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
-                  <span class="mini-spinner"></span>
-                  <span x-text="t.modelStatusLoading + (modelLoadProgress > 0 ? ' ' + modelLoadProgress + '%' : '')">Cargando modelo semántico local...</span>
-                </span>
-              </template>
-              <template x-if="modelStatus === 'ready'">
-                <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
-                  <span class="status-dot dot-ready"></span>
-                  <span x-text="t.modelStatusReady">Búsqueda semántica activa (WASM local)</span>
-                </span>
-              </template>
-              <template x-if="modelStatus === 'error'">
-                <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
-                  <span class="status-dot dot-error"></span>
-                  <span x-text="fallbackNotice || t.modelStatusError">Búsqueda semántica no disponible en este navegador; usando búsqueda léxica</span>
-                </span>
-              </template>
             </div>
 
             <!-- Semantic relevance threshold: user-adjustable, since a fixed cosine
@@ -380,7 +367,7 @@
 
           <!-- Case Cards Grid (Issues #28, #29, #30) -->
           <div class="cards" x-show="!loading && !error && filteredCases.length > 0">
-            <template x-for="item in filteredCases" :key="item.id">
+            <template x-for="item in sortedCases" :key="item.id">
               <article class="ccard" @click="openCase(item)">
                 <div class="ctop">
                   <span class="tag sector" x-text="item.sector_label || item.sector"></span>
@@ -443,7 +430,7 @@
 
   <footer>
     <div class="finn">
-      <span>Logicalis Spain &middot; <b>Data &amp; AI</b> &middot; Catálogo de Casos de Uso y Éxito</span>
+      <span>Logicalis Spain &middot; <b>Data &amp; AI</b> &middot; The Use Case Playbook</span>
       <img src="assets/logicalis-logo-white.webp" alt="" aria-hidden="true" style="filter: invert(1) brightness(0.4);">
     </div>
   </footer>

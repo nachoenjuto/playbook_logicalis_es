@@ -23,6 +23,10 @@ function catalogApp() {
   return {
     // Current Language state (AC-008, RF-010)
     currentLang: 'es',
+
+    // Sort order of the results: 'relevancia' (search ranking; catalog order when there is no
+    // query), 'recientes', 'antiguos' (by anio) or 'alfabetico' (by title in the current language).
+    sortMode: 'relevancia',
     
     // Asynchronous loading and network concurrency guard (alive flag)
     loading: true,
@@ -100,9 +104,15 @@ function catalogApp() {
     // Internationalized UI labels
     i18n: {
       es: {
-        heroEyebrow: 'Data & AI · Logicalis Spain',
-        catalogTitle: 'Catálogo de Casos de Uso y Éxito',
-        catalogSubtitle: 'Explora soluciones empresariales validadas en Cloud, Data, AI y Ciberseguridad.',
+        heroEyebrow: 'Repositorio de casos de uso',
+        backHome: 'Inicio',
+        catalogTitle: 'Casos de uso',
+        catalogSubtitle: 'Todo lo que hemos hecho, filtrable por lo que te importe. Cada ficha responde qué le dolía al cliente, qué hicimos y qué preguntas te llevan a detectar ese mismo dolor en otro sitio.',
+        sortLabel: 'Ordenar',
+        sortRelevance: 'Relevancia',
+        sortNewest: 'Más recientes primero',
+        sortOldest: 'Más antiguos primero',
+        sortAlpha: 'Alfabético',
         searchPlaceholder: 'Buscar por tecnología, sector, palabra clave o problema...',
         clearSearch: 'Limpiar búsqueda',
         filtersTitle: 'Filtros',
@@ -133,7 +143,7 @@ function catalogApp() {
         modelStatusError: 'Búsqueda semántica no disponible en este navegador; usando búsqueda léxica',
         modelStatusTimeout: 'La descarga del modelo semántico está tardando demasiado; usando búsqueda léxica',
         modelNotReadyTooltip: 'El modelo semántico aún no está listo',
-        semanticThresholdLabel: 'Relevancia mínima',
+        semanticThresholdLabel: 'Relevancia mín.',
         semanticThresholdTooltip: 'Similitud mínima para considerar un caso relevante en modo Semántica/Híbrido. Súbelo para resultados más estrictos, bájalo para ampliar la búsqueda.',
         // Ficha "Completa" — block titles and sub-labels
         fichaBlock1: 'Contexto y reto de negocio',
@@ -184,9 +194,15 @@ function catalogApp() {
         sourceUndeclared: 'sin declarar'
       },
       en: {
-        heroEyebrow: 'Data & AI · Logicalis Spain',
-        catalogTitle: 'Use Cases & Success Stories Catalog',
-        catalogSubtitle: 'Explore validated enterprise solutions across Cloud, Data, AI, and Cybersecurity.',
+        heroEyebrow: 'Use case repository',
+        backHome: 'Home',
+        catalogTitle: 'Use cases',
+        catalogSubtitle: 'Everything we have done, filterable by what matters to you. Each case sheet answers what was hurting the client, what we did, and which questions lead you to detect that same pain elsewhere.',
+        sortLabel: 'Sort',
+        sortRelevance: 'Relevance',
+        sortNewest: 'Newest first',
+        sortOldest: 'Oldest first',
+        sortAlpha: 'Alphabetical',
         searchPlaceholder: 'Search by technology, industry, keyword, or challenge...',
         clearSearch: 'Clear search',
         filtersTitle: 'Filters',
@@ -217,7 +233,7 @@ function catalogApp() {
         modelStatusError: 'Semantic search unavailable in this browser; using exact text search',
         modelStatusTimeout: 'The semantic model download is taking too long; using exact text search',
         modelNotReadyTooltip: 'Semantic model is still initializing',
-        semanticThresholdLabel: 'Minimum relevance',
+        semanticThresholdLabel: 'Min. relevance',
         semanticThresholdTooltip: 'Minimum similarity for a case to count as relevant in Semantic/Hybrid mode. Raise it for stricter results, lower it to broaden the search.',
         // Ficha "Completa" — block titles and sub-labels
         fichaBlock1: 'Context and business challenge',
@@ -937,6 +953,25 @@ function catalogApp() {
     },
 
     /**
+     * filteredCases in the order the user picked (sortMode). 'relevancia' keeps the ranking of
+     * filteredCases untouched; the other modes copy the list before sorting, so the search
+     * scores and the facet counts are not affected.
+     */
+    get sortedCases() {
+      const casos = this.filteredCases;
+      const modo = this.sortMode;
+      if (modo === 'relevancia' || !casos.length) return casos;
+      const anio = (c) => Number(c.anio) || 0;
+      const titulo = (c) => String(c.title || '').toLocaleLowerCase(this.currentLang);
+      const porTitulo = (a, b) => titulo(a).localeCompare(titulo(b), this.currentLang, { sensitivity: 'base' });
+      const lista = casos.slice();
+      if (modo === 'recientes') lista.sort((a, b) => anio(b) - anio(a) || porTitulo(a, b));
+      else if (modo === 'antiguos') lista.sort((a, b) => anio(a) - anio(b) || porTitulo(a, b));
+      else if (modo === 'alfabetico') lista.sort(porTitulo);
+      return lista;
+    },
+
+    /**
      * Strips the leading YAML frontmatter block (--- ... ---) that dist/fichas/*.md
      * cards carry, so only the narrative body is handed to the markdown renderer.
      */
@@ -1072,3 +1107,23 @@ function catalogApp() {
     }
   };
 }
+
+/* Layout of the explorer on wide screens (the original playbook did the same): the header,
+   the back link, the title, the filters and the search bar stay put and only the cards
+   scroll. The height depends on the header and the footer, so it is set in px here. */
+(function ajustaExplorador() {
+  function ajusta() {
+    var main = document.querySelector('main.results-area');
+    if (!main) return;
+    var ancho = window.matchMedia('(min-width: 1181px)').matches;
+    if (!ancho) { main.style.height = ''; return; }
+    var header = document.querySelector('header');
+    var footer = document.querySelector('footer');
+    var libre = window.innerHeight - (header ? header.offsetHeight : 0) - (footer ? footer.offsetHeight : 0);
+    main.style.height = Math.max(420, libre - 1) + 'px';
+  }
+  window.addEventListener('resize', ajusta);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ajusta);
+  else ajusta();
+  window.addEventListener('load', ajusta);
+})();
