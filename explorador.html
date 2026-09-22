@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Catálogo de Casos de Uso y Éxito de la Unidad - Logicalis Spain. Soluciones en Cloud, Data, AI y Ciberseguridad.">
   <meta name="theme-color" content="#143CCD">
-  <meta name="build-id" content="f00ba525c_1790083514">
+  <meta name="build-id" content="8c60340a7_1790084595">
   <meta
     http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://huggingface.co https://*.hf.co https://cdn.jsdelivr.net https://api.github.com; img-src 'self' data:;">
@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Logicalis Design System Stylesheet -->
-  <link rel="stylesheet" href="editor.css?v=f00ba525c_1790083514">
-  <link rel="stylesheet" href="styles.css?v=f00ba525c_1790083514">
+  <link rel="stylesheet" href="editor.css?v=8c60340a7_1790084595">
+  <link rel="stylesheet" href="styles.css?v=8c60340a7_1790084595">
 
   <!-- Third-party CDN Dependencies with Subresource Integrity (SRI) -->
   <script
@@ -45,7 +45,7 @@
     crossorigin="anonymous">
   <script
     type="module"
-    src="transformers-bridge.js?v=f00ba525c_1790083514"
+    src="transformers-bridge.js?v=8c60340a7_1790084595"
     crossorigin="anonymous">
   </script>
 
@@ -56,8 +56,8 @@
     crossorigin="anonymous"
     defer></script>
 
-  <script src="editor.js?v=f00ba525c_1790083514"></script>
-  <script src="app.js?v=f00ba525c_1790083514"></script>
+  <script src="editor.js?v=8c60340a7_1790084595"></script>
+  <script src="app.js?v=8c60340a7_1790084595"></script>
 
   <!-- Alpine.js 3.x with defer -->
   <script
@@ -578,20 +578,20 @@
           <section class="block dolor">
             <div class="bh"><span class="bn"></span><h3 x-text="t.fichaBlock2"></h3></div>
 
-            <template x-if="selectedCase?.titulo_comercial || edicion">
-              <p class="ftit" data-ed="titulo_comercial" x-text="selectedCase?.titulo_comercial || ''"></p>
+            <template x-if="selectedCase?.titulo_comercial">
+              <p class="ftit" data-ed="titulo_comercial" x-text="selectedCase.titulo_comercial"></p>
             </template>
-            <template x-if="!selectedCase?.titulo_comercial && !edicion">
-              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingCommercialTitle"></span></div>
+            <template x-if="!selectedCase?.titulo_comercial">
+              <div class="falta" data-edfalta="titulo_comercial"><b x-text="t.noDataTitle"></b><span x-text="t.missingCommercialTitle"></span></div>
             </template>
 
             <div class="subh" x-text="t.fichaPainLabel"></div>
-            <template x-if="selectedCase?.pain?.frase || edicion">
+            <template x-if="selectedCase?.pain?.frase">
               <blockquote class="painquote" data-ed="pain.frase" data-edcomillas="1"
-                x-text="selectedCase?.pain?.frase ? ('“' + selectedCase.pain.frase + '”') : ''"></blockquote>
+                x-text="'“' + selectedCase.pain.frase + '”'"></blockquote>
             </template>
-            <template x-if="!selectedCase?.pain?.frase && !edicion">
-              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingPainQuote"></span></div>
+            <template x-if="!selectedCase?.pain?.frase">
+              <div class="falta" data-edfalta="pain.frase"><b x-text="t.noDataTitle"></b><span x-text="t.missingPainQuote"></span></div>
             </template>
 
             <template x-if="selectedCase?.pain?.disparadores?.length || edicion">
@@ -619,11 +619,11 @@
             <div class="markdown-body" data-edsec="1" x-html="modalSections[1] ? modalSections[1].bodyHtml : ''"></div>
 
             <div class="subh" x-text="t.fichaWhyTechLabel"></div>
-            <template x-if="selectedCase?.estrategia?.porque || edicion">
-              <p class="ptext" data-ed="estrategia.porque" x-text="selectedCase?.estrategia?.porque || ''"></p>
+            <template x-if="selectedCase?.estrategia?.porque">
+              <p class="ptext" data-ed="estrategia.porque" x-text="selectedCase.estrategia.porque"></p>
             </template>
-            <template x-if="!selectedCase?.estrategia?.porque && !edicion">
-              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingWhyTech"></span></div>
+            <template x-if="!selectedCase?.estrategia?.porque">
+              <div class="falta" data-edfalta="estrategia.porque"><b x-text="t.noDataTitle"></b><span x-text="t.missingWhyTech"></span></div>
             </template>
           </section>
 
@@ -650,42 +650,42 @@
             <div class="bh"><span class="bn"></span><h3 x-text="t.fichaBlock5"></h3></div>
 
             <div class="subh" x-text="t.fichaQuestionsLabel"></div>
-            <template x-if="selectedCase?.kit?.preguntas?.length || edicion">
+            <template x-if="selectedCase?.kit?.preguntas?.length">
               <ol class="preguntas" data-edlist="kit.preguntas" data-edclase="">
                 <template x-for="(p, i) in (selectedCase?.kit?.preguntas || [])" :key="i">
                   <li x-text="p"></li>
                 </template>
               </ol>
             </template>
-            <template x-if="!selectedCase?.kit?.preguntas?.length && !edicion">
-              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingKit"></span></div>
+            <template x-if="!selectedCase?.kit?.preguntas?.length">
+              <div class="falta" data-edfalta="kit.preguntas" data-edtipo="lista"><b x-text="t.noDataTitle"></b><span x-text="t.missingKit"></span></div>
             </template>
 
             <div class="kitgrid">
               <div>
                 <div class="subh" style="margin-top:0" x-text="t.fichaSignalsLabel"></div>
-                <template x-if="selectedCase?.kit?.senales?.length || edicion">
+                <template x-if="selectedCase?.kit?.senales?.length">
                   <div class="chiprow" data-edlist="kit.senales" data-edclase="chipn">
                     <template x-for="s in (selectedCase?.kit?.senales || [])" :key="s">
                       <span class="chipn" x-text="s"></span>
                     </template>
                   </div>
                 </template>
-                <template x-if="!selectedCase?.kit?.senales?.length && !edicion">
-                  <div class="falta small"><b x-text="t.noDataTitle"></b></div>
+                <template x-if="!selectedCase?.kit?.senales?.length">
+                  <div class="falta small" data-edfalta="kit.senales" data-edtipo="lista"><b x-text="t.noDataTitle"></b></div>
                 </template>
 
                 <div class="subh" x-text="t.fichaBuyerLabel"></div>
-                <template x-if="selectedCase?.kit?.comprador?.principal || edicion">
-                  <p class="ptext ink" data-ed="kit.comprador.principal" x-text="selectedCase?.kit?.comprador?.principal || ''"></p>
+                <template x-if="selectedCase?.kit?.comprador?.principal">
+                  <p class="ptext ink" data-ed="kit.comprador.principal" x-text="selectedCase.kit.comprador.principal"></p>
                 </template>
-                <template x-if="!selectedCase?.kit?.comprador?.principal && !edicion">
-                  <div class="falta small"><b x-text="t.noDataTitle"></b></div>
+                <template x-if="!selectedCase?.kit?.comprador?.principal">
+                  <div class="falta small" data-edfalta="kit.comprador.principal"><b x-text="t.noDataTitle"></b></div>
                 </template>
               </div>
               <div>
                 <div class="subh" style="margin-top:0" x-text="t.fichaObjectionsLabel"></div>
-                <template x-if="selectedCase?.kit?.objeciones?.length || edicion">
+                <template x-if="selectedCase?.kit?.objeciones?.length">
                   <div data-edpairs="kit.objeciones" data-edclase="objec">
                     <template x-for="(o, i) in (selectedCase?.kit?.objeciones || [])" :key="i">
                       <div class="objec">
@@ -695,13 +695,13 @@
                     </template>
                   </div>
                 </template>
-                <template x-if="!selectedCase?.kit?.objeciones?.length && !edicion">
-                  <div class="falta small"><b x-text="t.noDataTitle"></b></div>
+                <template x-if="!selectedCase?.kit?.objeciones?.length">
+                  <div class="falta small" data-edfalta="kit.objeciones" data-edtipo="pares"><b x-text="t.noDataTitle"></b></div>
                 </template>
               </div>
             </div>
 
-            <template x-if="selectedCase?.kit?.primer_paso?.nombre || edicion">
+            <template x-if="selectedCase?.kit?.primer_paso?.nombre">
               <div class="primerpaso">
                 <div class="pp1" x-text="t.fichaFirstStepLabel"></div>
                 <h4 data-ed="kit.primer_paso.nombre" x-text="selectedCase?.kit?.primer_paso?.nombre || ''"></h4>
@@ -711,8 +711,8 @@
                 </template>
               </div>
             </template>
-            <template x-if="!selectedCase?.kit?.primer_paso?.nombre && !edicion">
-              <div class="falta"><b x-text="t.noDataTitle"></b><span x-text="t.missingFirstStep"></span></div>
+            <template x-if="!selectedCase?.kit?.primer_paso?.nombre">
+              <div class="falta" data-edfalta="kit.primer_paso.nombre"><b x-text="t.noDataTitle"></b><span x-text="t.missingFirstStep"></span></div>
             </template>
           </section>
 
@@ -721,7 +721,7 @@
         <aside class="flado" x-show="selectedCase">
           <div class="ld resp">
             <div class="mk" x-text="t.ownerLabel"></div>
-            <template x-if="selectedCase?.owner || edicion">
+            <template x-if="selectedCase?.owner">
               <div class="respcard">
                 <span class="avatar" x-text="(selectedCase?.owner || '·').split(' ').filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase()"></span>
                 <div class="rt">
@@ -730,9 +730,9 @@
                 </div>
               </div>
             </template>
-            <template x-if="!selectedCase?.owner && !edicion">
+            <template x-if="!selectedCase?.owner">
               <div>
-                <div class="mv na" x-text="t.noDataTitle"></div>
+                <div class="mv na" data-edfalta="owner" x-text="t.noDataTitle"></div>
                 <small class="respnota" x-text="t.ownerMissingHint"></small>
               </div>
             </template>
@@ -796,33 +796,33 @@
           <div class="n2">
             <div class="ld">
               <div class="mk" x-text="t.engagementTypeLabel"></div>
-              <div class="mv" data-ed="engagement.tipologia" x-show="selectedCase?.engagement?.tipologia || edicion" x-text="selectedCase?.engagement?.tipologia || ''"></div>
-              <div class="mv na" x-show="!selectedCase?.engagement?.tipologia && !edicion" x-text="t.noData"></div>
+              <div class="mv" data-ed="engagement.tipologia" x-show="selectedCase?.engagement?.tipologia" x-text="selectedCase?.engagement?.tipologia"></div>
+              <div class="mv na" data-edfalta="engagement.tipologia" x-show="!selectedCase?.engagement?.tipologia" x-text="t.noData"></div>
             </div>
             <div class="ld">
               <div class="mk" x-text="t.durationLabel"></div>
-              <div class="mv" data-ed="engagement.duracion" x-show="selectedCase?.engagement?.duracion || edicion" x-text="selectedCase?.engagement?.duracion || ''"></div>
-              <div class="mv na" x-show="!selectedCase?.engagement?.duracion && !edicion" x-text="t.noData"></div>
+              <div class="mv" data-ed="engagement.duracion" x-show="selectedCase?.engagement?.duracion" x-text="selectedCase?.engagement?.duracion"></div>
+              <div class="mv na" data-edfalta="engagement.duracion" x-show="!selectedCase?.engagement?.duracion" x-text="t.noData"></div>
             </div>
             <div class="ld">
               <div class="mk" x-text="t.teamLabel"></div>
-              <div class="mv" data-ed="engagement.equipo" x-show="selectedCase?.engagement?.equipo || edicion" x-text="selectedCase?.engagement?.equipo || ''"></div>
-              <div class="mv na" x-show="!selectedCase?.engagement?.equipo && !edicion" x-text="t.noData"></div>
+              <div class="mv" data-ed="engagement.equipo" x-show="selectedCase?.engagement?.equipo" x-text="selectedCase?.engagement?.equipo"></div>
+              <div class="mv na" data-edfalta="engagement.equipo" x-show="!selectedCase?.engagement?.equipo" x-text="t.noData"></div>
             </div>
             <div class="ld">
               <div class="mk" x-text="t.techStrategyLabel"></div>
-              <div class="mv" data-ed="estrategia.posicion" x-show="selectedCase?.estrategia?.posicion || edicion" x-text="selectedCase?.estrategia?.posicion || ''"></div>
-              <div class="mv na" x-show="!selectedCase?.estrategia?.posicion && !edicion" x-text="t.noData"></div>
+              <div class="mv" data-ed="estrategia.posicion" x-show="selectedCase?.estrategia?.posicion" x-text="selectedCase?.estrategia?.posicion"></div>
+              <div class="mv na" data-edfalta="estrategia.posicion" x-show="!selectedCase?.estrategia?.posicion" x-text="t.noData"></div>
             </div>
             <div class="ld">
               <div class="mk" x-text="t.maturityLabel"></div>
-              <div class="mv" data-ed="madurez" x-show="selectedCase?.madurez || edicion" x-text="selectedCase?.madurez || ''"></div>
-              <div class="mv na" x-show="!selectedCase?.madurez && !edicion" x-text="t.noData"></div>
+              <div class="mv" data-ed="madurez" x-show="selectedCase?.madurez" x-text="selectedCase?.madurez"></div>
+              <div class="mv na" data-edfalta="madurez" x-show="!selectedCase?.madurez" x-text="t.noData"></div>
             </div>
             <div class="ld">
               <div class="mk" x-text="t.practiceLabel"></div>
-              <div class="mv" data-ed="practica" x-show="selectedCase?.practica || edicion" x-text="selectedCase?.practica || ''"></div>
-              <div class="mv na" x-show="!selectedCase?.practica && !edicion" x-text="t.noData"></div>
+              <div class="mv" data-ed="practica" x-show="selectedCase?.practica" x-text="selectedCase?.practica"></div>
+              <div class="mv na" data-edfalta="practica" x-show="!selectedCase?.practica" x-text="t.noData"></div>
             </div>
             <div class="ld">
               <div class="mk" x-text="t.referenceableLabel"></div>

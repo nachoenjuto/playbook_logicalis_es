@@ -331,6 +331,84 @@
         cont.appendChild(mas);
       });
 
+      // --- los huecos vacíos: la caja de «Sin datos disponibles» se queda donde está y se
+      //     escribe dentro, para que la ficha no cambie de sitio al entrar en edición
+      raiz.querySelectorAll('[data-edfalta]').forEach((caja) => {
+        const clave = caja.getAttribute('data-edfalta');
+        const tipo = caja.getAttribute('data-edtipo') || 'texto';
+        const pista = caja.querySelector('span') ? caja.querySelector('span').textContent
+          : (caja.querySelector('b') ? caja.querySelector('b').textContent : '');
+        caja.dataset.edhtml = caja.innerHTML;
+        caja.innerHTML = '';
+
+        if (tipo === 'lista' || tipo === 'pares') {
+          // una lista vacía: dentro de la caja, el mismo «+» de siempre
+          const cont = document.createElement('div');
+          cont.className = 'chiprow edvacia';
+          const mas = document.createElement('button');
+          mas.type = 'button';
+          mas.className = 'edmas boton';
+          mas.textContent = '+ ' + yo.t.edAnadir;
+          const recoge = () => {
+            const v = [...cont.children].filter((c) => !c.classList.contains('edmas')).map((c) => {
+              if (tipo === 'lista') {
+                const copia = c.cloneNode(true);
+                copia.querySelectorAll('.edx').forEach((x) => x.remove());
+                return copia.innerText.trim();
+              }
+              const o = {};
+              c.querySelectorAll('[data-edpar]').forEach((p) => { o[p.getAttribute('data-edpar')] = p.innerText.trim(); });
+              return o;
+            }).filter((x) => (typeof x === 'string' ? x : Object.values(x).some(Boolean)));
+            yo.edPonRuta(clave, v);
+            cont.classList.add('edcambiado');
+          };
+          mas.addEventListener('click', () => {
+            let nuevo;
+            if (tipo === 'lista') {
+              nuevo = document.createElement('span');
+              nuevo.className = 'chipn edon';
+              nuevo.setAttribute('contenteditable', 'plaintext-only');
+              const x = document.createElement('span');
+              x.className = 'edx';
+              x.textContent = '\u00d7';
+              x.setAttribute('contenteditable', 'false');
+              x.addEventListener('mousedown', (e) => e.preventDefault());
+              x.addEventListener('click', (e) => { e.stopPropagation(); nuevo.remove(); recoge(); });
+              nuevo.addEventListener('input', recoge);
+              nuevo.addEventListener('blur', recoge);
+              nuevo.appendChild(x);
+            } else {
+              nuevo = document.createElement('div');
+              nuevo.className = 'objec';
+              nuevo.innerHTML = '<div class="oq edon" data-edpar="objecion" contenteditable="plaintext-only"></div>'
+                + '<div class="oa edon" data-edpar="respuesta" contenteditable="plaintext-only"></div>';
+              nuevo.querySelectorAll('[data-edpar]').forEach((p) => {
+                p.addEventListener('input', recoge);
+                p.addEventListener('blur', recoge);
+              });
+            }
+            cont.insertBefore(nuevo, mas);
+            (nuevo.querySelector('[data-edpar]') || nuevo).focus();
+          });
+          cont.appendChild(mas);
+          caja.appendChild(cont);
+          return;
+        }
+
+        // un campo suelto: se escribe dentro de la caja, con la pista de siempre en gris
+        const ed = document.createElement('div');
+        ed.className = 'edon edvacio';
+        ed.setAttribute('contenteditable', 'plaintext-only');
+        ed.setAttribute('data-pista', pista);
+        ed.addEventListener('input', () => {
+          const v = ed.innerText.trim();
+          yo.edPonRuta(clave, clave === 'anio' ? (v === '' ? null : Number(v)) : v);
+          ed.classList.add('edcambiado');
+        });
+        caja.appendChild(ed);
+      });
+
       // --- el texto de la ficha: el Markdown en bruto, en el sitio del texto
       raiz.querySelectorAll('[data-edsec]').forEach((el) => {
         const n = Number(el.getAttribute('data-edsec'));
@@ -369,7 +447,7 @@
         el.classList.remove('edon', 'edcambiado');
       });
       raiz.querySelectorAll('.edmas').forEach((el) => el.remove());
-      raiz.querySelectorAll('[data-edsec]').forEach((el) => {
+      raiz.querySelectorAll('[data-edsec], [data-edfalta]').forEach((el) => {
         if (el.dataset.edhtml !== undefined) { el.innerHTML = el.dataset.edhtml; delete el.dataset.edhtml; }
       });
       raiz.querySelectorAll('.edcambiado').forEach((el) => el.classList.remove('edcambiado'));

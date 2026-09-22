@@ -35,6 +35,12 @@
 /* un campo vacío tiene que poder pincharse: un guion tenue marca el sitio */
 .edon:empty { min-width: 42px; display: inline-block; }
 .edon:empty::before { content: '—'; color: var(--muted); opacity: .45; }
+/* los huecos que en la ficha salen como «Sin datos disponibles»: la caja se queda igual y se
+   escribe dentro, con su misma frase en gris de guía */
+.edvacio { display: block; min-height: 1.5em; font-size: 13.5px; line-height: 1.6; color: var(--ink); }
+.edvacio:empty::before { content: attr(data-pista); color: var(--muted); opacity: .75; font-size: 13px; }
+.falta .edvacia { margin: 0; }
+.falta .edmas.boton { margin-top: 0; }
 /* lo que se ha tocado y aún no está guardado */
 .edcambiado, .edcambiado * { color: var(--blue) !important; }
 
