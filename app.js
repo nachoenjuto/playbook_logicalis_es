@@ -1119,14 +1119,10 @@ function catalogApp() {
     if (!ancho) { main.style.height = ''; return; }
     var header = document.querySelector('header');
     var footer = document.querySelector('footer');
-    // el alto disponible es el del lienzo escalado (lienzo.js), no el de la ventana
-    var lienzo = document.getElementById('lienzo');
-    var alto = (lienzo && lienzo.style.height) ? parseFloat(lienzo.style.height) : window.innerHeight;
-    var libre = alto - (header ? header.offsetHeight : 0) - (footer ? footer.offsetHeight : 0);
+    var libre = window.innerHeight - (header ? header.offsetHeight : 0) - (footer ? footer.offsetHeight : 0);
     main.style.height = Math.max(420, libre - 1) + 'px';
   }
   window.addEventListener('resize', ajusta);
-  window.addEventListener('lienzo', ajusta);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ajusta);
   else ajusta();
   window.addEventListener('load', ajusta);
