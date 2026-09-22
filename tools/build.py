@@ -3,7 +3,7 @@
 """Genera el índice del catálogo a partir de las fichas y de la taxonomía.
 
     python tools/build.py            escribe index.es.json, index.en.json, build_meta.json y
-                                     actualiza el build-id de explorador.html (caché)
+                                     sella las páginas con el build-id (caché del navegador)
     python tools/build.py --comprobar   no escribe nada: compara con lo que hay y avisa
     python tools/build.py --interno     incluye las facetas marcadas «interna» (nombre del cliente)
 
@@ -196,15 +196,24 @@ def build_id():
     return f"{sha}_{int(time.time())}"
 
 
+PAGINAS = ("explorador.html", "inicio.html", "index.html")
+
+
 def actualiza_html(bid):
-    """El build-id de explorador.html: la meta y los «?v=» de styles.css y app.js (caché del navegador)."""
-    ruta = os.path.join(RAIZ, "explorador.html")
-    h = io.open(ruta, encoding="utf-8").read()
-    h2 = re.sub(r'(<meta name="build-id" content=")[^"]*(")', rf'\g<1>{bid}\g<2>', h, count=1)
-    h2 = re.sub(r'((?:styles\.css|app\.js)\?v=)[^"&]*', rf'\g<1>{bid}', h2)
-    if h2 != h:
-        io.open(ruta, "w", encoding="utf-8", newline="\n").write(h2)
-    return h2 != h
+    """Sella las páginas con el build-id: la meta y el «?v=» de cada hoja y cada script propio,
+    para que el navegador no se quede con una versión vieja de un fichero."""
+    tocadas = 0
+    for nombre in PAGINAS:
+        ruta = os.path.join(RAIZ, nombre)
+        if not os.path.exists(ruta):
+            continue
+        h = io.open(ruta, encoding="utf-8").read()
+        h2 = re.sub(r'(<meta name="build-id" content=")[^"]*(")', rf'\g<1>{bid}\g<2>', h, count=1)
+        h2 = re.sub(r'((?:href|src)="[\w./-]+\.(?:css|js)\?v=)[^"&]*', rf'\g<1>{bid}', h2)
+        if h2 != h:
+            io.open(ruta, "w", encoding="utf-8", newline="\n").write(h2)
+            tocadas += 1
+    return tocadas
 
 
 def escribe_json(ruta, datos):
@@ -296,9 +305,9 @@ def main():
         "published_cases": publicados,
         "duration_seconds": round(time.time() - t0, 3),
     })
-    html = actualiza_html(bid)
+    paginas = actualiza_html(bid)
     print(f"ok: {len(resultado['es']['cases'])} casos en español, {len(resultado['en']['cases'])} en inglés, "
-          f"{len(resultado['es']['facets'])} facetas; build {bid}" + ("" if html else " (index.html sin cambios)"))
+          f"{len(resultado['es']['facets'])} facetas; build {bid}; {paginas} páginas selladas")
 
 
 if __name__ == "__main__":

@@ -70,7 +70,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.es.json index.en.json build_meta.json explorador.html embeddings.es.json embeddings.en.json
+          git add index.es.json index.en.json build_meta.json explorador.html inicio.html index.html embeddings.es.json embeddings.en.json
           git diff --staged --quiet && echo "nada que actualizar" && exit 0
           git commit -m "Catálogo regenerado: índice y vectores"
           # si alguien ha subido algo mientras tanto, se rehace encima en vez de fallar
