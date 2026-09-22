@@ -6,7 +6,7 @@
   var TEXTOS = {
     es: {
       'skip': 'Saltar al contenido principal',
-      'eyebrow': 'Data & AI · Logicalis Spain',
+      'eyebrow': 'Repositorio de casos de uso',
       'pronto': 'Próximamente', 'pronto.s': 'Estamos trabajando en ello',
       'explorador.h': 'Explorador de casos de uso',
       'explorador.p': 'Todos los casos, con buscador y filtros por sector, tecnología, tipo de proyecto, partner y año.',
@@ -23,7 +23,7 @@
     },
     en: {
       'skip': 'Skip to main content',
-      'eyebrow': 'Data & AI · Logicalis Spain',
+      'eyebrow': 'Use case repository',
       'pronto': 'Coming soon', 'pronto.s': 'We are working on it',
       'explorador.h': 'Use case explorer',
       'explorador.p': 'Every case, with search and filters by industry, technology, project type, partner and year.',
