@@ -21,69 +21,12 @@
   const REPO_POR_DEFECTO = 'nachoenjuto/playbook_logicalis_es';
   const RAMA_POR_DEFECTO = 'gerard';
 
-  /** Los campos de la ficha, por bloques, en el mismo orden en que se leen en la ficha.
-   *  tipo: texto | num | bool | tri | larga | lista | pares | opcion
-   *  opciones: 'faceta:<clave>' toma las de la taxonomía (las mismas del filtro) */
-  const CAMPOS = [
-    { grupo: 'Identificación', en: 'Identification', campos: [
-      { k: 'title', es: 'Título', eng: 'Title', tipo: 'texto', obligatorio: true },
-      { k: 'cliente_display', es: 'Cliente (como se enseña)', eng: 'Client (as shown)', tipo: 'texto', obligatorio: true },
-      { k: 'cliente_publico', es: '¿Se puede citar el nombre del cliente?', eng: 'Can the client be named?', tipo: 'bool' },
-      { k: 'sector', es: 'Sector', eng: 'Industry', tipo: 'opcion', opciones: 'faceta:sector', obligatorio: true },
-      { k: 'anio', es: 'Año', eng: 'Year', tipo: 'num', obligatorio: true },
-      { k: 'bu', es: 'Unidad de negocio', eng: 'Business unit', tipo: 'opcion', opciones: 'faceta:bu' },
-      { k: 'tipo_proyecto', es: 'Tipo de proyecto', eng: 'Project type', tipo: 'opcion', opciones: 'faceta:tipo_proyecto' },
-      { k: 'importe_label', es: 'Tamaño (etiqueta)', eng: 'Size (label)', tipo: 'texto' },
-      { k: 'partner', es: 'Partner', eng: 'Partner', tipo: 'lista', pista: 'Uno por línea' },
-      { k: 'tecnologia', es: 'Tecnología', eng: 'Technology', tipo: 'lista', pista: 'Una por línea' },
-      { k: 'tags', es: 'Etiquetas', eng: 'Tags', tipo: 'lista', pista: 'Una por línea' },
-      { k: 'briefing', es: 'Resumen', eng: 'Briefing', tipo: 'larga', obligatorio: true },
-    ] },
-    { grupo: 'Cómo se lo cuentas al cliente', en: 'How you tell it to the client', campos: [
-      { k: 'titulo_comercial', es: 'Título comercial', eng: 'Commercial title', tipo: 'texto', pista: 'El resultado en el idioma del cliente, sin tecnología' },
-      { k: 'pain.frase', es: 'El problema, como lo dice el cliente', eng: "The problem, in the client's words", tipo: 'larga' },
-      { k: 'pain.disparadores', es: 'Disparadores de la compra', eng: 'Purchase triggers', tipo: 'lista', pista: 'Uno por línea' },
-      { k: 'pain.coste_inaccion', es: 'Qué le costaba no actuar', eng: 'Cost of doing nothing', tipo: 'larga' },
-    ] },
-    { grupo: 'Solución', en: 'Solution', campos: [
-      { k: 'solucion_detalle.negocio', es: 'La solución en lenguaje de negocio', eng: 'Solution in business language', tipo: 'larga' },
-      { k: 'solucion_detalle.tecnico', es: 'Detalle técnico', eng: 'Technical detail', tipo: 'larga' },
-      { k: 'estrategia.posicion', es: 'Estrategia tecnológica', eng: 'Technology strategy', tipo: 'opcion',
-        opciones: ['hyperscaler', 'hibrido', 'abierto', 'propietario'] },
-      { k: 'estrategia.porque', es: 'Por qué esta tecnología y no otra', eng: 'Why this technology', tipo: 'larga' },
-      { k: 'estrategia.cloud', es: 'Nube o plataforma', eng: 'Cloud or platform', tipo: 'texto' },
-      { k: 'ecosistema.financiacion', es: 'Financiación de fabricante', eng: 'Vendor funding', tipo: 'texto' },
-      { k: 'ecosistema.partners', es: 'Partners del ecosistema', eng: 'Ecosystem partners', tipo: 'lista' },
-    ] },
-    { grupo: 'Resultados', en: 'Results', campos: [
-      { k: 'resultado.metricas', es: 'Métricas', eng: 'Metrics', tipo: 'pares', pares: ['valor', 'etiqueta'],
-        pista: 'Una por línea: valor | etiqueta. Ejemplo: 40 % | menos tiempo de resolución' },
-      { k: 'resultado.nota', es: 'Nota sobre el resultado', eng: 'Note on the result', tipo: 'larga' },
-      { k: 'expansion', es: 'Por dónde seguir', eng: 'Where to expand', tipo: 'lista', pista: 'Una fase por línea' },
-    ] },
-    { grupo: 'Kit de conversación comercial', en: 'Sales conversation kit', campos: [
-      { k: 'kit.preguntas', es: 'Preguntas para detectar este dolor', eng: 'Questions to detect this pain', tipo: 'lista' },
-      { k: 'kit.senales', es: 'Señales de que tiene el problema', eng: 'Signals', tipo: 'lista' },
-      { k: 'kit.comprador.principal', es: 'Quién compra', eng: 'Who buys', tipo: 'texto' },
-      { k: 'kit.comprador.influye', es: 'Quién influye', eng: 'Who influences', tipo: 'lista' },
-      { k: 'kit.objeciones', es: 'Objeciones y respuesta', eng: 'Objections and answer', tipo: 'pares', pares: ['objecion', 'respuesta'],
-        pista: 'Una por línea: objeción | respuesta' },
-      { k: 'kit.primer_paso.nombre', es: 'Primer paso: nombre', eng: 'First step: name', tipo: 'texto' },
-      { k: 'kit.primer_paso.descripcion', es: 'Primer paso: en qué consiste', eng: 'First step: what it is', tipo: 'larga' },
-      { k: 'kit.primer_paso.banda', es: 'Primer paso: banda de precio', eng: 'First step: price band', tipo: 'texto' },
-    ] },
-    { grupo: 'Ficha y responsable', en: 'Card and owner', campos: [
-      { k: 'owner', es: 'Responsable de la ficha', eng: 'Card owner', tipo: 'texto' },
-      { k: 'owner_email', es: 'Correo del responsable', eng: 'Owner email', tipo: 'texto' },
-      { k: 'practica', es: 'Práctica', eng: 'Practice', tipo: 'texto' },
-      { k: 'madurez', es: 'Madurez del cliente', eng: 'Client maturity', tipo: 'texto' },
-      { k: 'engagement.tipologia', es: 'Tipo de encargo', eng: 'Engagement type', tipo: 'texto' },
-      { k: 'engagement.duracion', es: 'Duración', eng: 'Duration', tipo: 'texto' },
-      { k: 'engagement.equipo', es: 'Equipo que hizo falta', eng: 'Team needed', tipo: 'texto' },
-      { k: 'cliente_referenciable', es: '¿Cliente referenciable?', eng: 'Referenceable client?', tipo: 'tri' },
-      { k: 'procedencia.fichero', es: 'De dónde sale la ficha', eng: 'Source document', tipo: 'texto' },
-      { k: 'publicar', es: 'Publicar', eng: 'Publish', tipo: 'bool', pista: 'Sin marcar, la ficha no sale en el catálogo' },
-    ] },
+  /** Campos sin los que una ficha no se guarda. */
+  const OBLIGATORIOS = [
+    ['title', 'Título', 'Title'],
+    ['cliente_display', 'Cliente', 'Client'],
+    ['sector', 'Sector', 'Industry'],
+    ['anio', 'Año', 'Year'],
   ];
 
   const SECCIONES_NUEVAS = [
@@ -134,9 +77,9 @@
 
   window.playbookEditor = {
     // --- estado del editor
-    edicion: false,          // la ventana está en modo formulario
+    edicion: false,          // la ficha se puede escribir encima
     edNueva: false,          // ficha nueva (no existía)
-    edForm: {},              // la cabecera de la ficha, editable
+    edForm: {},              // la cabecera de la ficha, tal como se va a guardar
     edSecciones: [],         // [{titulo, cuerpo}] el texto en Markdown
     edRuta: '',              // fichas/<id>.<idioma>.md
     edSha: null,             // sha del fichero, para que GitHub detecte conflictos
@@ -145,7 +88,7 @@
     edAviso: '',
     edError: '',
     edEnlace: '',
-    edCampos: CAMPOS,
+    edCambios: [],
     // --- destino y credencial
     edRepo: REPO_POR_DEFECTO,
     edRama: RAMA_POR_DEFECTO,
@@ -177,7 +120,9 @@
         if (!m) throw new Error('La ficha no empieza con una cabecera entre «---»');
         this.edForm = jsyaml.load(m[1]) || {};
         this.edSecciones = this.partirMarkdown(m[2]);
+        this.edCambios = [];
         this.edSha = null;   // se pide al guardar, ya con el token
+        setTimeout(() => this.edAplica(), 60);
       } catch (e) {
         this.edError = e.message;
       } finally {
@@ -195,12 +140,16 @@
       this.edError = ''; this.edAviso = ''; this.edEnlace = ''; this.edSha = null;
       this.edForm = { lang: this.currentLang, anio: new Date().getFullYear(), cliente_publico: false, publicar: true };
       this.edSecciones = SECCIONES_NUEVAS.map((titulo) => ({ titulo, cuerpo: '' }));
+      this.edCambios = [];
       this.edRuta = '';
-      setTimeout(() => { const e = document.querySelector('.edcampo input'); if (e) e.focus(); }, 60);
+      this.modalSections = [{ title: '', bodyHtml: '' }, { title: '', bodyHtml: '' }, { title: '', bodyHtml: '' }];
+      setTimeout(() => { this.edAplica(); const e = document.querySelector('[data-ed="title"]'); if (e) e.focus(); }, 80);
     },
 
     cerrarEdicion() {
+      this.edQuita();
       this.edicion = false;
+      this.edCambios = [];
       this.edError = ''; this.edAviso = '';
       if (this.edNueva) { this.edNueva = false; this.closeModal(); }
     },
@@ -213,43 +162,151 @@
       }).filter((s) => s.titulo || s.cuerpo);
     },
 
-    // ---------- leer y escribir un campo del formulario ----------
-    edValor(campo) {
-      const v = porRuta(this.edForm, campo.k);
-      if (campo.tipo === 'lista') return Array.isArray(v) ? v.join('\n') : (v || '');
-      if (campo.tipo === 'pares') {
-        if (!Array.isArray(v)) return '';
-        const [a, b] = campo.pares;
-        return v.map((x) => `${x?.[a] ?? ''} | ${x?.[b] ?? ''}`).join('\n');
-      }
-      if (campo.tipo === 'tri') return v === true ? 'si' : v === false ? 'no' : '';
-      return v === null || v === undefined ? '' : v;
-    },
-    edPon(campo, valor) {
-      let v = valor;
-      if (campo.tipo === 'lista') v = String(valor).split('\n').map((s) => s.trim()).filter(Boolean);
-      else if (campo.tipo === 'pares') {
-        const [a, b] = campo.pares;
-        v = String(valor).split('\n').map((l) => l.trim()).filter(Boolean).map((l) => {
-          const p = l.split('|');
-          return { [a]: (p[0] || '').trim(), [b]: p.slice(1).join('|').trim() };
+    // ---------- editar sobre la propia ficha ----------
+    /** Vuelve editables los elementos marcados con data-ed, data-edlist, data-edpairs y
+     *  data-edsec. No se cambia el formato de la ficha: se escribe encima de lo que ya se ve. */
+    edAplica() {
+      const raiz = document.querySelector('.fcuerpo');
+      if (!raiz) return;
+      const yo = this;
+
+      // --- campos sueltos
+      raiz.querySelectorAll('[data-ed]').forEach((el) => {
+        const clave = el.getAttribute('data-ed');
+        if (el.dataset.edcomillas) el.textContent = el.textContent.replace(/^[\u201C"']|[\u201D"']$/g, '');
+        el.setAttribute('contenteditable', 'plaintext-only');
+        el.classList.add('edon');
+        el.addEventListener('input', () => {
+          let v = el.innerText.trim();
+          if (el.dataset.edcoma) v = v.split(',').map((x) => x.trim()).filter(Boolean);
+          else if (clave === 'anio') v = v === '' ? null : Number(v);
+          yo.edPonRuta(clave, v);
+          el.classList.add('edcambiado');
         });
-      } else if (campo.tipo === 'num') v = valor === '' ? null : Number(valor);
-      else if (campo.tipo === 'bool') v = !!valor;
-      else if (campo.tipo === 'tri') v = valor === 'si' ? true : valor === 'no' ? false : null;
-      ponRuta(this.edForm, campo.k, v);
+      });
+
+      // --- listas: cada elemento se edita y hay un «+» para añadir
+      raiz.querySelectorAll('[data-edlist]').forEach((cont) => {
+        const clave = cont.getAttribute('data-edlist');
+        const clase = cont.getAttribute('data-edclase') || '';
+        const etiqueta = (cont.tagName === 'OL' || cont.tagName === 'UL') ? 'li' : 'span';
+        const recoge = () => {
+          const v = [...cont.children].filter((c) => !c.classList.contains('edmas'))
+            .map((c) => c.innerText.trim()).filter(Boolean);
+          yo.edPonRuta(clave, v);
+          cont.classList.add('edcambiado');
+        };
+        const prepara = (c) => {
+          c.setAttribute('contenteditable', 'plaintext-only');
+          c.classList.add('edon');
+          c.addEventListener('input', recoge);
+          c.addEventListener('blur', recoge);
+        };
+        [...cont.children].forEach(prepara);
+        const mas = document.createElement(etiqueta);
+        mas.className = (clase ? clase + ' ' : '') + 'edmas';
+        mas.textContent = '+';
+        mas.title = yo.t.edAnadir;
+        mas.addEventListener('click', () => {
+          const nuevo = document.createElement(etiqueta);
+          nuevo.className = clase;
+          cont.insertBefore(nuevo, mas);
+          prepara(nuevo);
+          nuevo.focus();
+        });
+        cont.appendChild(mas);
+      });
+
+      // --- pares: métricas y objeciones
+      raiz.querySelectorAll('[data-edpairs]').forEach((cont) => {
+        const clave = cont.getAttribute('data-edpairs');
+        const clase = cont.getAttribute('data-edclase') || '';
+        const recoge = () => {
+          const v = [...cont.children].filter((c) => !c.classList.contains('edmas')).map((c) => {
+            const o = {};
+            c.querySelectorAll('[data-edpar]').forEach((p) => {
+              o[p.getAttribute('data-edpar')] = p.innerText.replace(/^[\u201C"']|[\u201D"']$/g, '').trim();
+            });
+            return o;
+          }).filter((o) => Object.values(o).some(Boolean));
+          yo.edPonRuta(clave, v);
+          cont.classList.add('edcambiado');
+        };
+        const prepara = (c) => {
+          c.querySelectorAll('[data-edpar]').forEach((p) => {
+            if (p.dataset.edcomillas) p.textContent = p.textContent.replace(/^[\u201C"']|[\u201D"']$/g, '');
+            p.setAttribute('contenteditable', 'plaintext-only');
+            p.classList.add('edon');
+            p.addEventListener('input', recoge);
+            p.addEventListener('blur', recoge);
+          });
+        };
+        const modelo = cont.children[0] ? cont.children[0].cloneNode(true) : null;
+        [...cont.children].forEach(prepara);
+        const mas = document.createElement('button');
+        mas.type = 'button';
+        mas.className = 'edmas boton';
+        mas.textContent = '+ ' + yo.t.edAnadir;
+        mas.addEventListener('click', () => {
+          let nuevo;
+          if (modelo) {
+            nuevo = modelo.cloneNode(true);
+            nuevo.querySelectorAll('[data-edpar]').forEach((p) => { p.textContent = ''; });
+          } else {
+            nuevo = document.createElement('div');
+            nuevo.className = clase;
+            nuevo.innerHTML = clase === 'metric'
+              ? '<div class="mnum" data-edpar="valor"></div><div class="mlbl" data-edpar="etiqueta"></div>'
+              : '<div class="oq" data-edpar="objecion"></div><div class="oa" data-edpar="respuesta"></div>';
+          }
+          cont.insertBefore(nuevo, mas);
+          prepara(nuevo);
+          const primero = nuevo.querySelector('[data-edpar]');
+          if (primero) primero.focus();
+        });
+        cont.appendChild(mas);
+      });
+
+      // --- el texto de la ficha: el Markdown en bruto, en el sitio del texto
+      raiz.querySelectorAll('[data-edsec]').forEach((el) => {
+        const n = Number(el.getAttribute('data-edsec'));
+        const sec = this.edSecciones[n];
+        const ta = document.createElement('textarea');
+        ta.className = 'edmd';
+        ta.value = sec ? sec.cuerpo : '';
+        ta.rows = Math.max(6, Math.round(ta.value.length / 95) + 2);
+        ta.addEventListener('input', () => {
+          if (!this.edSecciones[n]) this.edSecciones[n] = { titulo: '', cuerpo: '' };
+          this.edSecciones[n].cuerpo = ta.value;
+          ta.classList.add('edcambiado');
+          if (!this.edCambios.includes('texto')) this.edCambios.push('texto');
+        });
+        el.dataset.edhtml = el.innerHTML;
+        el.innerHTML = '';
+        el.appendChild(ta);
+      });
     },
-    edOpciones(campo) {
-      if (Array.isArray(campo.opciones)) return campo.opciones;
-      if (typeof campo.opciones === 'string' && campo.opciones.startsWith('faceta:')) {
-        const clave = campo.opciones.slice(7);
-        const f = (this.catalogData.facets || []).find((x) => x.key === clave);
-        return (f?.options || []).map((o) => o.id);
-      }
-      return [];
+
+    /** Deshace lo anterior: la ficha vuelve a ser de solo lectura. */
+    edQuita() {
+      const raiz = document.querySelector('.fcuerpo');
+      if (!raiz) return;
+      raiz.querySelectorAll('[contenteditable]').forEach((el) => {
+        el.removeAttribute('contenteditable');
+        el.classList.remove('edon', 'edcambiado');
+      });
+      raiz.querySelectorAll('.edmas').forEach((el) => el.remove());
+      raiz.querySelectorAll('[data-edsec]').forEach((el) => {
+        if (el.dataset.edhtml !== undefined) { el.innerHTML = el.dataset.edhtml; delete el.dataset.edhtml; }
+      });
+      raiz.querySelectorAll('.edcambiado').forEach((el) => el.classList.remove('edcambiado'));
     },
-    edEtiqueta(campo) { return this.currentLang === 'en' ? (campo.eng || campo.es) : campo.es; },
-    edTituloGrupo(g) { return this.currentLang === 'en' ? (g.en || g.grupo) : g.grupo; },
+
+    edLee(ruta) { return porRuta(this.edForm, ruta); },
+    edPonRuta(ruta, valor) {
+      ponRuta(this.edForm, ruta, valor);
+      if (!this.edCambios.includes(ruta)) this.edCambios.push(ruta);
+    },
 
     // ---------- el fichero que se va a guardar ----------
     get edId() {
@@ -276,12 +333,10 @@
     },
     get edFaltan() {
       const faltan = [];
-      for (const g of CAMPOS) for (const c of g.campos) {
-        if (!c.obligatorio) continue;
-        const v = porRuta(this.edForm, c.k);
-        if (v === undefined || v === null || String(v).trim() === '') faltan.push(this.edEtiqueta(c));
+      for (const [clave, es, en] of OBLIGATORIOS) {
+        const v = porRuta(this.edForm, clave);
+        if (v === undefined || v === null || String(v).trim() === '') faltan.push(this.currentLang === 'en' ? en : es);
       }
-      if (this.edNueva && !this.edId) faltan.push('Identificador');
       return faltan;
     },
 
@@ -334,6 +389,8 @@
         if (!r.ok) throw new Error(await this.edMensajeError(r));
         const d = await r.json();
         this.edAviso = this.t.edGuardada;
+        this.edCambios = [];
+        document.querySelectorAll('.fcuerpo .edcambiado').forEach((el) => el.classList.remove('edcambiado'));
         this.edEnlace = d.commit?.html_url || '';
         this.edNueva = false;
         this.edSha = d.content?.sha || null;

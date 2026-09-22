@@ -296,6 +296,8 @@ body.explorador .page-inner { padding-top: 90px; }
 .searchbar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; align-items: flex-start; }
 .sb-busca { flex: 1 1 460px; display: flex; flex-direction: column; align-items: stretch; gap: 8px; min-width: 0; }
 .sb-busca .sortwrap { align-self: flex-start; }
+/* debajo del buscador y pegados a su izquierda: añadir un caso y ordenar */
+.sb-abajo { display: flex; gap: 8px; align-items: stretch; }
 .sb-input { position: relative; flex: 1 1 auto; min-width: 0; }
 .sb-modos { flex: none; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-end;
   gap: 8px; min-height: 106px; }
@@ -347,8 +349,9 @@ body.explorador .page-inner { padding-top: 90px; }
   border-radius: 9px; transition: background .16s, color .16s;
   display: inline-flex; align-items: center; gap: .3rem;
 }
-.search-mode-btn:hover:not(:disabled) { color: var(--ink); background: rgba(27, 75, 255, .07); }
-.search-mode-btn.active { background: var(--blue); color: #fff; font-weight: 500; }
+.search-mode-btn:hover:not(:disabled) { color: var(--ink); background: rgba(27, 75, 255, .06); }
+/* el activo se marca con el marco, no con un relleno azul que se come la barra */
+.search-mode-btn.active { background: #fff; color: var(--blue-dark); font-weight: 600; box-shadow: inset 0 0 0 1.5px var(--blue); }
 .search-mode-btn:disabled { opacity: .5; cursor: not-allowed; }
 
 .model-status-pill {
@@ -378,6 +381,10 @@ body.explorador .page-inner { padding-top: 90px; }
   padding: 0 16px; border-radius: 12px;
   border: 1px solid var(--edge); background: var(--glass-3); box-shadow: var(--sheen-soft);
 }
+/* al tocarla, el marco se marca; en modo texto exacto se queda apagada, pero no desaparece */
+.threshold-control:focus-within { border-color: var(--blue); box-shadow: inset 0 0 0 1px var(--blue); }
+.threshold-control.apagado { opacity: .42; }
+.threshold-control.apagado input { pointer-events: none; }
 .threshold-control label { white-space: nowrap; cursor: help; }
 .threshold-control input[type="range"] {
   flex: 1; min-width: 90px; accent-color: var(--blue); cursor: pointer;
